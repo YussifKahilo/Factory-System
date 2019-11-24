@@ -96,11 +96,17 @@ public class Employee extends Person {
 	}
 
 	public void withDraw(double amount) {
-
+		double balance =bankAccount.getBalance();
+		if(amount > balance) {
+			System.out.println("your balance is less than the amount ");
+		}
+		else {
+			bankAccount.setBalance(balance-amount);
+		}
 	}
 
 	public void deposit(double amount) {
-
+		bankAccount.setBalance(amount + bankAccount.getBalance());
 	}
 
 	public void showInformations() {
