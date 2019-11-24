@@ -7,15 +7,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class bankaccount {
+public class BankAccount {
 
     private String accountNumber;
     private double balance;
 
-    public bankaccount() {
+    public BankAccount() throws IOException {
+        this.accountNumber = generatrNewBankAccount();
     }
 
-    public bankaccount(String accountNumber, double balance) {
+    public BankAccount(String accountNumber, double balance) {
         this.accountNumber = accountNumber;
         this.balance = balance;
     }
@@ -35,8 +36,9 @@ public class bankaccount {
     public void setBalance(double balance) {
         this.balance = balance;
     }
-    public void generatrNewBankAccount() throws IOException{
-          ArrayList<String> oldAccount = new ArrayList<String>();
+
+    public String generatrNewBankAccount() throws IOException {
+        ArrayList<String> oldAccount = new ArrayList<String>();
         BufferedReader reader = new BufferedReader(new FileReader("BankAccount.txt"));
         String line = reader.readLine();
         while (line != null) {
@@ -44,12 +46,13 @@ public class bankaccount {
             line = reader.readLine();
         }
         reader.close();
-
+        long newAccount1;
         for (;;) {
-            long newAccount1 = (long) (5000000000000000L + Math.random()
+            newAccount1 = (long) (5000000000000000L + Math.random()
                     * 1000000000000000L);
-            int sumOFE = 0;
             long newAccount = newAccount1;
+
+            int sumOFE = 0;
             long v;
             for (int i = 0; i <= 16; i++) {
                 newAccount /= 10;
@@ -93,22 +96,21 @@ public class bankaccount {
             }
             if (isNew && valid) {
                 BufferedWriter writer = new BufferedWriter(new FileWriter("BankAccount.txt"));
-               
 
-                System.out.println(newAccount1);
                 for (int i = 0; i < oldAccount.size(); i++) {
 
                     writer.write(oldAccount.get(i));
-                     writer.write("\n");
+                    writer.write("\n");
                 }
                 writer.write(newAccount1 + "");
                 writer.close();
                 break;
-
             }
 
         }
+        return newAccount1+"";
     }
+
     public String toString() {
         return accountNumber + "  " + balance;
     }
