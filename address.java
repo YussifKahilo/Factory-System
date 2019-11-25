@@ -1,16 +1,16 @@
 
 package factroy.system;
-public class address {
+public class Address {
     
     private  int houseNumber ;
     private  int flateNumber ;
     private  String  streetName ;
     private String place ;
 
-    public address() {
+    public Address() {
     }
 
-    public address(int houseNumber, int flateNumber, String streetName,
+    public Address(int houseNumber, int flateNumber, String streetName,
             String place) {
         this.houseNumber = houseNumber;
         this.flateNumber = flateNumber;
