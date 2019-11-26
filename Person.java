@@ -1,3 +1,5 @@
+package FactorySystem;
+
 
 public class Person {
 	private String id;
@@ -7,7 +9,9 @@ public class Person {
 		
 	}
 	public Person(String id,String name ,String password) {
-		
+		this.id = id;
+                this.name = name;
+                this.password = password;
 	}
 	public void setName(String name) {
 		this.name=name;

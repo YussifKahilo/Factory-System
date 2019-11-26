@@ -13,7 +13,7 @@ public class User {
 
     private static ArrayList<Employee> persons = new ArrayList<Employee>();
     Employee person;
-    Manager manager;
+    Manager manager = new Manager();
 
     public User() {
 
@@ -113,23 +113,24 @@ public class User {
             }
             if (password.equalsIgnoreCase("c")) {
                 this.creatingUser();
-            }
-            if (id.equals(manager.getId())) {
-                break;
-            } else if (id.startsWith("22")) {
-                setPersons("Workers");
-                if (this.verifyLogin(id, password)) {
-                    return 22;
-                }
-            } else if (id.startsWith("33")) {
-                setPersons("SuperVisors");
-                if (this.verifyLogin(id, password)) {
-                    return 33;
-                }
-            } else if (id.startsWith("44")) {
-                setPersons("SalesMan");
-                if (this.verifyLogin(id, password)) {
-                    return 44;
+            } else {
+                if (id.equals(manager.getId())) {
+                    break;
+                } else if (id.startsWith("22")) {
+                    setPersons("Workers");
+                    if (this.verifyLogin(id, password)) {
+                        return 22;
+                    }
+                } else if (id.startsWith("33")) {
+                    setPersons("SuperVisors");
+                    if (this.verifyLogin(id, password)) {
+                        return 33;
+                    }
+                } else if (id.startsWith("44")) {
+                    setPersons("SalesMan");
+                    if (this.verifyLogin(id, password)) {
+                        return 44;
+                    }
                 }
             }
         }
@@ -197,7 +198,7 @@ public class User {
             int id = Integer.parseInt(this.persons.get(this.persons.size() - 1).getId());
             line.insert(0, (id + 1) + "#");
         } else {
-            line.insert(0, "2200" + "#");
+            line.insert(0, "220000" + "#");
         }
         BankAccount ba = new BankAccount();
         line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + 0);

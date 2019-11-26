@@ -46,8 +46,12 @@ public class Employee extends Person {
         return address;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddress(int houseNumber, int flateNumber,
+            String streetName, String place) {
+        this.address.setHouseNumber(houseNumber);
+        this.address.setFlateNumber(flateNumber);
+        this.address.setStreetName(streetName);
+        this.address.setPlace(place);
     }
 
     public String getEmail() {
@@ -109,33 +113,58 @@ public class Employee extends Person {
     public void editInformations() throws IOException {
         User user = new User();
         Scanner input = new Scanner(System.in);
-        boolean Continue = true;
-        boolean passwordValid = false;
-        while (Continue) {
-            System.out.println("To Change :\n1- Name\n2- password\n3- phone number");
+        while (true) {
+            System.out.println("To Change :\n 1- Name\n 2- password\n 3- phone number\n 4- E-Mail\n 5- Address");
+            System.out.print("::");
             String choice = input.next();
             if (choice.equalsIgnoreCase("1")) {
-                this.setName(input.next());
-                Continue = false;
+                System.out.print("Enter Your Name : ");
+                this.setName(input.nextLine());
+                break;
             } else if (choice.equalsIgnoreCase("2")) {
-                while (!passwordValid) {
+                while (true) {
                     System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
                     System.out.println("   - Four Charecters \n  - One upercase letter . "
                             + "\n   - One lowercase letter . " + "\n   - One Number or Symbol .");
                     System.out.print("Enter a password : ");
                     String password = input.next();
                     if (user.isPasswordValid(password)) {
+                        while (true) {
+                            System.out.print("Confirm your password : ");
+                            String password2 = input.next();
+                            if (password.equals(password2)) {
+                                break;
+                            } else {
+                                System.out.println("The two password are not identical ..");
+                            }
+                        }
                         this.setPassword(password);
-                        passwordValid = true;
+                        break;
                     }
-                    Continue = false;
+                    break;
                 }
             } else if (choice.equalsIgnoreCase("3")) {
+                System.out.print("Enter Yout phone number :");
                 this.setPhoneNumber(input.next());
-                Continue = false;
+                break;
+            } else if (choice.equalsIgnoreCase("4")) {
+                System.out.print("Enter your E-Mail :");
+                this.setEmail(input.next());
+                break;
+            } else if (choice.equalsIgnoreCase("5")) {
+                System.out.print("Enter your house number : ");
+                int houseNumber = input.nextInt();
+                System.out.print("Enter your flat number : ");
+                int flatNumber = input.nextInt();
+                System.out.print("Enter your street name : ");
+                String streetName = input.next();
+                System.out.print("Enter your place name : ");
+                String placeName = input.next();
+                this.setAddress(houseNumber, flatNumber, streetName, placeName);
+                break;
             } else {
                 System.out.println("invalid input\nchoose Again");
-                Continue = true;
+                break;
             }
         }
         if (this.getId().startsWith("22")) {
@@ -145,7 +174,6 @@ public class Employee extends Person {
         } else if (this.getId().startsWith("44")) {
             user.updateInformations("SalesMan");
         }
-
         input.close();
     }
 
@@ -163,19 +191,25 @@ public class Employee extends Person {
     }
 
     public void showInformations() {
-        System.out.println("Welcome : " + this.getName().substring(0, this.getName().indexOf(" ")) + "your ID is : "
-                + this.getId() + "your Bonus is : " + this.getBonus() + "your Salary is : " + this.getSalary()
-                + "your Salary after Bonus is : " + (this.getSalary() + this.getBonus()) + "your Overall Rate is : "
-                + this.getOverallRate() + "Your Bank account is : " + this.getBankAccount().getAccountNumber()
-                + "Your Balance in the account is : " + this.getBankAccount().getBalance() + "Your Phone Number is : "
-                + this.getPhoneNumber() + "Your E-mail is : " + this.getEmail());
+        System.out.println("*--------------------------------------------------------------------------");
+        System.out.println("|Name                    : " + this.getName());
+        System.out.println("|ID                      : " + this.getId());
+        System.out.println("|Bonus                   : " + (this.getBonus() / 100) + "%");
+        System.out.println("|Salary                  : " + this.getSalary());
+        System.out.println("|Salary after Bonus      : " + (this.getSalary() + (this.getBonus() * this.getSalary())));
+        System.out.println("|Overall Rate            : " + this.getOverallRate());
+        System.out.println("|Bank account            : " + this.getBankAccount().getAccountNumber());
+        System.out.println("|Balance in the account  : " + this.getBankAccount().getBalance());
+        System.out.println("|Phone Number            : " + this.getPhoneNumber());
+        System.out.println("|E-mail                  : " + this.getEmail());
+        System.out.println("|Address                 : " + this.getAddress().toString());
+        System.out.println("*--------------------------------------------------------------------------");
     }
 
     public String toString() {
         return getId() + "#" + getPassword() + "#" + getName() + "#" + getSalary() + "#" + getBonus() + "#" + getMonthlyRate() + "#"
                 + getOverallRate() + "#" + getHiringDate() + "#" + getPhoneNumber() + "#" + getEmail() + "#" + getAddress().getHouseNumber()
                 + "#" + getAddress().getFlateNumber() + "#" + getAddress().getStreetName() + "#" + getAddress().getPlace()
-                + "#" + getBankAccount().getAccountNumber() + "#" + getBankAccount().getBalance() + "#";
+                + "#" + getBankAccount().getAccountNumber() + "#" + getBankAccount().getBalance();
     }
-
 }

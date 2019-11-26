@@ -1,4 +1,4 @@
-package factroy.system;
+package FactorySystem;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -29,10 +29,6 @@ public class BankAccount {
         return balance;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
-    }
-
     public void setBalance(double balance) {
         this.balance = balance;
     }
@@ -46,21 +42,21 @@ public class BankAccount {
             line = reader.readLine();
         }
         reader.close();
-        long newAccount1;
+        long newAccount;
         for (;;) {
-            newAccount1 = (long) (5000000000000000L + Math.random()
+            newAccount = (long) (5000000000000000L + Math.random()
                     * 1000000000000000L);
-            long newAccount = newAccount1;
+            long newAccountCopy = newAccount;
 
             int sumOFE = 0;
             long v;
             for (int i = 0; i <= 16; i++) {
-                newAccount /= 10;
-                v = (int) (newAccount % 10);
+                newAccountCopy /= 10;
+                v = (int) (newAccountCopy % 10);
                 v *= 2;
                 long result, num, ans;
-                num = newAccount % 10;
-                ans = newAccount / 10;
+                num = newAccountCopy % 10;
+                ans = newAccountCopy / 10;
                 result = num + ans;
                 if (v >= 10) {
                     sumOFE += result;
@@ -68,17 +64,17 @@ public class BankAccount {
                     sumOFE += v;
                 }
             }
-            long a = newAccount1;
-            newAccount /= 10;
+            newAccountCopy = newAccount;
+            newAccountCopy /= 10;
             int sumOFO = 0;
             long X;
-            String theSize = "" + newAccount;
+            String theSize = "" + newAccountCopy;
             for (int K = 1; K < theSize.length();) {
-                theSize = "" + newAccount;
-                X = (newAccount % 10);
+                theSize = "" + newAccountCopy;
+                X = (newAccountCopy % 10);
                 sumOFO += X;
-                newAccount /= 10;
-                newAccount /= 10;
+                newAccountCopy /= 10;
+                newAccountCopy /= 10;
             }
             boolean valid = false;
             int SUM = sumOFE + sumOFO;
@@ -89,7 +85,7 @@ public class BankAccount {
             boolean isNew = true;
 
             for (int i = 0; i < oldAccount.size(); i++) {
-                if (newAccount1 == Long.parseLong(theSize)) {
+                if (newAccount == Long.parseLong(oldAccount.get(i))) {
                     isNew = false;
                     break;
                 }
@@ -102,17 +98,13 @@ public class BankAccount {
                     writer.write(oldAccount.get(i));
                     writer.write("\n");
                 }
-                writer.write(newAccount1 + "");
+                writer.write(newAccount + "");
                 writer.close();
                 break;
             }
 
         }
-        return newAccount1+"";
-    }
-
-    public String toString() {
-        return accountNumber + "  " + balance;
+        return newAccount+"";
     }
 
 }

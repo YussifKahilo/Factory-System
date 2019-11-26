@@ -1,5 +1,5 @@
 
-package factroy.system;
+package FactorySystem;
 public class Address {
     
     private  int houseNumber ;

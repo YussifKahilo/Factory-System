@@ -1,8 +1,11 @@
+package FactorySystem;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
 public class Worker extends Employee {
+    
 	Worker(Employee worker){
 		 super(
 	                worker.getId(), worker.getPassword(),
@@ -18,13 +21,13 @@ public class Worker extends Employee {
 	                worker.getBankAccount().getBalance());
 	                
 	}
+        
 	public void showTarget() throws IOException {
-		String filePath ="C:\\Targets.txt";
-		BufferedReader br = new BufferedReader(new FileReader(filePath));
+		BufferedReader br = new BufferedReader(new FileReader("WorkersTarget.txt"));
 		String line;
 		while ((line = br.readLine()) != null)
 			System.out.println(line);
-		
+        
 		br.close();
 	}
 }
