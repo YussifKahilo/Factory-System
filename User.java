@@ -31,7 +31,7 @@ public class User {
         for (;;) {
             for (;;) {
                 System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
-                System.out.println("   - Four Charecters \n  - One upercase letter . "
+                System.out.println("   - Four Charecters \n   - One upercase letter . "
                         + "\n   - One lowercase letter . "
                         + "\n   - One Number or Symbol .");
                 System.out.print("Enter a password : ");
@@ -105,31 +105,32 @@ public class User {
             }
             if (id.equalsIgnoreCase("c")) {
                 this.creatingUser();
-            }
-            System.out.print("Enter your Password : ");
-            String password = in.next();
-            if (password.equalsIgnoreCase("q")) {
-                System.exit(0);
-            }
-            if (password.equalsIgnoreCase("c")) {
-                this.creatingUser();
             } else {
-                if (id.equals(manager.getId())) {
-                    break;
-                } else if (id.startsWith("22")) {
-                    setPersons("Workers");
-                    if (this.verifyLogin(id, password)) {
-                        return 22;
-                    }
-                } else if (id.startsWith("33")) {
-                    setPersons("SuperVisors");
-                    if (this.verifyLogin(id, password)) {
-                        return 33;
-                    }
-                } else if (id.startsWith("44")) {
-                    setPersons("SalesMan");
-                    if (this.verifyLogin(id, password)) {
-                        return 44;
+                System.out.print("Enter your Password : ");
+                String password = in.next();
+                if (password.equalsIgnoreCase("q")) {
+                    System.exit(0);
+                }
+                if (password.equalsIgnoreCase("c")) {
+                    this.creatingUser();
+                } else {
+                    if (id.equals(manager.getId())) {
+                        break;
+                    } else if (id.startsWith("22")) {
+                        setPersons("Workers");
+                        if (this.verifyLogin(id, password)) {
+                            return 22;
+                        }
+                    } else if (id.startsWith("33")) {
+                        setPersons("SuperVisors");
+                        if (this.verifyLogin(id, password)) {
+                            return 33;
+                        }
+                    } else if (id.startsWith("44")) {
+                        setPersons("SalesMan");
+                        if (this.verifyLogin(id, password)) {
+                            return 44;
+                        }
                     }
                 }
             }
@@ -176,11 +177,20 @@ public class User {
         return person;
     }
 
-    public void updateInformations(String fileName) throws IOException {
+    public void updateInformations(String fileName, Employee person) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
         for (int i = 0; i < persons.size(); i++) {
-            writer.write(persons.get(i).toString());
-            writer.write("\n");
+            if (person != null) {
+                if (person.getId().equals(persons.get(i).getId())) {
+                    writer.write(person.toString());
+                } else {
+                    writer.write(persons.get(i).toString());
+                    writer.write("\n");
+                }
+            } else {
+                writer.write(persons.get(i).toString());
+                writer.write("\n");
+            }
         }
         writer.close();
     }
@@ -192,7 +202,7 @@ public class User {
         StringBuilder line = new StringBuilder();
         line.append(password + "#" + name + "#" + 2000 + "#0#" + "0#0#" + date
                 + "#" + phoneNumber + "#" + email + "#" + houseNumber + "#" + flateNumber
-                + "#" + streetName + "#" + placeName + 0 + "#");
+                + "#" + streetName + "#" + placeName + "#" + 0 + "#");
         getPersons("Workers");
         if (!persons.isEmpty()) {
             int id = Integer.parseInt(this.persons.get(this.persons.size() - 1).getId());
@@ -228,6 +238,6 @@ public class User {
                 break;
             }
         }
-        updateInformations(fileName);
+        updateInformations(fileName, null);
     }
 }

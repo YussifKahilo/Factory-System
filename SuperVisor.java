@@ -9,7 +9,6 @@ import java.io.FileReader;
 public class SuperVisor extends Employee {
 
     private Employee[] workers = new Employee[5];
-    public Scanner input = new Scanner(System.in);
 
     public SuperVisor(Employee superVisor) {
         super(
@@ -27,8 +26,9 @@ public class SuperVisor extends Employee {
 
     }
 
-    public void showWorkersInformation() throws IOException {
+    public Employee showWorkersInformation() throws IOException {
         User u1 = new User();
+        Scanner input = new Scanner(System.in);
         int index = 0;
         ArrayList<Employee> SuperVisors = u1.getPersons("SuperVisors");
         for (int i = 0; i < SuperVisors.size(); i++) {
@@ -37,7 +37,7 @@ public class SuperVisor extends Employee {
                 break;
             }
         }
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\WorkersId.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("WorkersId.txt"));
         String line = reader.readLine();
         ArrayList<String> WorkersId = new ArrayList<String>();
         while (line != null) {
@@ -80,6 +80,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[0].getAddress());
                     System.out.println("hiring date of this employee is" + workers[0].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[0].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[0];
                 } else if (inn.equals("2") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[1].getName());
                     System.out.println("id of this employee is" + workers[1].getId());
@@ -88,6 +90,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[1].getAddress());
                     System.out.println("hiring date of this employee is" + workers[1].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[1].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[1];
                 } else if (inn.equals("3") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[2].getName());
                     System.out.println("id of this employee is" + workers[2].getId());
@@ -96,6 +100,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[2].getAddress());
                     System.out.println("hiring date of this employee is" + workers[2].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[2].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[2];
                 } else if (inn.equals("4") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[3].getName());
                     System.out.println("id of this employee is" + workers[3].getId());
@@ -104,6 +110,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[3].getAddress());
                     System.out.println("hiring date of this employee is" + workers[3].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[3].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[3];
                 } else if (inn.equals("5") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[4].getName());
                     System.out.println("id of this employee is" + workers[4].getId());
@@ -112,12 +120,17 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[4].getAddress());
                     System.out.println("hiring date of this employee is" + workers[4].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[4].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[4];
+                } else {
+                    break;
                 }
             }
         }
+        return null;
     }
 
-    public void answerFeedback() {
+    public int answerFeedback() {
         Scanner input = new Scanner(System.in);
         int T = 0;
         char check[] = new char[6];
@@ -136,10 +149,7 @@ public class SuperVisor extends Employee {
             if (check[i] == 'T' || check[i] == 't') {
                 T++;
             }
-
         }
-        input.close();
-
         if (check[5] == '0') {
             T += 0;
         } else if (check[5] == '1') {
@@ -153,22 +163,32 @@ public class SuperVisor extends Employee {
         } else if (check[5] == '5') {
             T += 5;
         }
-        System.out.println("Rate of this employee is:" + T);
+        return T;
     }
 
+    @Override
     public void showTarget() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("SuperVisorTarget.txt"));
-        String line = reader.readLine();
-        while (line != null) {
-            System.out.println(line);
-            line = reader.readLine();
+        super.showTarget();
+        int numOfWorkers = 0;
+        for (int i = 0; i < 5; i++) {
+            if (this.workers[i] != null) {
+                numOfWorkers++;
+            } else {
+                break;
+            }
         }
+        BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
+        String line = reader.readLine();
+        String [] Line = line.split("#");
+        System.out.println("The total team target is : "+(Integer.parseInt(Line[1])*numOfWorkers));
         reader.close();
     }
 
-    public int setTargetResult() {
+    public void setTargetResult() throws IOException {
+        Scanner input = new Scanner(System.in);
+        Storage storage = new Storage();
         System.out.print("please enter the ammount of goods : ");
-        return input.nextInt();
+        storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() + input.nextInt());
     }
 
 }

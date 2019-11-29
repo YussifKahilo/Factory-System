@@ -51,7 +51,7 @@ public class Address {
     }
 
     public String toString() {
-        return  + houseNumber + " " + flateNumber + "  " + streetName + " " 
+        return  + houseNumber + " " + flateNumber + " " + streetName + " " 
                 + place ;
     }
         

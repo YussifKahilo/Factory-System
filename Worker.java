@@ -18,16 +18,6 @@ public class Worker extends Employee {
 	                worker.getAddress().getStreetName(),
 	                worker.getAddress().getPlace(),
 	                worker.getBankAccount().getAccountNumber(),
-	                worker.getBankAccount().getBalance());
-	                
-	}
-        
-	public void showTarget() throws IOException {
-		BufferedReader br = new BufferedReader(new FileReader("WorkersTarget.txt"));
-		String line;
-		while ((line = br.readLine()) != null)
-			System.out.println(line);
-        
-		br.close();
-	}
+	                worker.getBankAccount().getBalance());               
+	}	
 }

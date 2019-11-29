@@ -1,5 +1,7 @@
 package FactorySystem;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -168,13 +170,12 @@ public class Employee extends Person {
             }
         }
         if (this.getId().startsWith("22")) {
-            user.updateInformations("Workers");
+            user.updateInformations("Workers",this);
         } else if (this.getId().startsWith("33")) {
-            user.updateInformations("SuperVisors");
+            user.updateInformations("SuperVisors",this);
         } else if (this.getId().startsWith("44")) {
-            user.updateInformations("SalesMan");
+            user.updateInformations("SalesMan",this);
         }
-        input.close();
     }
 
     public void withDraw(double amount) {
@@ -206,6 +207,15 @@ public class Employee extends Person {
         System.out.println("*--------------------------------------------------------------------------");
     }
 
+    public void showTarget() throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
+        String line = reader.readLine();
+        String [] Line = line.split("#");
+        System.out.println("The Target this month is : " + Line[0]);
+        System.out.println("Target for each worker is : " + Line[1]);
+        reader.close();
+    }
+    
     public String toString() {
         return getId() + "#" + getPassword() + "#" + getName() + "#" + getSalary() + "#" + getBonus() + "#" + getMonthlyRate() + "#"
                 + getOverallRate() + "#" + getHiringDate() + "#" + getPhoneNumber() + "#" + getEmail() + "#" + getAddress().getHouseNumber()
