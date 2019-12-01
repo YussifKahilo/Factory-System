@@ -61,12 +61,12 @@ public class FactorySystem {
                 System.out.print("::");
                 break;
             case 33:
-                System.out.println("________________________");
+                System.out.println("_______________________________________");
                 System.out.println("1-Show Your Information");
                 System.out.println("2-Show Workers");
                 System.out.println("3-Get Your Team Target");
-                System.err.println("");
-                System.out.println("------------------------");
+                System.err.println("4-Set the number of manufactured goods");
+                System.out.println("---------------------------------------");
                 System.out.print("::");
                 break;
             case 44:
@@ -182,7 +182,10 @@ public class FactorySystem {
                     }
                 } else if (choice == 3) {
                     superVisor.showTarget();
-                } else if (choice == 4) {
+                } else if (choice==4) {
+                    System.out.print("Enter the number of manufactured goods this month : ");
+                    superVisor.setTargetResult(in.nextInt(), superVisor.showTarget());
+                }else if (choice == 5) {
                     return false;
                 }
                 break;
@@ -198,7 +201,7 @@ public class FactorySystem {
                     salesMan.showTarget();
                 } else if (choice==3) {
                     System.out.print("Enter the amount of sold goods : ");
-                    salesMan.setTargetResult(in.nextInt());
+                    salesMan.setTargetResult(in.nextInt(),salesMan.showTarget());
                 } else if (choice==4) {
                     return false;
                 }

@@ -207,13 +207,14 @@ public class Employee extends Person {
         System.out.println("*--------------------------------------------------------------------------");
     }
 
-    public void showTarget() throws IOException{
+    public int showTarget() throws IOException{
         BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
         String line = reader.readLine();
         String [] Line = line.split("#");
         System.out.println("The Target this month is : " + Line[0]);
         System.out.println("Target for each worker is : " + Line[1]);
         reader.close();
+        return 0;
     }
     
     public String toString() {

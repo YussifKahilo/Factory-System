@@ -167,7 +167,7 @@ public class SuperVisor extends Employee {
     }
 
     @Override
-    public void showTarget() throws IOException {
+    public int showTarget() throws IOException {
         super.showTarget();
         int numOfWorkers = 0;
         for (int i = 0; i < 5; i++) {
@@ -182,13 +182,16 @@ public class SuperVisor extends Employee {
         String [] Line = line.split("#");
         System.out.println("The total team target is : "+(Integer.parseInt(Line[1])*numOfWorkers));
         reader.close();
+        return (Integer.parseInt(Line[1])*numOfWorkers);
     }
 
-    public void setTargetResult() throws IOException {
-        Scanner input = new Scanner(System.in);
+    public void setTargetResult(int amount,int target) throws IOException {
         Storage storage = new Storage();
-        System.out.print("please enter the ammount of goods : ");
-        storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() + input.nextInt());
+        System.out.println("And your team manufactured "+ amount + " goods this month ..");
+        storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() + amount);
+        double ratio = (amount * 1.0) / target;
+        this.setMonthlyRate(ratio * 10);
+        this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
     }
 
 }
