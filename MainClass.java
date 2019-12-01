@@ -5,6 +5,12 @@ import java.util.Scanner;
 
 public class MainClass {
 
+    public static void checkForClose(String line) {
+        if (line.equalsIgnoreCase("q")) {
+            System.exit(0);
+        }
+    }
+    
     public static void main(String[] args) throws IOException {
         try {
             FactorySystem factorySystem = new FactorySystem();

@@ -9,7 +9,8 @@ import java.io.FileReader;
 public class SuperVisor extends Employee {
 
     private Employee[] workers = new Employee[5];
-
+    private int numOfWorkers;
+    
     public SuperVisor(Employee superVisor) {
         super(
                 superVisor.getId(), superVisor.getPassword(),
@@ -23,6 +24,16 @@ public class SuperVisor extends Employee {
                 superVisor.getAddress().getPlace(),
                 superVisor.getBankAccount().getAccountNumber(),
                 superVisor.getBankAccount().getBalance());
+        
+        int numberOfWorkers = 0;
+        for (int i = 0; i < 5; i++) {
+            if (this.workers[i] != null) {
+                numberOfWorkers++;
+            } else {
+                break;
+            }
+        }
+        this.numOfWorkers = numberOfWorkers;
 
     }
 
@@ -130,27 +141,32 @@ public class SuperVisor extends Employee {
         return null;
     }
 
-    public int answerFeedback() {
+    public int answerFeedback() throws IOException{
         Scanner input = new Scanner(System.in);
-        int T = 0;
-        char check[] = new char[6];
-        String questions[] = new String[6];
-        questions[0] = " employee is good:";
-        questions[1] = " employee is kind :";
-        questions[2] = " employee is intelgent:";
-        questions[3] = " employee is fast :";
-        questions[4] = " employee is best:";
-        questions[5] = " how many tasks employee did it :";
+        int Y = 0;
+        String check[] = new String[7];
+        String questions[] = new String[7];
+        questions[0] = " Does the worker come on time ? : ";
+        questions[1] = " Does the worker have passion on work ? : ";
+        questions[2] = " Is the worker good at collaborating with teammates ? : ";
+        questions[3] = " Does the worker behave well ? : ";
+        questions[4] = " Does the worker do his job efficiently ? : ";
+        questions[5] = " Does the worker bear the pressure of work ? : ";
+        questions[6] = " Then the number of goods made by him is : ";
+        
 
-        System.out.println("* Welcome please Answer this questions : *");
         for (int i = 0; i < 6; i++) {
-            System.out.println("questions " + (1 + i) + ":" + questions[i]);
-            check[i] = input.next().charAt(0);
-            if (check[i] == 'T' || check[i] == 't') {
-                T++;
+            System.out.println(questions[i]);
+            check[i] = input.next();
+            if (check[i].equalsIgnoreCase("Y")) {
+                Y++;
             }
         }
-        if (check[5] == '0') {
+        int target = super.showTarget();
+        System.out.println(questions[6]);
+        
+        
+        /* if (check[5] == '0') {
             T += 0;
         } else if (check[5] == '1') {
             T += 1;
@@ -163,20 +179,14 @@ public class SuperVisor extends Employee {
         } else if (check[5] == '5') {
             T += 5;
         }
-        return T;
+        */
+        
+        return Y;
     }
 
     @Override
     public int showTarget() throws IOException {
         super.showTarget();
-        int numOfWorkers = 0;
-        for (int i = 0; i < 5; i++) {
-            if (this.workers[i] != null) {
-                numOfWorkers++;
-            } else {
-                break;
-            }
-        }
         BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
         String line = reader.readLine();
         String [] Line = line.split("#");

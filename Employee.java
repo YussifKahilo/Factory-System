@@ -214,7 +214,7 @@ public class Employee extends Person {
         System.out.println("The Target this month is : " + Line[0]);
         System.out.println("Target for each worker is : " + Line[1]);
         reader.close();
-        return 0;
+        return Integer.parseInt(Line[1]);
     }
     
     public String toString() {

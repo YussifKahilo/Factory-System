@@ -25,9 +25,7 @@ public class User {
         String email;
         System.out.print("Enter your name : ");
         String name = in.nextLine();
-        if (name.equalsIgnoreCase("q")) {
-            System.exit(0);
-        }
+        MainClass.checkForClose(name);
         for (;;) {
             for (;;) {
                 System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
@@ -36,18 +34,14 @@ public class User {
                         + "\n   - One Number or Symbol .");
                 System.out.print("Enter a password : ");
                 password = in.next();
-                if (password.equalsIgnoreCase("q")) {
-                    System.exit(0);
-                }
+                MainClass.checkForClose(password);
                 if (isPasswordValid(password)) {
                     break;
                 }
             }
             System.out.print("Confirm your password : ");
             String password2 = in.next();
-            if (password2.equalsIgnoreCase("q")) {
-                System.exit(0);
-            }
+            MainClass.checkForClose(password2);
             if (password.equals(password2)) {
                 break;
             } else {
@@ -56,14 +50,19 @@ public class User {
         }
         System.out.print("Enter your house number : ");
         String houseNumber = in.next();
+        MainClass.checkForClose(houseNumber);
         System.out.print("Enter your flat number : ");
         String flatNumber = in.next();
+        MainClass.checkForClose(flatNumber);
         System.out.print("Enter your street name : ");
         String streetName = in.next();
+        MainClass.checkForClose(streetName);
         System.out.print("Enter your place name : ");
         String placeName = in.next();
+        MainClass.checkForClose(placeName);
         System.out.print("Please enter your phone number : ");
         String phoneNumber = in.next();
+        MainClass.checkForClose(phoneNumber);
         for (;;) {
             System.out.print("Please enter your Email : ");
             email = in.next();
@@ -100,17 +99,13 @@ public class User {
         for (;;) {
             System.out.print("Enter your ID : ");
             id = in.next();
-            if (id.equalsIgnoreCase("q")) {
-                System.exit(0);
-            }
+            MainClass.checkForClose(id);
             if (id.equalsIgnoreCase("c")) {
                 this.creatingUser();
             } else {
                 System.out.print("Enter your Password : ");
                 String password = in.next();
-                if (password.equalsIgnoreCase("q")) {
-                    System.exit(0);
-                }
+                MainClass.checkForClose(password);
                 if (password.equalsIgnoreCase("c")) {
                     this.creatingUser();
                 } else {

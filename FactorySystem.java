@@ -11,7 +11,7 @@ public class FactorySystem {
     private Worker worker;
     private Manager manager;
     private User user = new User();
-    
+
     public FactorySystem() throws IOException {
         user.setPersons("SalesMan");
         salesMan = (SalesMan) user.getPerson();
@@ -87,8 +87,9 @@ public class FactorySystem {
                 if (choice == 1) {
                     manager.showEmployees();
                     System.out.print("1-Give Salary\n2-back\n::");
-                    int NUM = in.nextInt();
-                    if (NUM == 1) {
+                    String NUM = in.next();
+                    MainClass.checkForClose(NUM);
+                    if (NUM.equalsIgnoreCase("1")) {
                         ArrayList<Employee> workers = user.getPersons("Workers");
                         for (Employee worker : workers) {
                             worker.getBankAccount().setBalance(worker.getSalary() + worker.getBankAccount().getBalance());
@@ -110,21 +111,22 @@ public class FactorySystem {
                     System.out.println("* 3-Fire                                  *");
                     System.out.println("* 4-back                                  *");
                     System.out.print("*******************************************\n::");
-                    int NUM = in.nextInt();
-                    if (NUM == 1) {
+                    String NUM = in.next();
+                    MainClass.checkForClose(NUM);
+                    if (NUM.equalsIgnoreCase("1")) {
                         manager.promote(person);
-                    } else if (NUM == 2) {
+                    } else if (NUM.equalsIgnoreCase("1")) {
                         System.out.print("Enter the new salary : ");
                         double newSalary = in.nextDouble();
                         person.setSalary(newSalary);
-                        if(person.getId().startsWith("22")){
-                        user.updateInformations("Workers", person);
-                        }else if(person.getId().startsWith("33")){
-                        user.updateInformations("SuperVisors", person);
-                        }else if(person.getId().startsWith("44")){
-                        user.updateInformations("SalesMan", person);
+                        if (person.getId().startsWith("22")) {
+                            user.updateInformations("Workers", person);
+                        } else if (person.getId().startsWith("33")) {
+                            user.updateInformations("SuperVisors", person);
+                        } else if (person.getId().startsWith("44")) {
+                            user.updateInformations("SalesMan", person);
                         }
-                    } else if (NUM == 3) {
+                    } else if (NUM.equalsIgnoreCase("1")) {
                         manager.firingEmployee(person);
                     }
                 } else if (choice == 3) {
@@ -136,14 +138,18 @@ public class FactorySystem {
                     System.out.println("* 3-Show the number of the Sold goods     *");
                     System.out.println("* 4-Set target of goods to be sold        *");
                     System.out.println("*******************************************\n::");
-                    manager.storageManagment(in.nextInt());
+                    String NUM = in.next();
+                    MainClass.checkForClose(NUM);
+                    manager.storageManagment(Integer.parseInt(NUM));
                 } else if (choice == 5) {
                     System.out.println("*******************************************");
                     System.out.println("* 1-Show the total money                  *");
                     System.out.println("* 2-Show the profit of this month         *");
                     System.out.println("* 3-Set the budget for the materials      *");
                     System.out.println("*******************************************\n::");
-                    manager.financialManagment(in.nextInt());
+                    String NUM = in.next();
+                    MainClass.checkForClose(NUM);
+                    manager.financialManagment(Integer.parseInt(NUM));
                 } else if (choice == 6) {
                     return false;
                 }
@@ -152,8 +158,8 @@ public class FactorySystem {
                 if (choice == 1) {
                     worker.showInformations();
                     System.out.print("Do you want to edit any information ? (Y/N)\n::");
-                    char ch = in.next().charAt(0);
-                    if (ch == 'Y' || ch == 'y') {
+                    String ch = in.next();
+                    if (ch.equalsIgnoreCase("Y")) {
                         worker.editInformations();
                     }
                 } else if (choice == 2) {
@@ -166,15 +172,15 @@ public class FactorySystem {
                 if (choice == 1) {
                     superVisor.showInformations();
                     System.out.print("Do you want to edit any information ? (Y/N)\n::");
-                    char ch = in.next().charAt(0);
-                    if (ch == 'Y' || ch == 'y') {
+                    String ch = in.next();
+                    if (ch.equalsIgnoreCase("Y")) {
                         worker.editInformations();
                     }
                 } else if (choice == 2) {
                     Employee worker = superVisor.showWorkersInformation();
                     System.out.println("1-Give Feedback\n2-back\n::");
-                    int NUM = in.nextInt();
-                    if (NUM == 1) {
+                    String NUM = in.next();
+                    if (NUM.equalsIgnoreCase("1")) {
                         int rate = superVisor.answerFeedback();
                         worker.setMonthlyRate(rate);
                         worker.setBonus(rate / 100);
@@ -182,31 +188,36 @@ public class FactorySystem {
                     }
                 } else if (choice == 3) {
                     superVisor.showTarget();
-                } else if (choice==4) {
+                } else if (choice == 4) {
                     System.out.print("Enter the number of manufactured goods this month : ");
-                    superVisor.setTargetResult(in.nextInt(), superVisor.showTarget());
-                }else if (choice == 5) {
+                    String numOfGoods = in.next();
+                    MainClass.checkForClose(numOfGoods);
+                    superVisor.setTargetResult(Integer.parseInt(numOfGoods), superVisor.showTarget());
+                } else if (choice == 5) {
                     return false;
                 }
                 break;
             case 44:
-                if (choice==1) {
+                if (choice == 1) {
                     salesMan.showInformations();
                     System.out.print("Do you want to edit any information ? (Y/N)\n::");
-                    char ch = in.next().charAt(0);
-                    if (ch == 'Y' || ch == 'y') {
+                    String ch = in.next();
+                    if (ch.equalsIgnoreCase("Y")) {
                         worker.editInformations();
                     }
-                } else if (choice==2) {
+                } else if (choice == 2) {
                     salesMan.showTarget();
-                } else if (choice==3) {
+                } else if (choice == 3) {
                     System.out.print("Enter the amount of sold goods : ");
-                    salesMan.setTargetResult(in.nextInt(),salesMan.showTarget());
-                } else if (choice==4) {
+                    String numOfSoldGoods = in.next();
+                    MainClass.checkForClose(numOfSoldGoods);
+                    salesMan.setTargetResult(Integer.parseInt(numOfSoldGoods), salesMan.showTarget());
+                } else if (choice == 4) {
                     return false;
                 }
                 break;
         }
         return true;
     }
+
 }
