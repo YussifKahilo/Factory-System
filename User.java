@@ -66,6 +66,7 @@ public class User {
         for (;;) {
             System.out.print("Please enter your Email : ");
             email = in.next();
+            MainClass.checkForClose(email);
             if (email.contains("@") && email.contains(".com")) {
                 break;
             } else {
@@ -155,8 +156,8 @@ public class User {
             Employee pi = new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
                     Double.parseDouble(Line[4]), Double.parseDouble(Line[5]),
                     Double.parseDouble(Line[6]), Line[7], Line[8], Line[9],
-                    Integer.parseInt(Line[10]), Integer.parseInt(Line[11]),
-                    Line[12], Line[13], Line[14], Double.parseDouble(Line[15]));
+                    new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]),
+                    Line[12], Line[13]),new BankAccount( Line[14], Double.parseDouble(Line[15])));
             persons.add(pi);
             line = reader.readLine();
         }
@@ -191,14 +192,13 @@ public class User {
     }
 
     public void addPerson(String fileName, String name, String password,
-            String phoneNumber, String email, String houseNumber, String flateNumber, String streetName, String placeName) throws IOException {
-
+        String phoneNumber, String email, String houseNumber, String flateNumber, String streetName, String placeName) throws IOException {
         LocalDate date = LocalDate.now();
         StringBuilder line = new StringBuilder();
         line.append(password + "#" + name + "#" + 2000 + "#0#" + "0#0#" + date
                 + "#" + phoneNumber + "#" + email + "#" + houseNumber + "#" + flateNumber
-                + "#" + streetName + "#" + placeName + "#" + 0 + "#");
-        getPersons("Workers");
+                + "#" + streetName + "#" + placeName + "#");
+        setPersons("Workers");
         if (!persons.isEmpty()) {
             int id = Integer.parseInt(this.persons.get(this.persons.size() - 1).getId());
             line.insert(0, (id + 1) + "#");
@@ -206,7 +206,7 @@ public class User {
             line.insert(0, "220000" + "#");
         }
         BankAccount ba = new BankAccount();
-        line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + 0);
+        line.append(ba.getAccountNumber() + "#" + ba.getBalance());
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
         for (int i = 0; i < persons.size(); i++) {
             writer.write(persons.get(i).toString());
@@ -217,6 +217,7 @@ public class User {
     }
 
     public void addPerson(String fileName, String line) throws IOException {
+        setPersons(fileName);
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
         for (int i = 0; i < persons.size(); i++) {
             writer.write(persons.get(i).toString());
@@ -227,6 +228,7 @@ public class User {
     }
 
     public void removePerson(String id, String fileName) throws IOException {
+        setPersons(fileName);
         for (int i = 0; i < persons.size(); i++) {
             if (id.equalsIgnoreCase(persons.get(i).getId())) {
                 persons.remove(i);
