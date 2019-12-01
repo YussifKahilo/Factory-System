@@ -1,4 +1,3 @@
-package FactorySystem;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -141,46 +140,38 @@ public class SuperVisor extends Employee {
         return null;
     }
 
-    public int answerFeedback() throws IOException{
+    public double answerFeedback() throws IOException{
         Scanner input = new Scanner(System.in);
-        int Y = 0;
-        String check[] = new String[7];
+        double Y = 0;
+        String answer;
         String questions[] = new String[7];
-        questions[0] = " Does the worker come on time ? : ";
-        questions[1] = " Does the worker have passion on work ? : ";
-        questions[2] = " Is the worker good at collaborating with teammates ? : ";
-        questions[3] = " Does the worker behave well ? : ";
-        questions[4] = " Does the worker do his job efficiently ? : ";
-        questions[5] = " Does the worker bear the pressure of work ? : ";
-        questions[6] = " Then the number of goods made by him is : ";
+        questions[0] = "Does the worker come on time ? : ";
+        questions[1] = "Does the worker have passion on work ? : ";
+        questions[2] = "Is the worker good at collaborating with teammates ? : ";
+        questions[3] = "Does the worker behave well ? : ";
+        questions[4] = "Does the worker do his job efficiently ? : ";
+        questions[5] = "Does the worker bear the pressure of work ? : ";
+        questions[6] = "-->So the number of goods made by him is : ";
         
 
         for (int i = 0; i < 6; i++) {
-            System.out.println(questions[i]);
-            check[i] = input.next();
-            if (check[i].equalsIgnoreCase("Y")) {
+            System.out.print(questions[i]);
+            answer = input.next();
+            if (answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("T")) {
                 Y++;
             }
         }
         int target = super.showTarget();
-        System.out.println(questions[6]);
-        
-        
-        /* if (check[5] == '0') {
-            T += 0;
-        } else if (check[5] == '1') {
-            T += 1;
-        } else if (check[5] == '2') {
-            T += 2;
-        } else if (check[5] == '3') {
-            T += 3;
-        } else if (check[5] == '4') {
-            T += 4;
-        } else if (check[5] == '5') {
-            T += 5;
+        System.out.print(questions[6]);
+        for(;;) {
+        answer = input.next();
+        if (Integer.parseInt(answer) >target) {
+        	System.out.print("You entered a number greater than the target please try again : ");
         }
-        */
-        
+        else {  Y += ((Double.parseDouble(answer)/target )* 4);
+        break;
+        }
+        }
         return Y;
     }
 
