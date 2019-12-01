@@ -1,3 +1,4 @@
+package FactorySystem;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,7 +10,7 @@ public class SuperVisor extends Employee {
 
     private Employee[] workers = new Employee[5];
     private int numOfWorkers;
-    
+
     public SuperVisor(Employee superVisor) {
         super(
                 superVisor.getId(), superVisor.getPassword(),
@@ -17,13 +18,9 @@ public class SuperVisor extends Employee {
                 superVisor.getBonus(), superVisor.getMonthlyRate(),
                 superVisor.getOverallRate(), superVisor.getHiringDate(),
                 superVisor.getPhoneNumber(), superVisor.getEmail(),
-                superVisor.getAddress().getHouseNumber(),
-                superVisor.getAddress().getFlateNumber(),
-                superVisor.getAddress().getStreetName(),
-                superVisor.getAddress().getPlace(),
-                superVisor.getBankAccount().getAccountNumber(),
-                superVisor.getBankAccount().getBalance());
-        
+                superVisor.getAddress(),
+                superVisor.getBankAccount());
+
         int numberOfWorkers = 0;
         for (int i = 0; i < 5; i++) {
             if (this.workers[i] != null) {
@@ -80,6 +77,7 @@ public class SuperVisor extends Employee {
             }
             System.out.print("Choose : ");
             String inn = input.next();
+            MainClass.checkForClose(inn);
             char x = inn.charAt(0);
             if (x < '9' && x > '0') {
                 if (inn.equals("1") && Integer.parseInt(inn) <= numOfWorkers) {
@@ -140,7 +138,7 @@ public class SuperVisor extends Employee {
         return null;
     }
 
-    public double answerFeedback() throws IOException{
+    public double answerFeedback() throws IOException {
         Scanner input = new Scanner(System.in);
         double Y = 0;
         String answer;
@@ -152,25 +150,26 @@ public class SuperVisor extends Employee {
         questions[4] = "Does the worker do his job efficiently ? : ";
         questions[5] = "Does the worker bear the pressure of work ? : ";
         questions[6] = "-->So the number of goods made by him is : ";
-        
 
         for (int i = 0; i < 6; i++) {
             System.out.print(questions[i]);
             answer = input.next();
+            MainClass.checkForClose(answer);
             if (answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("T")) {
                 Y++;
             }
         }
         int target = super.showTarget();
         System.out.print(questions[6]);
-        for(;;) {
-        answer = input.next();
-        if (Integer.parseInt(answer) >target) {
-        	System.out.print("You entered a number greater than the target please try again : ");
-        }
-        else {  Y += ((Double.parseDouble(answer)/target )* 4);
-        break;
-        }
+        for (;;) {
+            answer = input.next();
+            MainClass.checkForClose(answer);
+            if (Integer.parseInt(answer) > target) {
+                System.out.print("You entered a number greater than the target please try again : ");
+            } else {
+                Y += ((Double.parseDouble(answer) / target) * 4);
+                break;
+            }
         }
         return Y;
     }
@@ -180,15 +179,15 @@ public class SuperVisor extends Employee {
         super.showTarget();
         BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
         String line = reader.readLine();
-        String [] Line = line.split("#");
-        System.out.println("The total team target is : "+(Integer.parseInt(Line[1])*numOfWorkers));
+        String[] Line = line.split("#");
+        System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * numOfWorkers));
         reader.close();
-        return (Integer.parseInt(Line[1])*numOfWorkers);
+        return (Integer.parseInt(Line[1]) * numOfWorkers);
     }
 
-    public void setTargetResult(int amount,int target) throws IOException {
+    public void setTargetResult(int amount, int target) throws IOException {
         Storage storage = new Storage();
-        System.out.println("And your team manufactured "+ amount + " goods this month ..");
+        System.out.println("And your team manufactured " + amount + " goods this month ..");
         storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() + amount);
         double ratio = (amount * 1.0) / target;
         this.setMonthlyRate(ratio * 10);

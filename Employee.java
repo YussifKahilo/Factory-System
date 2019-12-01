@@ -22,10 +22,9 @@ public class Employee extends Person {
     }
 
     public Employee(String id, String password, String name, double salary, double bonus, double monthlyRate,
-            double overallRate, String hiringDate, String phoneNumber, String email, int houseNumber, int flateNumber,
-            String streetName, String place, String bankAccountNumber, double balance) {
+            double overallRate, String hiringDate, String phoneNumber, String email,Address address , BankAccount bankAccount) {
         super(id, name, password);
-        this.bankAccount = new BankAccount(bankAccountNumber, balance);
+        this.bankAccount = bankAccount;
         this.email = email;
         this.salary = salary;
         this.phoneNumber = phoneNumber;
@@ -33,7 +32,7 @@ public class Employee extends Person {
         this.hiringDate = hiringDate;
         this.monthlyRate = monthlyRate;
         this.overallRate = overallRate;
-        this.address = new Address(houseNumber, flateNumber, streetName, place);
+        this.address = address;
     }
 
     public BankAccount getBankAccount() {
@@ -119,9 +118,12 @@ public class Employee extends Person {
             System.out.println("To Change :\n 1- Name\n 2- password\n 3- phone number\n 4- E-Mail\n 5- Address");
             System.out.print("::");
             String choice = input.next();
+            MainClass.checkForClose(choice);
             if (choice.equalsIgnoreCase("1")) {
                 System.out.print("Enter Your Name : ");
-                this.setName(input.nextLine());
+                String name = input.nextLine();
+                MainClass.checkForClose(name);
+                this.setName(name);
                 break;
             } else if (choice.equalsIgnoreCase("2")) {
                 while (true) {
@@ -130,10 +132,12 @@ public class Employee extends Person {
                             + "\n   - One lowercase letter . " + "\n   - One Number or Symbol .");
                     System.out.print("Enter a password : ");
                     String password = input.next();
+                    MainClass.checkForClose(password);
                     if (user.isPasswordValid(password)) {
                         while (true) {
                             System.out.print("Confirm your password : ");
                             String password2 = input.next();
+                            MainClass.checkForClose(password2);
                             if (password.equals(password2)) {
                                 break;
                             } else {
@@ -147,22 +151,30 @@ public class Employee extends Person {
                 }
             } else if (choice.equalsIgnoreCase("3")) {
                 System.out.print("Enter Yout phone number :");
-                this.setPhoneNumber(input.next());
+                String phoneNumber = input.next();
+                MainClass.checkForClose(phoneNumber);
+                this.setPhoneNumber(phoneNumber);
                 break;
             } else if (choice.equalsIgnoreCase("4")) {
                 System.out.print("Enter your E-Mail :");
-                this.setEmail(input.next());
+                String email = input.next();
+                MainClass.checkForClose(email);
+                this.setEmail(email);
                 break;
             } else if (choice.equalsIgnoreCase("5")) {
                 System.out.print("Enter your house number : ");
-                int houseNumber = input.nextInt();
+                String houseNumber = input.next();
+                MainClass.checkForClose(houseNumber);
                 System.out.print("Enter your flat number : ");
-                int flatNumber = input.nextInt();
+                String flatNumber = input.next();
+                MainClass.checkForClose(flatNumber);
                 System.out.print("Enter your street name : ");
                 String streetName = input.next();
+                MainClass.checkForClose(streetName);
                 System.out.print("Enter your place name : ");
                 String placeName = input.next();
-                this.setAddress(houseNumber, flatNumber, streetName, placeName);
+                MainClass.checkForClose(placeName);
+                this.setAddress(Integer.parseInt(houseNumber), Integer.parseInt(flatNumber), streetName, placeName);
                 break;
             } else {
                 System.out.println("invalid input\nchoose Again");
@@ -218,9 +230,9 @@ public class Employee extends Person {
     }
     
     public String toString() {
-        return getId() + "#" + getPassword() + "#" + getName() + "#" + getSalary() + "#" + getBonus() + "#" + getMonthlyRate() + "#"
-                + getOverallRate() + "#" + getHiringDate() + "#" + getPhoneNumber() + "#" + getEmail() + "#" + getAddress().getHouseNumber()
-                + "#" + getAddress().getFlateNumber() + "#" + getAddress().getStreetName() + "#" + getAddress().getPlace()
-                + "#" + getBankAccount().getAccountNumber() + "#" + getBankAccount().getBalance();
+        return getId() + "#" + getPassword() + "#" + getName() + "#" + salary + "#" + bonus + "#" + monthlyRate + "#"
+                + overallRate + "#" + hiringDate + "#" + phoneNumber + "#" + email + "#" + address.getHouseNumber()
+                + "#" + address.getFlateNumber() + "#" + address.getStreetName() + "#" + address.getPlace()
+                + "#" + bankAccount.getAccountNumber() + "#" + bankAccount.getBalance();
     }
 }

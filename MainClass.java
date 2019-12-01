@@ -10,24 +10,22 @@ public class MainClass {
             System.exit(0);
         }
     }
-    
+
     public static void main(String[] args) throws IOException {
-        try {
-            FactorySystem factorySystem = new FactorySystem();
-            for (;;) {
-                Scanner in = new Scanner(System.in);
-                int num = factorySystem.loginMenu();
-                if (num == 11 || num == 22 || num == 33 || num == 44) {
-                    for (;;) {
-                        factorySystem.displayMenu(num);
-                        if (!factorySystem.menuOptions(num, in.nextInt())) {
-                            break;
-                        }
+        FactorySystem factorySystem = new FactorySystem();
+        for (;;) {
+            Scanner in = new Scanner(System.in);
+            int num = factorySystem.loginMenu();
+            if (num == 11 || num == 22 || num == 33 || num == 44) {
+                for (;;) {
+                    factorySystem.displayMenu(num);
+                    String choice = in.next();
+                    checkForClose(choice);
+                    if (!factorySystem.menuOptions(num, Integer.parseInt(choice))) {
+                        break;
                     }
                 }
             }
-        }catch(IOException e){
-            System.out.println(e.getMessage());
         }
     }
 }
