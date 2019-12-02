@@ -42,10 +42,24 @@ public class BirthDate {
         LocalDate Date = LocalDate.now();
         String s = Date.toString();
         String y = s.substring(0, 4);
-        int yearnow = Integer.parseInt(y);
-        Age = yearnow - Year;
+        String m = s.substring(5, 7);
+        String d = s.substring(8, 10);
+        int YearDate = Integer.parseInt(y);
+        int monthDate = Integer.parseInt(m);
+        int DayDate = Integer.parseInt(d);
+        if (monthDate >= Month) {
+            if (DayDate >= Day) {
+                Age = YearDate - Year;
+            }
+            if (DayDate < Day) {
+                Age = (YearDate - Year) - 1;
+            }
+        } else if (monthDate < Month) {
+            Age = (YearDate - Year) - 1;
+
+        }
+
         return Age;
     }
 
-    
 }
