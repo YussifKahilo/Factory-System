@@ -1,4 +1,3 @@
-package FactorySystem;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,41 +41,41 @@ public class FactorySystem {
     public void displayMenu(int num) {
         switch (num) {
             case 11:
-                System.out.println("_________________________");
-                System.out.println("1-Show Employees");
-                System.out.println("2-Search for Employee");
-                System.out.println("3-Set Target");
-                System.out.println("4-Storage informations");
-                System.out.println("5-Financial Informations");
-                System.out.println("6-Log Out");
-                System.out.println("-------------------------");
+                System.out.println("-------------------------.");
+                System.out.println("1-Show Employees         |");
+                System.out.println("2-Search for Employee    |");
+                System.out.println("3-Set Target             |");
+                System.out.println("4-Storage informations   |");
+                System.out.println("5-Financial Informations |");
+                System.out.println("6-Log Out                |");
+                System.out.println("-------------------------*");
                 System.out.print("::");
                 break;
             case 22:
-                System.out.println("________________________");
-                System.out.println("1-Show Your Information");
-                System.out.println("2-Show Target");
-                System.out.println("3-Log out");
-                System.out.println("------------------------");
+                System.out.println("------------------------.");
+                System.out.println("1-Show Your Information |");
+                System.out.println("2-Show Target           |");
+                System.out.println("3-Log out               |");
+                System.out.println("------------------------*");
                 System.out.print("::");
                 break;
             case 33:
-                System.out.println("_______________________________________");
-                System.out.println("1-Show Your Information");
-                System.out.println("2-Show Workers");
-                System.out.println("3-Get Your Team Target");
-                System.out.println("4-Set the number of manufactured goods");
-                System.out.println("5-Log out");
-                System.out.println("---------------------------------------");
+                System.out.println("---------------------------------------.");
+                System.out.println("1-Show Your Information                |");
+                System.out.println("2-Show Workers                         |");
+                System.out.println("3-Get Your Team Target                 |");
+                System.out.println("4-Set the number of manufactured goods |");
+                System.out.println("5-Log out                              |");
+                System.out.println("---------------------------------------*");
                 System.out.print("::");
                 break;
             case 44:
-                System.out.println("_____________________________________");
-                System.out.println("1-Show Your Information");
-                System.out.println("2-Show the target for the sold goods");
-                System.out.println("3-Set the number of sold goods");
-                System.out.println("4-Log out");
-                System.out.println("-------------------------------------");
+                System.out.println("-------------------------------------.");
+                System.out.println("1-Show Your Information              |");
+                System.out.println("2-Show the target for the sold goods |");
+                System.out.println("3-Set the number of sold goods       |");
+                System.out.println("4-Log out                            |");
+                System.out.println("-------------------------------------*");
                 System.out.print("::");
                 break;
         }

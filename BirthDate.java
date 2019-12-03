@@ -1,4 +1,3 @@
-
 import java.time.LocalDate;
 
 public class BirthDate {
@@ -41,25 +40,18 @@ public class BirthDate {
     public int getAge() {
         LocalDate Date = LocalDate.now();
         String s = Date.toString();
-        String y = s.substring(0, 4);
-        String m = s.substring(5, 7);
-        String d = s.substring(8, 10);
-        int YearDate = Integer.parseInt(y);
-        int monthDate = Integer.parseInt(m);
-        int DayDate = Integer.parseInt(d);
-        if (monthDate >= Month) {
-            if (DayDate >= Day) {
-                Age = YearDate - Year;
-            }
+        String [] date = s.split("-");
+        int YearDate = Integer.parseInt(date[0]);
+        int monthDate = Integer.parseInt(date[1]);
+        int DayDate = Integer.parseInt(date[2]);
+        Age = YearDate - Year;
+        if (monthDate == Month) {
             if (DayDate < Day) {
-                Age = (YearDate - Year) - 1;
+                Age--;
             }
         } else if (monthDate < Month) {
-            Age = (YearDate - Year) - 1;
-
+            Age--;
         }
-
         return Age;
     }
-
 }

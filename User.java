@@ -1,4 +1,3 @@
-package FactorySystem;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -153,12 +152,12 @@ public class User {
         String line = reader.readLine();
         while (line != null) {
             String[] Line = line.split("#");
-            Employee pi = new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
+            Employee person = new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
                     Double.parseDouble(Line[4]), Double.parseDouble(Line[5]),
                     Double.parseDouble(Line[6]), Line[7], Line[8], Line[9],
                     new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]),
                     Line[12], Line[13]),new BankAccount( Line[14], Double.parseDouble(Line[15])));
-            persons.add(pi);
+            persons.add(person);
             line = reader.readLine();
         }
         reader.close();

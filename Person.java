@@ -1,4 +1,3 @@
-package FactorySystem;
 
 
 public class Person {

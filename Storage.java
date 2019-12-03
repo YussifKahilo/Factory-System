@@ -1,8 +1,6 @@
-package FactorySystem;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 
@@ -16,7 +14,7 @@ public class Storage {
     private double priceOfGood;
     private int numberOfGoodsThisMonth;
 
-    public Storage() throws FileNotFoundException, IOException {
+    public Storage() throws IOException {
         FileReader f = new FileReader("Storage.txt");
         BufferedReader bf = new BufferedReader(f);
         String line = bf.readLine();

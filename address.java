@@ -1,5 +1,4 @@
 
-package FactorySystem;
 public class Address {
     
     private  int houseNumber ;

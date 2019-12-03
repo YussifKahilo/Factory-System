@@ -1,4 +1,3 @@
-package FactorySystem;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -100,7 +99,7 @@ public class Manager extends Person {
         for (int i = 0; i < persons.size(); i++) {
             System.out.print("|");
             String[] Name = persons.get(i).getName().split(" ");
-            String name = " " + Name[0] + " " + Name[1];
+            String name = " " + Name[0] ;
             String space = "", space_for_email = "";
             for (int k = 0; k < 19 - name.length(); k++) {
                 space += " ";
