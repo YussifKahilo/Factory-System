@@ -1,57 +1,28 @@
+package factroy.system;
 
 public class Address {
-    
-    private  int houseNumber ;
-    private  int flateNumber ;
-    private  String  streetName ;
-    private String place ;
 
-    public Address() {
+    private int blockNumber;
+    private String streetName;
+    private String region;
+    private int houseNumber;
+    private int flateNumber;
+
+    public Address () {
     }
 
-    public Address(int houseNumber, int flateNumber, String streetName,
-            String place) {
+    public Address (int blockNumber, String streetName, String region, int houseNumber, int flateNumber) {
         this.houseNumber = houseNumber;
         this.flateNumber = flateNumber;
+        this.blockNumber = blockNumber;
         this.streetName = streetName;
-        this.place = place;
+        this.region = region;
     }
 
-    public void setHouseNumber(int houseNumber) {
-        this.houseNumber = houseNumber;
-    }
-
-    public void setFlateNumber(int flateNumber) {
-        this.flateNumber = flateNumber;
-    }
-
-    public void setStreetName(String streetName) {
-        this.streetName = streetName;
-    }
-
-    public void setPlace(String place) {
-        this.place = place;
-    }
-
-    public int getHouseNumber() {
-        return houseNumber;
-    }
-
-    public int getFlateNumber() {
-        return flateNumber;
-    }
-
-    public String getStreetName() {
-        return streetName;
-    }
-
-    public String getPlace() {
-        return place;
-    }
-
+    @Override
     public String toString() {
-        return  + houseNumber + " " + flateNumber + " " + streetName + " " 
-                + place ;
+        return  + blockNumber + streetName + region + " (houseNumber) " + houseNumber + " (flateNumber) " + flateNumber;
     }
-        
+
 }
+
