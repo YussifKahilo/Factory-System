@@ -1,8 +1,6 @@
-package FactorySystem;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 
@@ -16,8 +14,8 @@ public class Storage {
     private double priceOfGood;
     private int numberOfGoodsThisMonth;
 
-    public Storage() throws FileNotFoundException, IOException {
-        FileReader f = new FileReader("C:\\Storage.txt");
+    public Storage() throws IOException {
+        FileReader f = new FileReader("Storage.txt");
         BufferedReader bf = new BufferedReader(f);
         String line = bf.readLine();
         if (line != null) {
@@ -33,7 +31,7 @@ public class Storage {
 
     public void setNumberOfStoredGoods(int SoldGoods) throws IOException {
         this.numberOfStoredGoods = SoldGoods;
-        FileWriter file = new FileWriter("C:\\Storage.txt");
+        FileWriter file = new FileWriter("Storage.txt");
         BufferedWriter buf = new BufferedWriter(file);
         buf.write(this.toString());
         buf.close();
@@ -43,9 +41,9 @@ public class Storage {
         return numberOfStoredGoods;
     }
 
-    public void setNumberOfGoodsToSold(int numberOfSoldGoods) throws IOException {
+    public void setNumberOfSoldGoods(int numberOfSoldGoods) throws IOException {
         this.numberOfSoldGoods = numberOfSoldGoods;
-        FileWriter file = new FileWriter("C:\\Storage.txt");
+        FileWriter file = new FileWriter("Storage.txt");
         BufferedWriter buf = new BufferedWriter(file);
         buf.write(this.toString());
         buf.close();
@@ -57,7 +55,7 @@ public class Storage {
 
     public void setNumberOfGoodsTobeSold(int amount) throws IOException {
         this.numberOfGoodsToBeSold = amount;
-        FileWriter file = new FileWriter("C:\\Storage.txt");
+        FileWriter file = new FileWriter("Storage.txt");
         BufferedWriter buf = new BufferedWriter(file);
         buf.write(this.toString());
         buf.close();
@@ -69,7 +67,7 @@ public class Storage {
 
     public void setPriceOfGoods(double price) throws IOException {
         this.priceOfGood = price;
-        FileWriter file = new FileWriter("C:\\Storage.txt");
+        FileWriter file = new FileWriter("Storage.txt");
         BufferedWriter buf = new BufferedWriter(file);
         buf.write(this.toString());
         buf.close();
@@ -81,7 +79,7 @@ public class Storage {
 
     public void setnumberOfGoodsThisMonth(int amount) throws IOException {
         this.numberOfGoodsThisMonth = amount;
-        FileWriter file = new FileWriter("C:\\Storage.txt");
+        FileWriter file = new FileWriter("Storage.txt");
         BufferedWriter buf = new BufferedWriter(file);
         buf.write(this.toString());
         buf.close();

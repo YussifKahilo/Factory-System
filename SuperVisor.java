@@ -1,4 +1,3 @@
-package FactorySystem;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -9,7 +8,7 @@ import java.io.FileReader;
 public class SuperVisor extends Employee {
 
     private Employee[] workers = new Employee[5];
-    public Scanner input = new Scanner(System.in);
+    private int numOfWorkers;
 
     public SuperVisor(Employee superVisor) {
         super(
@@ -18,17 +17,24 @@ public class SuperVisor extends Employee {
                 superVisor.getBonus(), superVisor.getMonthlyRate(),
                 superVisor.getOverallRate(), superVisor.getHiringDate(),
                 superVisor.getPhoneNumber(), superVisor.getEmail(),
-                superVisor.getAddress().getHouseNumber(),
-                superVisor.getAddress().getFlateNumber(),
-                superVisor.getAddress().getStreetName(),
-                superVisor.getAddress().getPlace(),
-                superVisor.getBankAccount().getAccountNumber(),
-                superVisor.getBankAccount().getBalance());
+                superVisor.getAddress(),
+                superVisor.getBankAccount());
+
+        int numberOfWorkers = 0;
+        for (int i = 0; i < 5; i++) {
+            if (this.workers[i] != null) {
+                numberOfWorkers++;
+            } else {
+                break;
+            }
+        }
+        this.numOfWorkers = numberOfWorkers;
 
     }
 
-    public void showWorkersInformation() throws IOException {
+    public Employee showWorkersInformation() throws IOException {
         User u1 = new User();
+        Scanner input = new Scanner(System.in);
         int index = 0;
         ArrayList<Employee> SuperVisors = u1.getPersons("SuperVisors");
         for (int i = 0; i < SuperVisors.size(); i++) {
@@ -37,7 +43,7 @@ public class SuperVisor extends Employee {
                 break;
             }
         }
-        BufferedReader reader = new BufferedReader(new FileReader("C:\\WorkersId.txt"));
+        BufferedReader reader = new BufferedReader(new FileReader("WorkersId.txt"));
         String line = reader.readLine();
         ArrayList<String> WorkersId = new ArrayList<String>();
         while (line != null) {
@@ -70,6 +76,7 @@ public class SuperVisor extends Employee {
             }
             System.out.print("Choose : ");
             String inn = input.next();
+            MainClass.checkForClose(inn);
             char x = inn.charAt(0);
             if (x < '9' && x > '0') {
                 if (inn.equals("1") && Integer.parseInt(inn) <= numOfWorkers) {
@@ -80,6 +87,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[0].getAddress());
                     System.out.println("hiring date of this employee is" + workers[0].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[0].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[0];
                 } else if (inn.equals("2") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[1].getName());
                     System.out.println("id of this employee is" + workers[1].getId());
@@ -88,6 +97,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[1].getAddress());
                     System.out.println("hiring date of this employee is" + workers[1].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[1].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[1];
                 } else if (inn.equals("3") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[2].getName());
                     System.out.println("id of this employee is" + workers[2].getId());
@@ -96,6 +107,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[2].getAddress());
                     System.out.println("hiring date of this employee is" + workers[2].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[2].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[2];
                 } else if (inn.equals("4") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[3].getName());
                     System.out.println("id of this employee is" + workers[3].getId());
@@ -104,6 +117,8 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[3].getAddress());
                     System.out.println("hiring date of this employee is" + workers[3].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[3].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[3];
                 } else if (inn.equals("5") && Integer.parseInt(inn) <= numOfWorkers) {
                     System.out.println("name of this employee is" + workers[4].getName());
                     System.out.println("id of this employee is" + workers[4].getId());
@@ -112,63 +127,70 @@ public class SuperVisor extends Employee {
                     System.out.println("address of this employee is" + workers[4].getAddress());
                     System.out.println("hiring date of this employee is" + workers[4].getHiringDate());
                     System.out.println("overall rate of this employee is" + workers[4].getOverallRate());
+                    System.out.println("----------------------------------------------------");
+                    return workers[4];
+                } else {
+                    break;
                 }
             }
         }
+        return null;
     }
 
-    public void answerFeedback() {
+    public double answerFeedback() throws IOException {
         Scanner input = new Scanner(System.in);
-        int T = 0;
-        char check[] = new char[6];
-        String questions[] = new String[6];
-        questions[0] = " employee is good:";
-        questions[1] = " employee is kind :";
-        questions[2] = " employee is intelgent:";
-        questions[3] = " employee is fast :";
-        questions[4] = " employee is best:";
-        questions[5] = " how many tasks employee did it :";
+        double Y = 0;
+        String answer;
+        String questions[] = new String[7];
+        questions[0] = "Does the worker come on time ? : ";
+        questions[1] = "Does the worker have passion on work ? : ";
+        questions[2] = "Is the worker good at collaborating with teammates ? : ";
+        questions[3] = "Does the worker behave well ? : ";
+        questions[4] = "Does the worker do his job efficiently ? : ";
+        questions[5] = "Does the worker bear the pressure of work ? : ";
+        questions[6] = "-->So the number of goods made by him is : ";
 
-        System.out.println("* Welcome please Answer this questions : *");
         for (int i = 0; i < 6; i++) {
-            System.out.println("questions " + (1 + i) + ":" + questions[i]);
-            check[i] = input.next().charAt(0);
-            if (check[i] == 'T' || check[i] == 't') {
-                T++;
+            System.out.print(questions[i]);
+            answer = input.next();
+            MainClass.checkForClose(answer);
+            if (answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("T")) {
+                Y++;
             }
-
         }
-        input.close();
-
-        if (check[5] == '0') {
-            T += 0;
-        } else if (check[5] == '1') {
-            T += 1;
-        } else if (check[5] == '2') {
-            T += 2;
-        } else if (check[5] == '3') {
-            T += 3;
-        } else if (check[5] == '4') {
-            T += 4;
-        } else if (check[5] == '5') {
-            T += 5;
+        int target = super.showTarget();
+        System.out.print(questions[6]);
+        for (;;) {
+            answer = input.next();
+            MainClass.checkForClose(answer);
+            if (Integer.parseInt(answer) > target) {
+                System.out.print("You entered a number greater than the target please try again : ");
+            } else {
+                Y += ((Double.parseDouble(answer) / target) * 4);
+                break;
+            }
         }
-        System.out.println("Rate of this employee is:" + T);
+        return Y;
     }
 
-    public void showTarget() throws IOException {
-        BufferedReader reader = new BufferedReader(new FileReader("SuperVisorTarget.txt"));
+    @Override
+    public int showTarget() throws IOException {
+        super.showTarget();
+        BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
         String line = reader.readLine();
-        while (line != null) {
-            System.out.println(line);
-            line = reader.readLine();
-        }
+        String[] Line = line.split("#");
+        System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * numOfWorkers));
         reader.close();
+        return (Integer.parseInt(Line[1]) * numOfWorkers);
     }
 
-    public int setTargetResult() {
-        System.out.print("please enter the ammount of goods : ");
-        return input.nextInt();
+    public void setTargetResult(int amount, int target) throws IOException {
+        Storage storage = new Storage();
+        System.out.println("And your team manufactured " + amount + " goods this month ..");
+        storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() + amount);
+        double ratio = (amount * 1.0) / target;
+        this.setMonthlyRate(ratio * 10);
+        this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
     }
 
 }
