@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,7 +12,7 @@ public class SalesMan extends Employee {
                 salesMan.getOverallRate(), salesMan.getHiringDate(),
                 salesMan.getPhoneNumber(), salesMan.getEmail(),
                 salesMan.getAddress(),
-                salesMan.getBankAccount());
+                salesMan.getBankAccount(),salesMan.getBirthDate());
         
     }
     

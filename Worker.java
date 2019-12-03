@@ -1,4 +1,3 @@
-
 public class Worker extends Employee {
 
     Worker(Employee worker) {
@@ -9,6 +8,6 @@ public class Worker extends Employee {
                 worker.getOverallRate(), worker.getHiringDate(),
                 worker.getPhoneNumber(), worker.getEmail(),
                 worker.getAddress(),
-                worker.getBankAccount());
+                worker.getBankAccount(),worker.getBirthDate());
     }
 }

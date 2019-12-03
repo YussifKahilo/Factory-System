@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedReader;
@@ -18,7 +17,7 @@ public class SuperVisor extends Employee {
                 superVisor.getOverallRate(), superVisor.getHiringDate(),
                 superVisor.getPhoneNumber(), superVisor.getEmail(),
                 superVisor.getAddress(),
-                superVisor.getBankAccount());
+                superVisor.getBankAccount(),superVisor.getBirthDate());
 
         int numberOfWorkers = 0;
         for (int i = 0; i < 5; i++) {

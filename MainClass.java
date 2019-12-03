@@ -10,19 +10,26 @@ public class MainClass {
         }
     }
 
+    public static boolean ifNumber(String input) {
+        for (int i = 0; i < input.length(); i++) {
+            if (!((input.charAt(i) >= '0' && input.charAt(i) <= '9'))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void main(String[] args) throws IOException {
         FactorySystem factorySystem = new FactorySystem();
         for (;;) {
             Scanner in = new Scanner(System.in);
             int num = factorySystem.loginMenu();
-            if (num == 11 || num == 22 || num == 33 || num == 44) {
-                for (;;) {
-                    factorySystem.displayMenu(num);
-                    String choice = in.next();
-                    checkForClose(choice);
-                    if (!factorySystem.menuOptions(num, Integer.parseInt(choice))) {
-                        break;
-                    }
+            for (;;) {
+                factorySystem.displayMenu(num);
+                String choice = in.next();
+                checkForClose(choice);
+                if (!factorySystem.menuOptions(num, Integer.parseInt(choice))) {
+                    break;
                 }
             }
         }

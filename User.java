@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class User {
@@ -25,6 +26,7 @@ public class User {
         System.out.print("Enter your name : ");
         String name = in.nextLine();
         MainClass.checkForClose(name);
+        System.out.println("---------------------------");
         for (;;) {
             for (;;) {
                 System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
@@ -47,21 +49,47 @@ public class User {
                 System.out.println("The two password are not identical ..");
             }
         }
+        System.out.println("---------------------------");
+        System.out.println("Your Birth Date :");
+        System.out.print("-->Day : ");
+        String dayOfBirth = in.next();
+        MainClass.checkForClose(dayOfBirth);
+        System.out.print("-->Month : ");
+        String monthOfBirth = in.next();
+        MainClass.checkForClose(monthOfBirth);
+        System.out.print("-->Year : ");
+        String yearOfBirth = in.next();
+        MainClass.checkForClose(yearOfBirth);
+        System.out.println("---------------------------");
         System.out.print("Enter your house number : ");
         String houseNumber = in.next();
         MainClass.checkForClose(houseNumber);
-        System.out.print("Enter your flat number : ");
+        System.out.print("Enter your floor number : ");
         String flatNumber = in.next();
         MainClass.checkForClose(flatNumber);
+        System.out.print("Enter your blook number : ");
+        String blookNumber = in.next();
+        MainClass.checkForClose(blookNumber);
         System.out.print("Enter your street name : ");
-        String streetName = in.next();
+        in.nextLine();
+        String streetName = in.nextLine();
         MainClass.checkForClose(streetName);
         System.out.print("Enter your place name : ");
-        String placeName = in.next();
+        String placeName = in.nextLine();
         MainClass.checkForClose(placeName);
-        System.out.print("Please enter your phone number : ");
-        String phoneNumber = in.next();
-        MainClass.checkForClose(phoneNumber);
+        System.out.println("---------------------------");
+        String phoneNumber;
+        for (;;) {
+            System.out.print("Please enter your phone number : ");
+            phoneNumber = in.next();
+            MainClass.checkForClose(phoneNumber);
+            if (phoneNumber.length() == 11 && phoneNumber.startsWith("01")) {
+                break;
+            } else {
+                System.out.println("Invalid phone number..");
+            }
+        }
+        System.out.println("---------------------------");
         for (;;) {
             System.out.print("Please enter your Email : ");
             email = in.next();
@@ -71,8 +99,9 @@ public class User {
             } else {
                 System.out.println("invalid E-mail");
             }
+            System.out.println("---------------------------");
         }
-        addPerson("Workers", name, password, phoneNumber, email, houseNumber, flatNumber, streetName, placeName);
+        addPerson("Workers", name, password, phoneNumber, email, houseNumber, flatNumber, blookNumber, streetName, placeName, dayOfBirth, monthOfBirth, yearOfBirth);
     }
 
     public boolean isPasswordValid(String password) {
@@ -110,7 +139,9 @@ public class User {
                     this.creatingUser();
                 } else {
                     if (id.equals(manager.getId())) {
-                        break;
+                        if (manager.getPassword().equals(password)) {
+                            break;
+                        }
                     } else if (id.startsWith("22")) {
                         setPersons("Workers");
                         if (this.verifyLogin(id, password)) {
@@ -155,8 +186,9 @@ public class User {
             Employee person = new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
                     Double.parseDouble(Line[4]), Double.parseDouble(Line[5]),
                     Double.parseDouble(Line[6]), Line[7], Line[8], Line[9],
-                    new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]),
-                    Line[12], Line[13]),new BankAccount( Line[14], Double.parseDouble(Line[15])));
+                    new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]), Integer.parseInt(Line[12]), Line[12], Line[13]),
+                    new BankAccount(Line[14], Double.parseDouble(Line[15])), new BirthDate(Integer.parseInt(Line[16]),
+                            Integer.parseInt(Line[17]), Integer.parseInt(Line[18])));
             persons.add(person);
             line = reader.readLine();
         }
@@ -178,6 +210,7 @@ public class User {
             if (person != null) {
                 if (person.getId().equals(persons.get(i).getId())) {
                     writer.write(person.toString());
+                    writer.write("\n");
                 } else {
                     writer.write(persons.get(i).toString());
                     writer.write("\n");
@@ -191,21 +224,46 @@ public class User {
     }
 
     public void addPerson(String fileName, String name, String password,
-        String phoneNumber, String email, String houseNumber, String flateNumber, String streetName, String placeName) throws IOException {
+            String phoneNumber, String email, String houseNumber, String flateNumber,
+            String blookNumber, String streetName, String placeName, String dayOfBirth, String monthIfBirth, String yearOfBirth) throws IOException {
         LocalDate date = LocalDate.now();
         StringBuilder line = new StringBuilder();
         line.append(password + "#" + name + "#" + 2000 + "#0#" + "0#0#" + date
                 + "#" + phoneNumber + "#" + email + "#" + houseNumber + "#" + flateNumber
-                + "#" + streetName + "#" + placeName + "#");
-        setPersons("Workers");
-        if (!persons.isEmpty()) {
-            int id = Integer.parseInt(this.persons.get(this.persons.size() - 1).getId());
+                + "#" + blookNumber + "#" + streetName + "#" + placeName + "#");
+        if (getPersons("Workers").isEmpty() && getPersons("SuperVisors").isEmpty() && getPersons("SalesMan").isEmpty()) {
+            ArrayList<String> IDs = new ArrayList<String>();
+            setPersons("Workers");
+            for (int i = 0; i < persons.size(); i++) {
+                IDs.add(persons.get(i).getId().substring(3));
+            }
+            setPersons("SuperVisors");
+            for (int i = 0; i < persons.size(); i++) {
+                IDs.add(persons.get(i).getId().substring(3));
+            }
+            setPersons("SalesMan");
+            for (int i = 0; i < persons.size(); i++) {
+                IDs.add(persons.get(i).getId().substring(3));
+            }
+            for (int i = 0; i < IDs.size(); i++) {
+                int max = Integer.parseInt(IDs.get(i));
+                int maxIndex = i;
+                for (int j = i; j < IDs.size(); j++) {
+                    if (max < Integer.parseInt(IDs.get(j))) {
+                        max = Integer.parseInt(IDs.get(j));
+                        maxIndex = j;
+                    }
+                }
+                Collections.swap(IDs, i, maxIndex);
+            }
+            String lastID = "220" + IDs.get(0);
+            int id = Integer.parseInt(lastID);
             line.insert(0, (id + 1) + "#");
         } else {
             line.insert(0, "220000" + "#");
         }
         BankAccount ba = new BankAccount();
-        line.append(ba.getAccountNumber() + "#" + ba.getBalance());
+        line.append(ba.getAccountNumber() + "#" + ba.getBalance() + dayOfBirth + "#" + monthIfBirth + "#" + yearOfBirth);
         BufferedWriter writer = new BufferedWriter(new FileWriter(fileName + ".txt"));
         for (int i = 0; i < persons.size(); i++) {
             writer.write(persons.get(i).toString());

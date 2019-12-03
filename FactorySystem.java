@@ -1,4 +1,3 @@
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -15,7 +14,6 @@ public class FactorySystem {
         user.setPersons("SalesMan");
         salesMan = (SalesMan) user.getPerson();
         manager = new Manager();
-
     }
 
     public int loginMenu() throws IOException {
