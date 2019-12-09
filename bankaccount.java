@@ -1,9 +1,4 @@
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class BankAccount {
@@ -11,7 +6,7 @@ public class BankAccount {
     private String accountNumber;
     private double balance;
 
-    public BankAccount() throws IOException {
+    public BankAccount() {
         this.accountNumber = generatrNewBankAccount();
     }
 
@@ -32,78 +27,69 @@ public class BankAccount {
         this.balance = balance;
     }
 
-    public String generatrNewBankAccount() throws IOException {
-        ArrayList<String> oldAccount = new ArrayList<String>();
-        BufferedReader reader = new BufferedReader(new FileReader("BankAccount.txt"));
-        String line = reader.readLine();
-        while (line != null) {
-            oldAccount.add(line.trim());
-            line = reader.readLine();
-        }
-        reader.close();
-        long newAccount;
-        for (;;) {
+    public String generatrNewBankAccount() {
+        long newAccount = 0;
+        boolean isCreated = false;
+        while (!isCreated) {
             newAccount = (long) (5000000000000000L + Math.random()
                     * 1000000000000000L);
-            long newAccountCopy = newAccount;
-
-            int sumOFE = 0;
-            long v;
-            for (int i = 0; i <= 16; i++) {
-                newAccountCopy /= 10;
-                v = (int) (newAccountCopy % 10);
-                v *= 2;
-                long result, num, ans;
-                num = newAccountCopy % 10;
-                ans = newAccountCopy / 10;
-                result = num + ans;
-                if (v >= 10) {
-                    sumOFE += result;
-                } else {
-                    sumOFE += v;
-                }
+            if (isValid(newAccount)) {
+                FileData.setData(newAccount + "", "BankAccount.txt");
+                isCreated = true;
             }
-            newAccountCopy = newAccount;
-            newAccountCopy /= 10;
-            int sumOFO = 0;
-            long X;
-            String theSize = "" + newAccountCopy;
-            for (int K = 1; K < theSize.length();) {
-                theSize = "" + newAccountCopy;
-                X = (newAccountCopy % 10);
-                sumOFO += X;
-                newAccountCopy /= 10;
-                newAccountCopy /= 10;
-            }
-            boolean valid = false;
-            int SUM = sumOFE + sumOFO;
-            if (SUM % 10 == 0) {
-                valid = true;
-            }
-
-            boolean isNew = true;
-
-            for (int i = 0; i < oldAccount.size(); i++) {
-                if (newAccount == Long.parseLong(oldAccount.get(i))) {
-                    isNew = false;
-                    break;
-                }
-            }
-            if (isNew && valid) {
-                BufferedWriter writer = new BufferedWriter(new FileWriter("BankAccount.txt"));
-
-                for (int i = 0; i < oldAccount.size(); i++) {
-
-                    writer.write(oldAccount.get(i));
-                    writer.write("\n");
-                }
-                writer.write(newAccount + "");
-                writer.close();
-                break;
-            }
-
         }
-        return newAccount+"";
+        return newAccount + "";
+
     }
 
+    private boolean isValid(long newAccountCopy) {
+        ArrayList<String> oldAccounts = FileData.getData("BankAccunt.txt");
+        long newAccount = newAccountCopy;
+        int sumOFeven = 0;
+        long EevenNumber;
+        for (int i = 0; i <= 16; i++) {
+            newAccountCopy /= 10;
+            EevenNumber = (int) (newAccountCopy % 10);
+            EevenNumber *= 2;
+            long result, x,y;
+            x = newAccountCopy % 10;
+            y = newAccountCopy / 10;
+            result = x + y;
+            if (EevenNumber >= 10) {
+                sumOFeven += result;
+            } else {
+                sumOFeven += EevenNumber;
+            }
+        }
+        newAccountCopy = newAccount;
+        newAccountCopy /= 10;
+        int sumOFodd = 0;
+        long OddNumber;
+        String theSize = "" + newAccountCopy;
+        for (int K = 1; K < theSize.length();) {
+            theSize = "" + newAccountCopy;
+            OddNumber = (newAccountCopy % 10);
+            sumOFodd += OddNumber;
+            newAccountCopy /= 10;
+            newAccountCopy /= 10;
+        }
+        boolean result = false;
+        int SUM = sumOFeven + sumOFodd;
+        if (SUM % 10 == 0) {
+            result = true;
+        }
+        boolean isNew = true;
+
+        for (int i = 0; i < oldAccounts.size(); i++) {
+            if (newAccount == Long.parseLong(oldAccounts.get(i))) {
+                isNew = false;
+                break;
+            }
+        }
+        boolean isValid = false;
+        if (isNew && result) {
+            isValid = true;
+        }
+        return isValid;
+    }
 }
