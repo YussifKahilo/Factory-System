@@ -4,6 +4,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Storage {
 
@@ -14,9 +15,8 @@ public class Storage {
     private int numberOfGoodsThisMonth;
 
     public Storage() throws IOException {
-        FileReader f = new FileReader("Storage.txt");
-        BufferedReader bf = new BufferedReader(f);
-        String line = bf.readLine();
+    	ArrayList<String> lines = FileData.getData("Storage.txt");
+        String line = lines.get(0);
         if (line != null) {
             String[] arr = line.split("#");
             this.numberOfStoredGoods = Integer.parseInt(arr[0]);
@@ -24,16 +24,15 @@ public class Storage {
             this.numberOfGoodsToBeSold = Integer.parseInt(arr[2]);
             this.priceOfGood = Double.parseDouble(arr[3]);
             this.numberOfGoodsThisMonth = Integer.parseInt(arr[4]);
-            bf.close();
+            
         }
     }
 
     public void setNumberOfStoredGoods(int SoldGoods) throws IOException {
         this.numberOfStoredGoods = SoldGoods;
-        FileWriter file = new FileWriter("Storage.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+		ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Storage.txt");
     }
 
     public int getNumberOfStoredGoods() {
@@ -42,10 +41,10 @@ public class Storage {
 
     public void setNumberOfSoldGoods(int numberOfSoldGoods) throws IOException {
         this.numberOfSoldGoods = numberOfSoldGoods;
-        FileWriter file = new FileWriter("Storage.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Storage.txt");
+        
     }
 
     public int getNumberOfSoldGood() {
@@ -54,10 +53,9 @@ public class Storage {
 
     public void setNumberOfGoodsTobeSold(int amount) throws IOException {
         this.numberOfGoodsToBeSold = amount;
-        FileWriter file = new FileWriter("Storage.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Storage.txt");
     }
 
     public int getNumberOfGoodsToBeSold() {
@@ -66,10 +64,9 @@ public class Storage {
 
     public void setPriceOfGoods(double price) throws IOException {
         this.priceOfGood = price;
-        FileWriter file = new FileWriter("Storage.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Storage.txt");
     }
 
     public double getPriceofGoods() {
@@ -78,10 +75,9 @@ public class Storage {
 
     public void setnumberOfGoodsThisMonth(int amount) throws IOException {
         this.numberOfGoodsThisMonth = amount;
-        FileWriter file = new FileWriter("Storage.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Storage.txt");
     }
 
     public int getnumberOfGoodsThisMonth() {

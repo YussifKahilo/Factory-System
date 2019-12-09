@@ -3,6 +3,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class Financial {
 
@@ -11,23 +12,22 @@ public class Financial {
     private double profit;
 
     public Financial() throws IOException {
-        FileReader fr = new FileReader("Financial.txt");
-        BufferedReader bf = new BufferedReader(fr);
-        String line = bf.readLine();
+    	ArrayList<String> lines = FileData.getData("Financial.txt");
+        String line = lines.get(0);
         if (line != null) {
             String[] arr = line.split("#");
             this.setTotalMoney(Double.parseDouble(arr[0]));
             this.setprofit(Double.parseDouble(arr[1]));
+            this.setMatrialsPrice(Double.parseDouble(arr[2]));
         }
-        bf.close();
+        
     }
 
     public void setTotalMoney(double amount) throws IOException {
         this.totalMoney = amount;
-        FileWriter file = new FileWriter("Financial.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Financial.txt");
     }
 
     public double getMatrialsPrice() {
@@ -36,10 +36,9 @@ public class Financial {
 
     public void setMatrialsPrice(double matrialsPrice) throws IOException {
         this.matrialsPrice = matrialsPrice;
-        FileWriter file = new FileWriter("Financial.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Financial.txt");
     }
 
     public double getTotalMoney() throws IOException {
@@ -52,10 +51,9 @@ public class Financial {
 
     public void setprofit(double provit) throws IOException {
         this.profit = provit;
-        FileWriter file = new FileWriter("Financial.txt");
-        BufferedWriter buf = new BufferedWriter(file);
-        buf.write(this.toString());
-        buf.close();
+        ArrayList<String> line=new ArrayList<String>();
+		line.add(this.toString());
+		FileData.setData(line, "Financial.txt");
     }
 
     public String toString() {
