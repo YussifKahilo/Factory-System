@@ -34,7 +34,9 @@ public class BankAccount {
             newAccount = (long) (5000000000000000L + Math.random()
                     * 1000000000000000L);
             if (isValid(newAccount)) {
-                FileData.setData(newAccount + "", "BankAccount.txt");
+        ArrayList<String> NewAccount = new ArrayList<String>();
+        NewAccount.add(newAccount+"");
+                FileData.setData(NewAccount ,"BankAccount.txt");
                 isCreated = true;
             }
         }
