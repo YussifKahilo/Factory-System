@@ -12,86 +12,25 @@ public class Manager extends Person {
 		super("1100", "Kahilo", "00");
 	}
 
-	public void promote(Employee Person) throws IOException {
-		User u1 = new User();
-		if (Person.getId().startsWith("22")) {
-			u1.removePerson(Person.getId(), "Workers");
-			Person.setId("33" + Person.getId().substring(2));
-			u1.addPerson("SuperVisors", Person.toString());
-		} else if (Person.getId().startsWith("33")) {
-			u1.removePerson(Person.getId(), "SuperVisors");
-			Person.setId("44" + Person.getId().substring(2));
-			u1.addPerson("SlalesMan", Person.toString());
-		}
+	public void promote(Employee Person) {
+
 	}
 
-	public Employee searchForEmployee() throws IOException {
-		Scanner input = new Scanner(System.in);
-		User u1 = new User();
-		ArrayList<Employee> persons;
-		String id;
-		for (;;) {
-			System.out.println("please enter id of employee");
-			id = input.next();
-			MainClass.checkForClose(id);
-			if (id.startsWith("22")) {
-				persons = u1.getPersons("Workers");
-				break;
-			} else if (id.startsWith("33")) {
-				persons = u1.getPersons("SuperVisors");
-				break;
-			} else if (id.startsWith("44")) {
-				persons = u1.getPersons("SalesMan");
-				break;
-			} else {
-				System.out.println("you input invalid id:");
-				System.out.println("please try again");
-
+	public Employee searchForEmployee(String id, ArrayList<Employee> employees) {
+		boolean employeeIsFound = false;
+		Employee chosenEmployee = null;
+		for (int i = 0; i < employees.size() && !employeeIsFound; i++) {
+			if (id.equals(employees.get(i).getId())) {
+				employeeIsFound = true;
+				chosenEmployee = employees.get(i);
 			}
 		}
-		for (int i = 0; i < persons.size(); i++) {
-			if (id.equals(persons.get(i).getId())) {
-				return persons.get(i);
-			}
-		}
-
-		return null;
+		return chosenEmployee;
 	}
 
-	public int showEmployees() throws IOException {
+	public void showEmployees(ArrayList<Employee> persons) {
+
 		Scanner input = new Scanner(System.in);
-		User u1 = new User();
-		int e = 0;
-		ArrayList<Employee> persons = new ArrayList<Employee>();
-		OUTER: for (;;) {
-			System.out.println("*******************************************");
-			System.out.println("* 1- Worker                               *");
-			System.out.println("* 2- Supervisor                           *");
-			System.out.println("* 3- Sales man                            *");
-			System.out.println("* 4- Back                                 *");
-			System.out.print("*******************************************\n::");
-			String select = input.next();
-			MainClass.checkForClose(select);
-			switch (Integer.parseInt(select)) {
-			case 1:
-				persons = u1.getPersons("Workers");
-				e = 11;
-				break OUTER;
-			case 2:
-				persons = u1.getPersons("SuperVisors");
-				e = 11;
-				break OUTER;
-			case 3:
-				persons = u1.getPersons("SalesMan");
-				e = 11;
-				break OUTER;
-			case 4:
-				return 0;
-			default:
-				System.out.println("invalid input");
-				break;
-			}
-		}
 		System.out.println("Do you Want to sort employees By thier ID OR Over All Rate ?\n1)ID\n2)Over All Rate");
 		int sortingChoice = input.nextInt();
 		System.out.println(
@@ -136,7 +75,6 @@ public class Manager extends Person {
 		}
 		System.out.println(
 				"+------------------------------------------------------------------------------------------------------------------------------------+");
-		return e;
 	}
 
 	public void storageManagment(int num) throws IOException {
@@ -188,23 +126,21 @@ public class Manager extends Person {
 		System.out.print("Enter the target : ");
 		String target = input.next();
 		MainClass.checkForClose(target);
-		User u = new User();
 		ArrayList<Employee> workers = u.getPersons("Workers");
 		buf.write(Integer.parseInt(target) + "#" + ((int) (Integer.parseInt(target) / workers.size())));
 		buf.close();
 	}
 
-	public void firingEmployee(Employee Person) throws IOException {
-		User u1 = new User();
-		if (Person.getId().startsWith("22")) {
-			u1.removePerson(Person.getId(), "Workers");
-			u1.updateInformations("Workers", null);
-		} else if (Person.getId().startsWith("33")) {
-			u1.removePerson(Person.getId(), "SuperVisors");
-			u1.updateInformations("SuperVisors", null);
-		} else if (Person.getId().startsWith("44")) {
-			u1.removePerson(Person.getId(), "SalesMan");
-			u1.updateInformations("SalesMan", null);
-		}
+	public void firingEmployee(Employee Person) {
+
+		/*
+		 * User u1 = new User(); if (Person.getId().startsWith("22")) {
+		 * u1.removePerson(Person.getId(), "Workers"); u1.updateInformations("Workers",
+		 * null); } else if (Person.getId().startsWith("33")) {
+		 * u1.removePerson(Person.getId(), "SuperVisors");
+		 * u1.updateInformations("SuperVisors", null); } else if
+		 * (Person.getId().startsWith("44")) { u1.removePerson(Person.getId(),
+		 * "SalesMan"); u1.updateInformations("SalesMan", null); }
+		 */
 	}
 }
