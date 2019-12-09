@@ -5,239 +5,156 @@ import java.util.Scanner;
 
 public class Employee extends Person {
 
-    private BankAccount bankAccount;
-    private String email;
-    private double salary;
-    private String phoneNumber;
-    private double bonus;
-    private String hiringDate;
-    private double monthlyRate;
-    private double overallRate;
-    private Address address;
-    private BirthDate birthdate;
+	private BankAccount bankAccount;
+	private String email;
+	private double salary;
+	private String phoneNumber;
+	private double bonus;
+	private String hiringDate;
+	private double monthlyRate;
+	private double overallRate;
+	private Address address;
+	private BirthDate birthdate;
 
-    public Employee(String id, String password, String name, double salary, double bonus, double monthlyRate,
-            double overallRate, String hiringDate, String phoneNumber, String email,Address address , BankAccount bankAccount , BirthDate birthdate) {
-        super(id, name, password);
-        this.bankAccount = bankAccount;
-        this.email = email;
-        this.salary = salary;
-        this.phoneNumber = phoneNumber;
-        this.bonus = bonus;
-        this.hiringDate = hiringDate;
-        this.monthlyRate = monthlyRate;
-        this.overallRate = overallRate;
-        this.address = address;
-        this.birthdate = birthdate;
-    }
+	public Employee(String id, String password, String name, double salary, double bonus, double monthlyRate,
+			double overallRate, String hiringDate, String phoneNumber, String email, Address address,
+			BankAccount bankAccount, BirthDate birthdate) {
+		super(id, name, password);
+		this.bankAccount = bankAccount;
+		this.email = email;
+		this.salary = salary;
+		this.phoneNumber = phoneNumber;
+		this.bonus = bonus;
+		this.hiringDate = hiringDate;
+		this.monthlyRate = monthlyRate;
+		this.overallRate = overallRate;
+		this.address = address;
+		this.birthdate = birthdate;
+	}
 
-    public BankAccount getBankAccount() {
-        return bankAccount;
-    }
+	public BankAccount getBankAccount() {
+		return bankAccount;
+	}
 
-    public void setBankAccount(BankAccount bankAccount) {
-        this.bankAccount = bankAccount;
-    }
+	public void setBankAccount(BankAccount bankAccount) {
+		this.bankAccount = bankAccount;
+	}
 
-    public Address getAddress() {
-        return address;
-    }
+	public Address getAddress() {
+		return address;
+	}
 
-    public void setAddress(int houseNumber, int flateNumber,int blookNumber,
-            String streetName, String place) {
-        this.address = new Address(houseNumber, flateNumber, blookNumber, streetName, place);
-    }
+	public void setAddress(int houseNumber, int flateNumber, int blookNumber, String streetName, String place) {
+		this.address = new Address(houseNumber, flateNumber, blookNumber, streetName, place);
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public double getSalary() {
-        return salary;
-    }
+	public double getSalary() {
+		return salary;
+	}
 
-    public void setSalary(double salary) {
-        this.salary = salary;
-    }
+	public void setSalary(double salary) {
+		this.salary = salary;
+	}
 
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
+	public String getPhoneNumber() {
+		return phoneNumber;
+	}
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
+	}
 
-    public double getBonus() {
-        return bonus;
-    }
+	public double getBonus() {
+		return bonus;
+	}
 
-    public void setBonus(double bonus) {
-        this.bonus = bonus;
-    }
+	public void setBonus(double bonus) {
+		this.bonus = bonus;
+	}
 
-    public String getHiringDate() {
-        return hiringDate;
-    }
+	public String getHiringDate() {
+		return hiringDate;
+	}
 
-    public void setHiringDate(String hiringDate) {
-        this.hiringDate = hiringDate;
-    }
+	public void setHiringDate(String hiringDate) {
+		this.hiringDate = hiringDate;
+	}
 
-    public double getMonthlyRate() {
-        return monthlyRate;
-    }
+	public double getMonthlyRate() {
+		return monthlyRate;
+	}
 
-    public void setMonthlyRate(double monthlyRate) {
-        this.monthlyRate = monthlyRate;
-    }
+	public void setMonthlyRate(double monthlyRate) {
+		this.monthlyRate = monthlyRate;
+	}
 
-    public double getOverallRate() {
-        return overallRate;
-    }
+	public double getOverallRate() {
+		return overallRate;
+	}
 
-    public void setOverallRate(double overallRate) {
-        this.overallRate = overallRate;
-    }
+	public void setOverallRate(double overallRate) {
+		this.overallRate = overallRate;
+	}
 
-    public BirthDate getBirthDate() {
-        return birthdate;
-    }
+	public BirthDate getBirthDate() {
+		return birthdate;
+	}
 
-    public void setBirthDate(int dayOfBirth,int monthOfBirth,int yearOfBirth) {
-        this.birthdate = new BirthDate(dayOfBirth, monthOfBirth, yearOfBirth);
-    }
-    
-    public void editInformations() throws IOException {
-        User user = new User();
-        Scanner input = new Scanner(System.in);
-        while (true) {
-            System.out.println("To Change :\n 1- Name\n 2- password\n 3- phone number\n 4- E-Mail\n 5- Address");
-            System.out.print("::");
-            String choice = input.next();
-            MainClass.checkForClose(choice);
-            if (choice.equalsIgnoreCase("1")) {
-                System.out.print("Enter Your Name : ");
-                String name = input.nextLine();
-                MainClass.checkForClose(name);
-                this.setName(name);
-                break;
-            } else if (choice.equalsIgnoreCase("2")) {
-                while (true) {
-                    System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
-                    System.out.println("   - Four Charecters \n  - One upercase letter . "
-                            + "\n   - One lowercase letter . " + "\n   - One Number or Symbol .");
-                    System.out.print("Enter a password : ");
-                    String password = input.next();
-                    MainClass.checkForClose(password);
-                    if (user.isPasswordValid(password)) {
-                        while (true) {
-                            System.out.print("Confirm your password : ");
-                            String password2 = input.next();
-                            MainClass.checkForClose(password2);
-                            if (password.equals(password2)) {
-                                break;
-                            } else {
-                                System.out.println("The two password are not identical ..");
-                            }
-                        }
-                        this.setPassword(password);
-                        break;
-                    }
-                    break;
-                }
-            } else if (choice.equalsIgnoreCase("3")) {
-                System.out.print("Enter Yout phone number :");
-                String phoneNumber = input.next();
-                MainClass.checkForClose(phoneNumber);
-                this.setPhoneNumber(phoneNumber);
-                break;
-            } else if (choice.equalsIgnoreCase("4")) {
-                System.out.print("Enter your E-Mail :");
-                String email = input.next();
-                MainClass.checkForClose(email);
-                this.setEmail(email);
-                break;
-            } else if (choice.equalsIgnoreCase("5")) {
-                System.out.print("Enter your house number : ");
-                String houseNumber = input.next();
-                MainClass.checkForClose(houseNumber);
-                System.out.print("Enter your floor number : ");
-                String flatNumber = input.next();
-                MainClass.checkForClose(flatNumber);
-                System.out.print("Enter your blook number : ");
-                String blookNumber = input.next();
-                MainClass.checkForClose(blookNumber);
-                System.out.print("Enter your street name : ");
-                input.nextLine();
-                String streetName = input.nextLine();
-                MainClass.checkForClose(streetName);
-                System.out.print("Enter your place name : ");
-                String placeName = input.nextLine();
-                MainClass.checkForClose(placeName);
-                this.setAddress(Integer.parseInt(houseNumber), Integer.parseInt(flatNumber),Integer.parseInt(blookNumber), streetName, placeName);
-                break;
-            } else {
-                System.out.println("invalid input\nchoose Again");
-                break;
-            }
-        }
-        if (this.getId().startsWith("22")) {
-            user.updateInformations("Workers",this);
-        } else if (this.getId().startsWith("33")) {
-            user.updateInformations("SuperVisors",this);
-        } else if (this.getId().startsWith("44")) {
-            user.updateInformations("SalesMan",this);
-        }
-    }
+	public void setBirthDate(int dayOfBirth, int monthOfBirth, int yearOfBirth) {
+		this.birthdate = new BirthDate(dayOfBirth, monthOfBirth, yearOfBirth);
+	}
 
-    public void withDraw(double amount) {
-        double balance = bankAccount.getBalance();
-        if (amount > balance) {
-            System.out.println("your balance is less than the amount ");
-        } else {
-            bankAccount.setBalance(balance - amount);
-        }
-    }
+	public void withDraw(double amount) {
+		double balance = bankAccount.getBalance();
+		if (amount > balance) {
+			System.out.println("your balance is less than the amount ");
+		} else {
+			bankAccount.setBalance(balance - amount);
+		}
+	}
 
-    public void deposit(double amount) {
-        bankAccount.setBalance(amount + bankAccount.getBalance());
-    }
+	public void deposit(double amount) {
+		bankAccount.setBalance(amount + bankAccount.getBalance());
+	}
 
-    public void showInformations() {
-        System.out.println("*--------------------------------------------------------------------------");
-        System.out.println("|Name                    : " + this.getName());
-        System.out.println("|ID                      : " + this.getId());
-        System.out.println("|Bonus                   : " + (this.getBonus() / 100) + "%");
-        System.out.println("|Salary                  : " + this.getSalary());
-        System.out.println("|Salary after Bonus      : " + (this.getSalary() + (this.getBonus() * this.getSalary())));
-        System.out.println("|Overall Rate            : " + this.getOverallRate());
-        System.out.println("|Bank account            : " + this.getBankAccount().getAccountNumber());
-        System.out.println("|Balance in the account  : " + this.getBankAccount().getBalance());
-        System.out.println("|Phone Number            : " + this.getPhoneNumber());
-        System.out.println("|E-mail                  : " + this.getEmail());
-        System.out.println("|Address                 : " + this.getAddress().toString());
-        System.out.println("*--------------------------------------------------------------------------");
-    }
+	public void showInformations() {
+		System.out.println("*--------------------------------------------------------------------------");
+		System.out.println("|Name                    : " + this.getName());
+		System.out.println("|ID                      : " + this.getId());
+		System.out.println("|Bonus                   : " + (this.getBonus() / 100) + "%");
+		System.out.println("|Salary                  : " + this.getSalary());
+		System.out.println("|Salary after Bonus      : " + (this.getSalary() + (this.getBonus() * this.getSalary())));
+		System.out.println("|Overall Rate            : " + this.getOverallRate());
+		System.out.println("|Bank account            : " + this.getBankAccount().getAccountNumber());
+		System.out.println("|Balance in the account  : " + this.getBankAccount().getBalance());
+		System.out.println("|Phone Number            : " + this.getPhoneNumber());
+		System.out.println("|E-mail                  : " + this.getEmail());
+		System.out.println("|Address                 : " + this.getAddress().toString());
+		System.out.println("*--------------------------------------------------------------------------");
+	}
 
-    public int showTarget() throws IOException{
-        BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
-        String line = reader.readLine();
-        String [] Line = line.split("#");
-        System.out.println("The Target this month is : " + Line[0]);
-        System.out.println("Target for each worker is : " + Line[1]);
-        reader.close();
-        return Integer.parseInt(Line[1]);
-    }
-    
-    public String toString() {
-        return getId() + "#" + getPassword() + "#" + getName() + "#" + salary + "#" + bonus + "#" + monthlyRate + "#"
-                + overallRate + "#" + hiringDate + "#" + phoneNumber + "#" + email + "#" + address.getHouseNumber()
-                + "#" + address.getFloorNumber()+ "#" +address.getBlockNumber()+"#"+ address.getStreetName() + "#" + address.getRegion()
-                + "#" + bankAccount.getAccountNumber() + "#" + bankAccount.getBalance();
-    }
+	public int showTarget() throws IOException {
+		BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
+		String line = reader.readLine();
+		String[] Line = line.split("#");
+		System.out.println("The Target this month is : " + Line[0]);
+		System.out.println("Target for each worker is : " + Line[1]);
+		reader.close();
+		return Integer.parseInt(Line[1]);
+	}
+
+	public String toString() {
+		return getId() + "#" + getPassword() + "#" + getName() + "#" + salary + "#" + bonus + "#" + monthlyRate + "#"
+				+ overallRate + "#" + hiringDate + "#" + phoneNumber + "#" + email + "#" + address.getHouseNumber()
+				+ "#" + address.getFloorNumber() + "#" + address.getBlockNumber() + "#" + address.getStreetName() + "#"
+				+ address.getRegion() + "#" + bankAccount.getAccountNumber() + "#" + bankAccount.getBalance();
+	}
 }
