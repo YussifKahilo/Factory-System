@@ -15,12 +15,14 @@ public class MainClass {
         }
         return true;
     }
-    
+
     public static void main(String[] args) {
         Factory factory = new Factory();
         FactorySystem factroySystem = factory.getFactorySystem();
-        Person user = factroySystem.loginingIn();
-        System.out.println(user.getName());
+        while (true) {
+            Person user = factroySystem.loginingIn();
+            System.out.println(user.getName());
+            factory.userUtility(user);
+        }
     }
-
 }

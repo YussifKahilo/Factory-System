@@ -1,4 +1,4 @@
-package FactorySystem;
+
 public class Worker extends Employee {
 
     Worker(Employee worker) {

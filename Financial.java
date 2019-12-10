@@ -36,12 +36,12 @@ public class Financial {
         return totalMoney;
     }
 
-    public double getprofit() {
+    public double getProfit() {
         return profit;
     }
 
-    public void setprofit(double provit) {
-        this.profit = provit;
+    public void setProfit(double profit) {
+        this.profit = profit;
         String line = this.toString();
         FileData.setData(line, "Financial.txt");
     }

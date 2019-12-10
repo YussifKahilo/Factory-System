@@ -7,15 +7,9 @@ import java.util.Scanner;
 public class FactorySystem {
 
     private static ArrayList<Employee> users = new ArrayList<Employee>();
-    private ArrayList<Employee> usersOfWorkers;
-    private ArrayList<Employee> usersOfSuperVisors;
-    private ArrayList<Employee> usersOfSalesMen;
     private Manager userOfManager;
 
     public FactorySystem(ArrayList<Employee> usersOfWorkers, ArrayList<Employee> usersOfSuperVisors, ArrayList<Employee> usersOfSalesMen, Manager userOfManager) {
-        this.usersOfWorkers = usersOfWorkers;
-        this.usersOfSuperVisors = usersOfSuperVisors;
-        this.usersOfSalesMen = usersOfSalesMen;
         this.userOfManager = userOfManager;
         for (int i = 0; i < usersOfWorkers.size(); i++) {
             users.add(usersOfWorkers.get(i));
@@ -35,7 +29,6 @@ public class FactorySystem {
         String email;
         System.out.print("Enter your name : ");
         String name = in.nextLine();
-        MainClass.checkForClose(name);
         System.out.println("---------------------------");
         for (;;) {
             for (;;) {
@@ -45,14 +38,12 @@ public class FactorySystem {
                         + "\n   - One Number or Symbol .");
                 System.out.print("Enter a password : ");
                 password = in.next();
-                MainClass.checkForClose(password);
                 if (isPasswordValid(password)) {
                     break;
                 }
             }
             System.out.print("Confirm your password : ");
             String password2 = in.next();
-            MainClass.checkForClose(password2);
             if (password.equals(password2)) {
                 break;
             } else {
@@ -63,36 +54,31 @@ public class FactorySystem {
         System.out.println("Your Birth Date :");
         System.out.print("-->Day : ");
         String dayOfBirth = in.next();
-        MainClass.checkForClose(dayOfBirth);
         System.out.print("-->Month : ");
         String monthOfBirth = in.next();
-        MainClass.checkForClose(monthOfBirth);
         System.out.print("-->Year : ");
         String yearOfBirth = in.next();
-        MainClass.checkForClose(yearOfBirth);
         System.out.println("---------------------------");
-        System.out.print("Enter your house number : ");
-        String houseNumber = in.next();
-        MainClass.checkForClose(houseNumber);
+        System.out.print("Enter your apartment Number : ");
+        String apartmentNumber = in.next();
         System.out.print("Enter your floor number : ");
-        String flatNumber = in.next();
-        MainClass.checkForClose(flatNumber);
-        System.out.print("Enter your blook number : ");
-        String blookNumber = in.next();
-        MainClass.checkForClose(blookNumber);
+        String floorNumber = in.next();
+        System.out.print("Enter your bulding Number : ");
+        String buldingNumber = in.next();
         System.out.print("Enter your street name : ");
         in.nextLine();
         String streetName = in.nextLine();
-        MainClass.checkForClose(streetName);
-        System.out.print("Enter your place name : ");
-        String placeName = in.nextLine();
-        MainClass.checkForClose(placeName);
+        System.out.print("Enter your block name : ");
+        in.nextLine();
+        String blockName = in.nextLine();
+        System.out.print("Enter your City name : ");
+        in.nextLine();
+        String cityName = in.nextLine();
         System.out.println("---------------------------");
         String phoneNumber;
         for (;;) {
             System.out.print("Please enter your phone number : ");
             phoneNumber = in.next();
-            MainClass.checkForClose(phoneNumber);
             if (phoneNumber.length() == 11 && phoneNumber.startsWith("01")) {
                 break;
             } else {
@@ -103,7 +89,6 @@ public class FactorySystem {
         for (;;) {
             System.out.print("Please enter your Email : ");
             email = in.next();
-            MainClass.checkForClose(email);
             if (email.contains("@") && email.contains(".com")) {
                 break;
             } else {
@@ -111,7 +96,7 @@ public class FactorySystem {
             }
             System.out.println("---------------------------");
         }
-        addUser("Workers", name, password, phoneNumber, email, houseNumber, flatNumber, blookNumber, streetName, placeName, dayOfBirth, monthOfBirth, yearOfBirth);
+        addUser("Workers", name, password, phoneNumber, email, apartmentNumber, floorNumber, buldingNumber, streetName, blockName, cityName, dayOfBirth, monthOfBirth, yearOfBirth);
     }
 
     public boolean isPasswordValid(String password) {
@@ -195,13 +180,13 @@ public class FactorySystem {
     }
 
     public void addUser(String fileName, String name, String password,
-            String phoneNumber, String email, String houseNumber, String flateNumber,
-            String blookNumber, String streetName, String placeName, String dayOfBirth, String monthIfBirth, String yearOfBirth) {
+            String phoneNumber, String email, String apartmentNumber, String floorNumber,
+            String buldingNumber, String streetName, String blockName, String cityName, String dayOfBirth, String monthIfBirth, String yearOfBirth) {
         LocalDate date = LocalDate.now();
         StringBuilder line = new StringBuilder();
         line.append(password + "#" + name + "#" + 2000 + "#0#" + "0#0#" + date
-                + "#" + phoneNumber + "#" + email + "#" + houseNumber + "#" + flateNumber
-                + "#" + blookNumber + "#" + streetName + "#" + placeName + "#");
+                + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber
+                + "#" + buldingNumber + "#" + streetName + "#" + blockName + "#" + cityName + "#");
         if (users == null) {
             ArrayList<String> IDs = new ArrayList<String>();
             for (int i = 0; i < users.size(); i++) {
@@ -227,8 +212,10 @@ public class FactorySystem {
         BankAccount ba = new BankAccount();
         line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + dayOfBirth + "#" + monthIfBirth + "#" + yearOfBirth);
         ArrayList<String> workers = new ArrayList<String>();
-        for (int i = 0; i < usersOfWorkers.size(); i++) {
-            workers.add(usersOfWorkers.get(i).toString());
+        for (int i = 0; i < users.size(); i++) {
+            if (users.get(i).getId().startsWith("22")) {
+                workers.add(users.get(i).toString());
+            }
         }
         workers.add(line.toString());
         FileData.setData(workers, "Workers.txt");
