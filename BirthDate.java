@@ -1,3 +1,4 @@
+
 import java.time.LocalDate;
 
 public class BirthDate {
@@ -40,7 +41,7 @@ public class BirthDate {
     public int getAge() {
         LocalDate Date = LocalDate.now();
         String s = Date.toString();
-        String [] date = s.split("-");
+        String[] date = s.split("-");
         int YearDate = Integer.parseInt(date[0]);
         int monthDate = Integer.parseInt(date[1]);
         int DayDate = Integer.parseInt(date[2]);

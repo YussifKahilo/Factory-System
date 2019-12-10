@@ -1,7 +1,4 @@
 
-import java.io.IOException;
-import java.util.Scanner;
-
 public class MainClass {
 
     public static void checkForClose(String line) {
@@ -18,20 +15,12 @@ public class MainClass {
         }
         return true;
     }
-
-    public static void main(String[] args) throws IOException {
-        FactorySystem factorySystem = new FactorySystem();
-        for (;;) {
-            Scanner in = new Scanner(System.in);
-            int num = factorySystem.loginMenu();
-            for (;;) {
-                factorySystem.displayMenu(num);
-                String choice = in.next();
-                checkForClose(choice);
-                if (!factorySystem.menuOptions(num, Integer.parseInt(choice))) {
-                    break;
-                }
-            }
-        }
+    
+    public static void main(String[] args) {
+        Factory factory = new Factory();
+        FactorySystem factroySystem = factory.getFactorySystem();
+        Person user = factroySystem.loginingIn();
+        System.out.println(user.getName());
     }
+
 }

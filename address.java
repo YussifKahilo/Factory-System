@@ -1,3 +1,4 @@
+
 public class Address {
 
     private int blockNumber;
@@ -6,7 +7,7 @@ public class Address {
     private int houseNumber;
     private int floorNumber;
 
-    public Address (int houseNumber, int floorNumber,int blockNumber, String streetName, String region ) {
+    public Address(int houseNumber, int floorNumber, int blockNumber, String streetName, String region) {
         this.houseNumber = houseNumber;
         this.floorNumber = floorNumber;
         this.blockNumber = blockNumber;
@@ -33,10 +34,9 @@ public class Address {
     public int getFloorNumber() {
         return floorNumber;
     }
-    
+
     public String toString() {
-        return  blockNumber +" "+ streetName+" " + region + " Floor Number:" + floorNumber + " / House Number:" + houseNumber +"]";
+        return blockNumber + " " + streetName + " " + region + "[ Floor Number:" + floorNumber + " / House Number:" + houseNumber + "]";
     }
 
 }
-

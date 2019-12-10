@@ -26,7 +26,8 @@ public class Factory {
     }
 
     public ArrayList<Employee> setEmployees(String fileName) {
-        ArrayList<String> LINES = FileData.getData(fileName + ".txt");
+        ArrayList<String> LINES = new ArrayList<String>();
+        FileData.getData(LINES,fileName + ".txt");
         ArrayList<Employee> persons = new ArrayList<Employee>();
         for (int i = 0; i < LINES.size(); i++) {
             String line = LINES.get(i);
@@ -41,5 +42,20 @@ public class Factory {
             persons.add(person);
         }
         return persons;
+    }
+    
+    public void userUtility(Person user){
+        if(user instanceof Manager){
+            
+            
+        }else if (user instanceof Worker){
+            
+            
+        }else if (user instanceof SuperVisor){
+            
+            
+        }else if (user instanceof SalesMan){
+            
+        }
     }
 }

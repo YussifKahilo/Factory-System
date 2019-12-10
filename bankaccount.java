@@ -45,7 +45,8 @@ public class BankAccount {
     }
 
     private boolean isValid(long newAccountCopy) {
-        ArrayList<String> oldAccounts = FileData.getData("BankAccunt.txt");
+        ArrayList<String> oldAccounts = new ArrayList<String>();
+        FileData.getData(oldAccounts,"BankAccunt.txt");
         long newAccount = newAccountCopy;
         int sumOFeven = 0;
         long EevenNumber;
