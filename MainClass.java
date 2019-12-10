@@ -17,11 +17,11 @@ public class MainClass {
     }
 
     public static void main(String[] args) {
+        UserMenu.startUpMassege();
         Factory factory = new Factory();
         FactorySystem factroySystem = factory.getFactorySystem();
         while (true) {
             Person user = factroySystem.loginingIn();
-            System.out.println(user.getName());
             factory.userUtility(user);
         }
     }

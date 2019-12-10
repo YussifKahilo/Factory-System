@@ -10,7 +10,7 @@ public class Financial {
         if (line != null) {
             String[] arr = line.split("#");
             this.setTotalMoney(Double.parseDouble(arr[0]));
-            this.setprofit(Double.parseDouble(arr[1]));
+            this.setProfit(Double.parseDouble(arr[1]));
             this.setMatrialsPrice(Double.parseDouble(arr[2]));
         }
 

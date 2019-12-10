@@ -20,7 +20,6 @@ public class FactorySystem {
         for (int i = 0; i < usersOfSalesMen.size(); i++) {
             users.add(usersOfSalesMen.get(i));
         }
-
     }
 
     private void creatingUser() {
@@ -59,20 +58,19 @@ public class FactorySystem {
         System.out.print("-->Year : ");
         String yearOfBirth = in.next();
         System.out.println("---------------------------");
-        System.out.print("Enter your apartment Number : ");
+        System.out.println("Your Address :");
+        System.out.print("-->Apartment Number : ");
         String apartmentNumber = in.next();
-        System.out.print("Enter your floor number : ");
+        System.out.print("-->Floor number : ");
         String floorNumber = in.next();
-        System.out.print("Enter your bulding Number : ");
+        System.out.print("-->Bulding Number : ");
         String buldingNumber = in.next();
-        System.out.print("Enter your street name : ");
+        System.out.print("-->Street name : ");
         in.nextLine();
         String streetName = in.nextLine();
-        System.out.print("Enter your block name : ");
-        in.nextLine();
+        System.out.print("-->Block name : ");
         String blockName = in.nextLine();
-        System.out.print("Enter your City name : ");
-        in.nextLine();
+        System.out.print("-->City name : ");
         String cityName = in.nextLine();
         System.out.println("---------------------------");
         String phoneNumber;
@@ -96,7 +94,10 @@ public class FactorySystem {
             }
             System.out.println("---------------------------");
         }
-        addUser("Workers", name, password, phoneNumber, email, apartmentNumber, floorNumber, buldingNumber, streetName, blockName, cityName, dayOfBirth, monthOfBirth, yearOfBirth);
+        String informations = password + "#" + name + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber + "#" + buldingNumber + "#" + streetName + "#"
+                + blockName + "#" + cityName + "#" + dayOfBirth + "#" + monthOfBirth + "#" + yearOfBirth;
+        addUser("Workers", informations);
+
     }
 
     public boolean isPasswordValid(String password) {
@@ -139,19 +140,22 @@ public class FactorySystem {
                 } else if (id.startsWith("22")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
-                        user = getEmployee(id);
+                        user = new Worker(getEmployee(id));
                     }
                 } else if (id.startsWith("33")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
-                        user = getEmployee(id);
+                        user = new SuperVisor(getEmployee(id), users);
                     }
                 } else if (id.startsWith("44")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
-                        user = getEmployee(id);
-
+                        user = new SalesMan(getEmployee(id));
                     }
+                } else {
+                    System.out.println("***********************");
+                    System.out.println("Invalid ID OR PASSWORD*");
+                    System.out.println("***********************");
                 }
             }
         }
@@ -179,14 +183,13 @@ public class FactorySystem {
         return false;
     }
 
-    public void addUser(String fileName, String name, String password,
-            String phoneNumber, String email, String apartmentNumber, String floorNumber,
-            String buldingNumber, String streetName, String blockName, String cityName, String dayOfBirth, String monthIfBirth, String yearOfBirth) {
+    public void addUser(String fileName, String informations) {
         LocalDate date = LocalDate.now();
         StringBuilder line = new StringBuilder();
-        line.append(password + "#" + name + "#" + 2000 + "#0#" + "0#0#" + date
-                + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber
-                + "#" + buldingNumber + "#" + streetName + "#" + blockName + "#" + cityName + "#");
+        String[] infromations_array = informations.split("#");
+        line.append(infromations_array[0] + "#" + infromations_array[1] + "#" + 2000 + "#0#" + "0#0#" + date
+                + "#" + infromations_array[2] + "#" + infromations_array[3] + "#" + infromations_array[4] + "#" + infromations_array[5]
+                + "#" + infromations_array[6] + "#" + infromations_array[7] + "#" + infromations_array[8] + "#" + infromations_array[9] + "#");
         if (users == null) {
             ArrayList<String> IDs = new ArrayList<String>();
             for (int i = 0; i < users.size(); i++) {
@@ -210,7 +213,7 @@ public class FactorySystem {
             line.insert(0, "220000" + "#");
         }
         BankAccount ba = new BankAccount();
-        line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + dayOfBirth + "#" + monthIfBirth + "#" + yearOfBirth);
+        line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + infromations_array[10] + "#" + infromations_array[11] + "#" + infromations_array[12]);
         ArrayList<String> workers = new ArrayList<String>();
         for (int i = 0; i < users.size(); i++) {
             if (users.get(i).getId().startsWith("22")) {

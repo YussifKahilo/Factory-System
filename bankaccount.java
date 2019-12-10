@@ -34,9 +34,9 @@ public class BankAccount {
             newAccount = (long) (5000000000000000L + Math.random()
                     * 1000000000000000L);
             if (isValid(newAccount)) {
-        ArrayList<String> NewAccount = new ArrayList<String>();
-        NewAccount.add(newAccount+"");
-                FileData.setData(NewAccount ,"BankAccount.txt");
+                ArrayList<String> NewAccount = new ArrayList<String>();
+                NewAccount.add(newAccount + "");
+                FileData.setData(NewAccount, "BankAccount.txt");
                 isCreated = true;
             }
         }
@@ -46,7 +46,7 @@ public class BankAccount {
 
     private boolean isValid(long newAccountCopy) {
         ArrayList<String> oldAccounts = new ArrayList<String>();
-        FileData.getData(oldAccounts,"BankAccunt.txt");
+        FileData.getData(oldAccounts, "BankAccount.txt");
         long newAccount = newAccountCopy;
         int sumOFeven = 0;
         long EevenNumber;
@@ -54,7 +54,7 @@ public class BankAccount {
             newAccountCopy /= 10;
             EevenNumber = (int) (newAccountCopy % 10);
             EevenNumber *= 2;
-            long result, x,y;
+            long result, x, y;
             x = newAccountCopy % 10;
             y = newAccountCopy / 10;
             result = x + y;

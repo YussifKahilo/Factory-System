@@ -18,24 +18,12 @@ public class BirthDate {
         return Day;
     }
 
-    public void setDay(int day) {
-        this.Day = day;
-    }
-
     public int getMonth() {
         return Month;
     }
 
-    public void setMonth(int month) {
-        this.Month = month;
-    }
-
     public int getYear() {
         return Year;
-    }
-
-    public void setYear(int year) {
-        this.Year = year;
     }
 
     public int getAge() {
