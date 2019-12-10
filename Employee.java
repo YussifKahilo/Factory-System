@@ -141,28 +141,12 @@ public class Employee extends Person {
 		System.out.println("*--------------------------------------------------------------------------");
 	}
 
-	public void editName() {
-		
-	}
-
-	public void editPassword() {
-		
-	}
-
-	public void editPhoneNumber() {
-		
-	}
-
-	public void editAddress() {
-		
-	}
-
 	public int showTarget() {
-		ArrayList<String> line = new  ;
-		FileData.getData(line,"Target.txt");
-		System.out.println("The Target this month is : " + line.get(0));
-		System.out.println("Target for each worker is : " + line.get(1));
-		return Integer.parseInt(line.get(1));
+		String line = FileData.getData("Target.txt");
+		String[] str = line.split("#");
+		System.out.println("The Target this month is : " + str[0]);
+		System.out.println("Target for each worker is : " + str[1]);
+		return Integer.parseInt(str[1]);
 	}
 
 	public String toString() {
