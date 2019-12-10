@@ -8,17 +8,26 @@ import java.util.ArrayList;
 
 public class FileData {
 
-    public static ArrayList<String> getData(String fileName) {
+    public static void getData(ArrayList<String> LINES,String fileName) {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
-            ArrayList<String> LINE = new ArrayList<String>();
             String line = reader.readLine();
             while (line != null) {
-                LINE.add(line);
+                LINES.add(line);
                 line = reader.readLine();
             }
             reader.close();
-            return LINE;
+        } catch (IOException e) {
+            System.out.println("The file \"" + fileName + "\" is not at the right location..");
+        }
+    }
+    
+    public static String getData(String fileName) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(fileName));
+            String line = reader.readLine();
+            reader.close();
+            return line;
         } catch (IOException e) {
             System.out.println("The file \"" + fileName + "\" is not at the right location..");
         }
