@@ -156,22 +156,15 @@ public class SuperVisor extends Employee {
 		return Y;
 	}
 	
-	
 	@Override
 	public int showTarget(){
 		super.showTarget();
-		//BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
-		//String line = reader.readLine();
-		//String[] Line = line.split("#");
-		//reader.close();
-		
 		String TargetLine = FileData.getData("Target.txt") ;
 		String[] Line = TargetLine.split("#");
 		System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * numOfWorkers));
 		//reader.close();
 		return (Integer.parseInt(Line[1]) * numOfWorkers);
 	}
-	
 	
 	public void setTargetResult(int amount, int target) {
 		String storedGoods;
