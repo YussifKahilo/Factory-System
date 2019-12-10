@@ -99,6 +99,8 @@ public class Manager extends Person {
 		Scanner input = new Scanner(System.in);
 		Storage storage = new Storage();
 		Factory factory = new Factory();
+		
+		
 		if (num == 1) {
 			System.out.println("The number of stored goods: " + storage.getNumberOfStoredGoods());
 		} else if (num == 2) {
