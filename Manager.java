@@ -2,9 +2,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 public class Manager extends Person {
 
@@ -12,7 +9,20 @@ public class Manager extends Person {
 		super("1100", "Kahilo", "00");
 	}
 
-	public void promote(Employee Person) {
+	public void promote(Employee employee, String promotedEmployee) {
+		Factory factory = new Factory();
+		if (promotedEmployee.equals("SuperVisor")) {
+			employee.setId("33" + employee.getId().substring(2));
+			factory.removeWorker(employee);
+			factory.addNewSuperVisor(employee);
+			ArrayList<String> superVisors = new ArrayList<String>();
+			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
+				superVisors.add(factory.getSuperVisors().get(i).toString());
+			}
+			FileData.setData(superVisors, "SuperVisors.txt");
+		} else {
+			
+		}
 
 	}
 
@@ -77,7 +87,7 @@ public class Manager extends Person {
 				"+------------------------------------------------------------------------------------------------------------------------------------+");
 	}
 
-	public void storageManagment(int num) throws IOException {
+	public void storageManagment(int num) {
 		Scanner input = new Scanner(System.in);
 		Storage storage = new Storage();
 		if (num == 1) {
@@ -94,16 +104,14 @@ public class Manager extends Person {
 		} else if (num == 4) {
 			System.out.println("Enter The Number Of Goods To be Sold: ");
 			String numOfGoodsToBeSold = input.next();
-			MainClass.checkForClose(numOfGoodsToBeSold);
 			storage.setNumberOfGoodsTobeSold(Integer.parseInt(numOfGoodsToBeSold));
 			System.out.println("Enter The price of each goods");
 			String priceOfGoodsToBeSold = input.next();
-			MainClass.checkForClose(priceOfGoodsToBeSold);
 			storage.setPriceOfGoods(Double.parseDouble(priceOfGoodsToBeSold));
 		}
 	}
 
-	public void financialManagment(int num) throws IOException {
+	public void financialManagment(int num) {
 		Financial financial = new Financial();
 		Scanner input = new Scanner(System.in);
 		if (num == 1) {
@@ -113,34 +121,21 @@ public class Manager extends Person {
 		} else if (num == 3) {
 			System.out.println("Enter the price of materials you bought :");
 			String priceOfTheMaterials = input.next();
-			MainClass.checkForClose(priceOfTheMaterials);
 			financial.setMatrialsPrice(Double.parseDouble(priceOfTheMaterials) * (-1));
 			financial.setTotalMoney(financial.getTotalMoney() + financial.getMatrialsPrice());
 		}
 	}
 
-	public void setTarget() throws IOException {
-		Scanner input = new Scanner(System.in);
-		FileWriter in = new FileWriter("Target.txt");
-		BufferedWriter buf = new BufferedWriter(in);
-		System.out.print("Enter the target : ");
-		String target = input.next();
-		MainClass.checkForClose(target);
-		ArrayList<Employee> workers = u.getPersons("Workers");
-		buf.write(Integer.parseInt(target) + "#" + ((int) (Integer.parseInt(target) / workers.size())));
-		buf.close();
+	public void setTarget(int target) {
+		ArrayList<String> arrayListOfTarget = new ArrayList<String>();
+		ArrayList<String> workers = new ArrayList<String>();
+		FileData.getData(workers, "Workers.txt");
+		arrayListOfTarget.add(target + "#" + (target / workers.size()));
+		FileData.setData(arrayListOfTarget, "Target.txt");
 	}
 
-	public void firingEmployee(Employee Person) {
-
-		/*
-		 * User u1 = new User(); if (Person.getId().startsWith("22")) {
-		 * u1.removePerson(Person.getId(), "Workers"); u1.updateInformations("Workers",
-		 * null); } else if (Person.getId().startsWith("33")) {
-		 * u1.removePerson(Person.getId(), "SuperVisors");
-		 * u1.updateInformations("SuperVisors", null); } else if
-		 * (Person.getId().startsWith("44")) { u1.removePerson(Person.getId(),
-		 * "SalesMan"); u1.updateInformations("SalesMan", null); }
-		 */
+	public void firingEmployee(Employee employee) {
+		Factory factory = new Factory();
+		factory.removeWorker(employee);
 	}
 }

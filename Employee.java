@@ -39,8 +39,9 @@ public class Employee extends Person {
 		return address;
 	}
 
-	public void setAddress(int houseNumber, int flateNumber, int blookNumber, String streetName, String place) {
-		this.address = new Address(houseNumber, flateNumber, blookNumber, streetName, place);
+	public void setAddress(int apartmentNumber, int floorNumber, int buildingNumber, String streetName, String block,
+			String city) {
+		this.address = new Address(apartmentNumber, floorNumber, buildingNumber, streetName, block, city);
 	}
 
 	public String getEmail() {
@@ -146,8 +147,8 @@ public class Employee extends Person {
 
 	public String toString() {
 		return getId() + "#" + getPassword() + "#" + getName() + "#" + salary + "#" + bonus + "#" + monthlyRate + "#"
-				+ overallRate + "#" + hiringDate + "#" + phoneNumber + "#" + email + "#" + address.getHouseNumber()
+				+ overallRate + "#" + hiringDate + "#" + phoneNumber + "#" + email + "#" + address.getApartmentNumber()
 				+ "#" + address.getFloorNumber() + "#" + address.getBlockNumber() + "#" + address.getStreetName() + "#"
-				+ address.getRegion() + "#" + bankAccount.getAccountNumber() + "#" + bankAccount.getBalance();
+				+ address.getCity() + "#" + bankAccount.getAccountNumber() + "#" + bankAccount.getBalance();
 	}
 }
