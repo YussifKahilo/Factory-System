@@ -36,5 +36,15 @@ public class FileData {
             System.out.println("The file \"" + fileName + "\" is not at the right location..");
         }
     }
+    
+    public static void setData(String LINE, String fileName) {
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
+            writer.write(LINE);
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("The file \"" + fileName + "\" is not at the right location..");
+        }
+    }
 
 }
