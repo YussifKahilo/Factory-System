@@ -21,7 +21,15 @@ public class Manager extends Person {
 			}
 			FileData.setData(superVisors, "SuperVisors.txt");
 		} else {
-			
+			ArrayList<String> salesMen = new ArrayList<String>();
+			employee.setId("44" + employee.getId().substring(2));
+			factory.removeWorker(employee);
+			factory.addNewSalesMan(employee);
+			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
+				salesMen.add(factory.getSuperVisors().get(i).toString());
+			}
+			FileData.setData(salesMen, "SuperVisors.txt");
+
 		}
 
 	}
@@ -90,6 +98,7 @@ public class Manager extends Person {
 	public void storageManagment(int num) {
 		Scanner input = new Scanner(System.in);
 		Storage storage = new Storage();
+		Factory factory = new Factory();
 		if (num == 1) {
 			System.out.println("The number of stored goods: " + storage.getNumberOfStoredGoods());
 		} else if (num == 2) {
@@ -98,7 +107,7 @@ public class Manager extends Person {
 		} else if (num == 3) {
 			Financial financial = new Financial();
 			System.out.println("The number of sold goods:" + storage.getNumberOfSoldGood());
-			financial.setprofit(
+			financial.setProfit(
 					financial.getMatrialsPrice() + (storage.getNumberOfSoldGood() * storage.getPriceofGoods()));
 			financial.setTotalMoney(financial.getTotalMoney() + financial.getprofit());
 		} else if (num == 4) {
