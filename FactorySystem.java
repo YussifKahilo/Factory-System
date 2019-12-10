@@ -1,242 +1,237 @@
-import java.io.IOException;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class FactorySystem {
 
-    private SuperVisor superVisor;
-    private SalesMan salesMan;
-    private Worker worker;
-    private Manager manager;
-    private User user = new User();
+    private static ArrayList<Employee> users = new ArrayList<Employee>();
+    private ArrayList<Employee> usersOfWorkers;
+    private ArrayList<Employee> usersOfSuperVisors;
+    private ArrayList<Employee> usersOfSalesMen;
+    private Manager userOfManager;
 
-    public FactorySystem() throws IOException {
-        user.setPersons("SalesMan");
-        salesMan = (SalesMan) user.getPerson();
-        manager = new Manager();
-    }
-
-    public int loginMenu() throws IOException {
-        System.out.println("::IMPORTANT:: => IF YOU WANT TO EXIT AT ANY TIME TYPE 'Q' ::");
-        System.out.println("(INFO)=>If you don't have a user press 'C' ..");
-        int sna = user.loginingIn();
-        if (sna == 11) {
-            manager = new Manager();
-            return 11;
-        } else if (sna == 22) {
-            worker = new Worker(user.getPerson());
-            return 22;
-        } else if (sna == 33) {
-            superVisor = new SuperVisor(user.getPerson());
-            return 33;
-        } else if (sna == 44) {
-            salesMan = new SalesMan(user.getPerson());
-            return 44;
+    public FactorySystem(ArrayList<Employee> usersOfWorkers, ArrayList<Employee> usersOfSuperVisors, ArrayList<Employee> usersOfSalesMen, Manager userOfManager) {
+        this.usersOfWorkers = usersOfWorkers;
+        this.usersOfSuperVisors = usersOfSuperVisors;
+        this.usersOfSalesMen = usersOfSalesMen;
+        this.userOfManager = userOfManager;
+        for (int i = 0; i < usersOfWorkers.size(); i++) {
+            users.add(usersOfWorkers.get(i));
         }
-        return 00;
-    }
-
-    public void displayMenu(int num) {
-        switch (num) {
-            case 11:
-                System.out.println("-------------------------.");
-                System.out.println("1-Show Employees         |");
-                System.out.println("2-Search for Employee    |");
-                System.out.println("3-Set Target             |");
-                System.out.println("4-Storage informations   |");
-                System.out.println("5-Financial Informations |");
-                System.out.println("6-Log Out                |");
-                System.out.println("-------------------------*");
-                System.out.print("::");
-                break;
-            case 22:
-                System.out.println("------------------------.");
-                System.out.println("1-Show Your Information |");
-                System.out.println("2-Show Target           |");
-                System.out.println("3-Log out               |");
-                System.out.println("------------------------*");
-                System.out.print("::");
-                break;
-            case 33:
-                System.out.println("---------------------------------------.");
-                System.out.println("1-Show Your Information                |");
-                System.out.println("2-Show Workers                         |");
-                System.out.println("3-Get Your Team Target                 |");
-                System.out.println("4-Set the number of manufactured goods |");
-                System.out.println("5-Log out                              |");
-                System.out.println("---------------------------------------*");
-                System.out.print("::");
-                break;
-            case 44:
-                System.out.println("-------------------------------------.");
-                System.out.println("1-Show Your Information              |");
-                System.out.println("2-Show the target for the sold goods |");
-                System.out.println("3-Set the number of sold goods       |");
-                System.out.println("4-Log out                            |");
-                System.out.println("-------------------------------------*");
-                System.out.print("::");
-                break;
+        for (int i = 0; i < usersOfSuperVisors.size(); i++) {
+            users.add(usersOfSuperVisors.get(i));
         }
+        for (int i = 0; i < usersOfSalesMen.size(); i++) {
+            users.add(usersOfSalesMen.get(i));
+        }
+
     }
 
-    public boolean menuOptions(int num, int choice) throws IOException {
+    private void creatingUser() {
         Scanner in = new Scanner(System.in);
-        switch (num) {
-            case 11:
-                if (choice == 1) {
-                    int e = manager.showEmployees();
-                    if (e != 0) {
-                        System.out.print("1-Give Salary\n2-back\n::");
-                        String NUM = in.next();
-                        MainClass.checkForClose(NUM);
-                        if (NUM.equalsIgnoreCase("1")) {
-                            if (e == 11) {
-                                ArrayList<Employee> workers = user.getPersons("Workers");
-                                for (int i = 0; i < workers.size(); i++) {
-                                    workers.get(i).getBankAccount().setBalance(workers.get(i).getSalary() + workers.get(i).getBankAccount().getBalance());
-                                    user.updateInformations("Workers", workers.get(i));
-                                }
-                            } else if (e == 22) {
-                                ArrayList<Employee> superVisors = user.getPersons("SuperVisors");
-                                for (int i = 0; i < superVisors.size(); i++) {
-                                    superVisors.get(i).getBankAccount().setBalance(superVisors.get(i).getSalary() + superVisors.get(i).getBankAccount().getBalance());
-                                    user.updateInformations("SuperVisors", superVisors.get(i));
-                                }
-                            } else if (e == 33) {
-                                ArrayList<Employee> salesmans = user.getPersons("SalesMan");
-                                for (int i = 0; i < salesmans.size(); i++) {
-                                    salesmans.get(i).getBankAccount().setBalance(salesmans.get(i).getSalary() + salesmans.get(i).getBankAccount().getBalance());
-                                    user.updateInformations("SalesMan", salesmans.get(i));
-                                }
-                            }
-                        }
-                    }
-
-                } else if (choice == 2) {
-                    Employee person = manager.searchForEmployee();
-                    if (person != null) {
-                        person.showInformations();
-                        System.out.println("*******************************************");
-                        System.out.println("* 1-Promote                               *");
-                        System.out.println("* 2-Change salary                         *");
-                        System.out.println("* 3-Fire                                  *");
-                        System.out.println("* 4-back                                  *");
-                        System.out.print("*******************************************\n::");
-                        String NUM = in.next();
-                        MainClass.checkForClose(NUM);
-                        if (NUM.equalsIgnoreCase("1")) {
-                            manager.promote(person);
-                        } else if (NUM.equalsIgnoreCase("1")) {
-                            System.out.print("Enter the new salary : ");
-                            String newSalary = in.next();
-                            MainClass.checkForClose(newSalary);
-                            person.setSalary(Double.parseDouble(newSalary));
-                            if (person.getId().startsWith("22")) {
-                                user.updateInformations("Workers", person);
-                            } else if (person.getId().startsWith("33")) {
-                                user.updateInformations("SuperVisors", person);
-                            } else if (person.getId().startsWith("44")) {
-                                user.updateInformations("SalesMan", person);
-                            }
-                        } else if (NUM.equalsIgnoreCase("1")) {
-                            manager.firingEmployee(person);
-                        }
-                    } else {
-                        System.out.println("You entered a wrong id..");
-                    }
-                } else if (choice == 3) {
-                    manager.setTarget();
-                } else if (choice == 4) {
-                    System.out.println("*******************************************");
-                    System.out.println("* 1-Show the number of the stored goods   *");
-                    System.out.println("* 2-Show the number of goods manufactured *");
-                    System.out.println("* 3-Show the number of the Sold goods     *");
-                    System.out.println("* 4-Set target of goods to be sold        *");
-                    System.out.println("*******************************************\n::");
-                    String NUM = in.next();
-                    MainClass.checkForClose(NUM);
-                    manager.storageManagment(Integer.parseInt(NUM));
-                } else if (choice == 5) {
-                    System.out.println("*******************************************");
-                    System.out.println("* 1-Show the total money                  *");
-                    System.out.println("* 2-Show the profit of this month         *");
-                    System.out.println("* 3-Set the budget for the materials      *");
-                    System.out.println("*******************************************\n::");
-                    String NUM = in.next();
-                    MainClass.checkForClose(NUM);
-                    manager.financialManagment(Integer.parseInt(NUM));
-                } else if (choice == 6) {
-                    return false;
+        String password;
+        String email;
+        System.out.print("Enter your name : ");
+        String name = in.nextLine();
+        MainClass.checkForClose(name);
+        System.out.println("---------------------------");
+        for (;;) {
+            for (;;) {
+                System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
+                System.out.println("   - Four Charecters \n   - One upercase letter . "
+                        + "\n   - One lowercase letter . "
+                        + "\n   - One Number or Symbol .");
+                System.out.print("Enter a password : ");
+                password = in.next();
+                MainClass.checkForClose(password);
+                if (isPasswordValid(password)) {
+                    break;
                 }
+            }
+            System.out.print("Confirm your password : ");
+            String password2 = in.next();
+            MainClass.checkForClose(password2);
+            if (password.equals(password2)) {
                 break;
-            case 22:
-                if (choice == 1) {
-                    worker.showInformations();
-                    System.out.print("Do you want to edit any information ? (Y/N)\n::");
-                    String ch = in.next();
-                    MainClass.checkForClose(ch);
-                    if (ch.equalsIgnoreCase("Y")) {
-                        worker.editInformations();
-                    }
-                } else if (choice == 2) {
-                    worker.showTarget();
-                } else {
-                    return false;
-                }
-                break;
-            case 33:
-                if (choice == 1) {
-                    superVisor.showInformations();
-                    System.out.print("Do you want to edit any information ? (Y/N)\n::");
-                    String ch = in.next();
-                    MainClass.checkForClose(ch);
-                    if (ch.equalsIgnoreCase("Y")) {
-                        worker.editInformations();
-                    }
-                } else if (choice == 2) {
-                    Employee worker = superVisor.showWorkersInformation();
-                    System.out.println("1-Give Feedback\n2-back\n::");
-                    String NUM = in.next();
-                    MainClass.checkForClose(NUM);
-                    if (NUM.equalsIgnoreCase("1")) {
-                        double rate = superVisor.answerFeedback();
-                        worker.setMonthlyRate(rate);
-                        worker.setBonus(rate / 100);
-                        worker.setOverallRate((worker.getOverallRate() + rate) / 2);
-                    }
-                } else if (choice == 3) {
-                    superVisor.showTarget();
-                } else if (choice == 4) {
-                    System.out.print("Enter the number of manufactured goods this month : ");
-                    String numOfGoods = in.next();
-                    MainClass.checkForClose(numOfGoods);
-                    superVisor.setTargetResult(Integer.parseInt(numOfGoods), superVisor.showTarget());
-                } else if (choice == 5) {
-                    return false;
-                }
-                break;
-            case 44:
-                if (choice == 1) {
-                    salesMan.showInformations();
-                    System.out.print("Do you want to edit any information ? (Y/N)\n::");
-                    String ch = in.next();
-                    MainClass.checkForClose(ch);
-                    if (ch.equalsIgnoreCase("Y")) {
-                        worker.editInformations();
-                    }
-                } else if (choice == 2) {
-                    salesMan.showTarget();
-                } else if (choice == 3) {
-                    System.out.print("Enter the amount of sold goods : ");
-                    String numOfSoldGoods = in.next();
-                    MainClass.checkForClose(numOfSoldGoods);
-                    salesMan.setTargetResult(Integer.parseInt(numOfSoldGoods), salesMan.showTarget());
-                } else if (choice == 4) {
-                    return false;
-                }
-                break;
+            } else {
+                System.out.println("The two password are not identical ..");
+            }
         }
-        return true;
+        System.out.println("---------------------------");
+        System.out.println("Your Birth Date :");
+        System.out.print("-->Day : ");
+        String dayOfBirth = in.next();
+        MainClass.checkForClose(dayOfBirth);
+        System.out.print("-->Month : ");
+        String monthOfBirth = in.next();
+        MainClass.checkForClose(monthOfBirth);
+        System.out.print("-->Year : ");
+        String yearOfBirth = in.next();
+        MainClass.checkForClose(yearOfBirth);
+        System.out.println("---------------------------");
+        System.out.print("Enter your house number : ");
+        String houseNumber = in.next();
+        MainClass.checkForClose(houseNumber);
+        System.out.print("Enter your floor number : ");
+        String flatNumber = in.next();
+        MainClass.checkForClose(flatNumber);
+        System.out.print("Enter your blook number : ");
+        String blookNumber = in.next();
+        MainClass.checkForClose(blookNumber);
+        System.out.print("Enter your street name : ");
+        in.nextLine();
+        String streetName = in.nextLine();
+        MainClass.checkForClose(streetName);
+        System.out.print("Enter your place name : ");
+        String placeName = in.nextLine();
+        MainClass.checkForClose(placeName);
+        System.out.println("---------------------------");
+        String phoneNumber;
+        for (;;) {
+            System.out.print("Please enter your phone number : ");
+            phoneNumber = in.next();
+            MainClass.checkForClose(phoneNumber);
+            if (phoneNumber.length() == 11 && phoneNumber.startsWith("01")) {
+                break;
+            } else {
+                System.out.println("Invalid phone number..");
+            }
+        }
+        System.out.println("---------------------------");
+        for (;;) {
+            System.out.print("Please enter your Email : ");
+            email = in.next();
+            MainClass.checkForClose(email);
+            if (email.contains("@") && email.contains(".com")) {
+                break;
+            } else {
+                System.out.println("invalid E-mail");
+            }
+            System.out.println("---------------------------");
+        }
+        addUser("Workers", name, password, phoneNumber, email, houseNumber, flatNumber, blookNumber, streetName, placeName, dayOfBirth, monthOfBirth, yearOfBirth);
+    }
+
+    public boolean isPasswordValid(String password) {
+        int[] arr = new int[3];
+        boolean isValid = false;
+        for (int i = 0; i < password.length(); i++) {
+            if (password.charAt(i) >= 'A' && password.charAt(i) <= 'Z') {
+                arr[0]++;
+            } else if (password.charAt(i) >= 'a' && password.charAt(i) <= 'z') {
+                arr[1]++;
+            } else if (password.charAt(i) >= '!' && password.charAt(i) <= '@') {
+                arr[2]++;
+            }
+        }
+        if (arr[0] > 0 && arr[1] > 0 && arr[2] > 0 && password.length() >= 4) {
+            isValid = true;
+        }
+        return isValid;
+    }
+
+    public Person loginingIn() {
+        Scanner in = new Scanner(System.in);
+        String id;
+        boolean logedIn = false;
+        Person user = null;
+        while (!logedIn) {
+            System.out.print("Enter your ID : ");
+            id = in.next();
+            MainClass.checkForClose(id);
+            if (id.equalsIgnoreCase("c")) {
+                this.creatingUser();
+            } else {
+                System.out.print("Enter your Password : ");
+                String password = in.next();
+                if (id.equals(userOfManager.getId())) {
+                    if (userOfManager.getPassword().equals(password)) {
+                        logedIn = true;
+                        user = userOfManager;
+                    }
+                } else if (id.startsWith("22")) {
+                    if (this.verifyLogin(id, password)) {
+                        logedIn = true;
+                        user = getEmployee(id);
+                    }
+                } else if (id.startsWith("33")) {
+                    if (this.verifyLogin(id, password)) {
+                        logedIn = true;
+                        user = getEmployee(id);
+                    }
+                } else if (id.startsWith("44")) {
+                    if (this.verifyLogin(id, password)) {
+                        logedIn = true;
+                        user = getEmployee(id);
+
+                    }
+                }
+            }
+        }
+        return user;
+    }
+
+    public Employee getEmployee(String id) {
+        Employee user = null;
+        for (int i = 0; i < users.size(); i++) {
+            if (id.equals(users.get(i).getId())) {
+                user = users.get(i);
+            }
+        }
+        return user;
+    }
+
+    public boolean verifyLogin(String id, String password) {
+        for (int i = 0; i < users.size(); i++) {
+            if (id.equals(users.get(i).getId())) {
+                if (password.equals(users.get(i).getPassword())) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public void addUser(String fileName, String name, String password,
+            String phoneNumber, String email, String houseNumber, String flateNumber,
+            String blookNumber, String streetName, String placeName, String dayOfBirth, String monthIfBirth, String yearOfBirth) {
+        LocalDate date = LocalDate.now();
+        StringBuilder line = new StringBuilder();
+        line.append(password + "#" + name + "#" + 2000 + "#0#" + "0#0#" + date
+                + "#" + phoneNumber + "#" + email + "#" + houseNumber + "#" + flateNumber
+                + "#" + blookNumber + "#" + streetName + "#" + placeName + "#");
+        if (users == null) {
+            ArrayList<String> IDs = new ArrayList<String>();
+            for (int i = 0; i < users.size(); i++) {
+                IDs.add(users.get(i).getId().substring(3));
+            }
+            for (int i = 0; i < IDs.size(); i++) {
+                int max = Integer.parseInt(IDs.get(i));
+                int maxIndex = i;
+                for (int j = i; j < IDs.size(); j++) {
+                    if (max < Integer.parseInt(IDs.get(j))) {
+                        max = Integer.parseInt(IDs.get(j));
+                        maxIndex = j;
+                    }
+                }
+                Collections.swap(IDs, maxIndex, maxIndex);
+            }
+            String lastID = "220" + IDs.get(0);
+            int id = Integer.parseInt(lastID);
+            line.insert(0, (id + 1) + "#");
+        } else {
+            line.insert(0, "220000" + "#");
+        }
+        BankAccount ba = new BankAccount();
+        line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + dayOfBirth + "#" + monthIfBirth + "#" + yearOfBirth);
+        ArrayList<String> workers = new ArrayList<String>();
+        for (int i = 0; i < usersOfWorkers.size(); i++) {
+            workers.add(usersOfWorkers.get(i).toString());
+        }
+        workers.add(line.toString());
+        FileData.setData(workers, "Workers.txt");
     }
 
 }
