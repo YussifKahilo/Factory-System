@@ -5,10 +5,6 @@ public class Person {
     private String name;
     private String password;
 
-    public Person() {
-
-    }
-
     public Person(String id, String name, String password) {
         this.id = id;
         this.name = name;

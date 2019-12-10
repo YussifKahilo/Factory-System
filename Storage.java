@@ -1,10 +1,3 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class Storage {
 
@@ -14,9 +7,8 @@ public class Storage {
     private double priceOfGood;
     private int numberOfGoodsThisMonth;
 
-    public Storage() throws IOException {
-    	ArrayList<String> lines = FileData.getData("Storage.txt");
-        String line = lines.get(0);
+    public Storage() {
+        String line = FileData.getData("Storage.txt");
         if (line != null) {
             String[] arr = line.split("#");
             this.numberOfStoredGoods = Integer.parseInt(arr[0]);
@@ -24,60 +16,54 @@ public class Storage {
             this.numberOfGoodsToBeSold = Integer.parseInt(arr[2]);
             this.priceOfGood = Double.parseDouble(arr[3]);
             this.numberOfGoodsThisMonth = Integer.parseInt(arr[4]);
-            
         }
     }
 
-    public void setNumberOfStoredGoods(int SoldGoods) throws IOException {
+    public void setNumberOfStoredGoods(int SoldGoods) {
         this.numberOfStoredGoods = SoldGoods;
-		ArrayList<String> line=new ArrayList<String>();
-		line.add(this.toString());
-		FileData.setData(line, "Storage.txt");
+        String line = this.toString();
+        FileData.setData(line, "Storage.txt");
     }
 
     public int getNumberOfStoredGoods() {
         return numberOfStoredGoods;
     }
 
-    public void setNumberOfSoldGoods(int numberOfSoldGoods) throws IOException {
+    public void setNumberOfSoldGoods(int numberOfSoldGoods) {
         this.numberOfSoldGoods = numberOfSoldGoods;
-        ArrayList<String> line=new ArrayList<String>();
-		line.add(this.toString());
-		FileData.setData(line, "Storage.txt");
-        
+        String line = this.toString();
+        FileData.setData(line, "Storage.txt");
+
     }
 
     public int getNumberOfSoldGood() {
         return numberOfSoldGoods;
     }
 
-    public void setNumberOfGoodsTobeSold(int amount) throws IOException {
+    public void setNumberOfGoodsTobeSold(int amount) {
         this.numberOfGoodsToBeSold = amount;
-        ArrayList<String> line=new ArrayList<String>();
-		line.add(this.toString());
-		FileData.setData(line, "Storage.txt");
+        String line = this.toString();
+        FileData.setData(line, "Storage.txt");
     }
 
     public int getNumberOfGoodsToBeSold() {
         return numberOfGoodsToBeSold;
     }
 
-    public void setPriceOfGoods(double price) throws IOException {
+    public void setPriceOfGoods(double price) {
         this.priceOfGood = price;
-        ArrayList<String> line=new ArrayList<String>();
-		line.add(this.toString());
-		FileData.setData(line, "Storage.txt");
+        String line = this.toString();
+        FileData.setData(line, "Storage.txt");
     }
 
     public double getPriceofGoods() {
         return priceOfGood;
     }
 
-    public void setnumberOfGoodsThisMonth(int amount) throws IOException {
+    public void setnumberOfGoodsThisMonth(int amount) {
         this.numberOfGoodsThisMonth = amount;
-        ArrayList<String> line=new ArrayList<String>();
-		line.add(this.toString());
-		FileData.setData(line, "Storage.txt");
+        String line = this.toString();
+        FileData.setData(line, "Storage.txt");
     }
 
     public int getnumberOfGoodsThisMonth() {
