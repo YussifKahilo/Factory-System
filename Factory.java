@@ -6,9 +6,9 @@ public class Factory {
     private ArrayList<Employee> workers;
     private ArrayList<Employee> superVisors;
     private ArrayList<Employee> salesMen;
-    private Manager manager ;
-    private Storage storage ;
-    private Financial financial ;
+    private Manager manager;
+    private Storage storage;
+    private Financial financial;
     private FactorySystem factorySystem;
 
     public Factory() {
@@ -27,7 +27,7 @@ public class Factory {
 
     public ArrayList<Employee> setEmployees(String fileName) {
         ArrayList<String> LINES = new ArrayList<String>();
-        FileData.getData(LINES,fileName + ".txt");
+        FileData.getData(LINES, fileName + ".txt");
         ArrayList<Employee> persons = new ArrayList<Employee>();
         for (int i = 0; i < LINES.size(); i++) {
             String line = LINES.get(i);
@@ -36,26 +36,29 @@ public class Factory {
                     Double.parseDouble(Line[4]), Double.parseDouble(Line[5]),
                     Double.parseDouble(Line[6]), Line[7], Line[8], Line[9],
                     new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]),
-                            Integer.parseInt(Line[12]), Line[13], Line[14]),
-                    new BankAccount(Line[15], Double.parseDouble(Line[16])),
-                    new BirthDate(Integer.parseInt(Line[17]), Integer.parseInt(Line[18]), Integer.parseInt(Line[19])));
+                            Integer.parseInt(Line[12]), Line[13], Line[14], Line[15]),
+                    new BankAccount(Line[16], Double.parseDouble(Line[17])),
+                    new BirthDate(Integer.parseInt(Line[18]), Integer.parseInt(Line[19]), Integer.parseInt(Line[20])));
             persons.add(person);
         }
         return persons;
     }
-    
-    public void userUtility(Person user){
-        if(user instanceof Manager){
-            
-            
-        }else if (user instanceof Worker){
-            
-            
-        }else if (user instanceof SuperVisor){
-            
-            
-        }else if (user instanceof SalesMan){
-            
+
+    public void userUtility(Person user) {
+        for ( ;;) {
+            if (user instanceof Manager) {
+                UserMenu.managerMenu();
+
+            } else if (user instanceof Worker) {
+                UserMenu.workerMenu();
+
+            } else if (user instanceof SuperVisor) {
+                UserMenu.superVisorMenu();
+
+            } else if (user instanceof SalesMan) {
+                UserMenu.salesManMenu();
+
+            }
         }
     }
 }
