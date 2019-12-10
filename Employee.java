@@ -1,10 +1,10 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Employee extends Person {
-
 	private BankAccount bankAccount;
 	private String email;
 	private double salary;
@@ -141,14 +141,28 @@ public class Employee extends Person {
 		System.out.println("*--------------------------------------------------------------------------");
 	}
 
-	public int showTarget() throws IOException {
-		BufferedReader reader = new BufferedReader(new FileReader("Target.txt"));
-		String line = reader.readLine();
-		String[] Line = line.split("#");
-		System.out.println("The Target this month is : " + Line[0]);
-		System.out.println("Target for each worker is : " + Line[1]);
-		reader.close();
-		return Integer.parseInt(Line[1]);
+	public void editName() {
+		
+	}
+
+	public void editPassword() {
+		
+	}
+
+	public void editPhoneNumber() {
+		
+	}
+
+	public void editAddress() {
+		
+	}
+
+	public int showTarget() {
+		ArrayList<String> line = new  ;
+		FileData.getData(line,"Target.txt");
+		System.out.println("The Target this month is : " + line.get(0));
+		System.out.println("Target for each worker is : " + line.get(1));
+		return Integer.parseInt(line.get(1));
 	}
 
 	public String toString() {
