@@ -162,18 +162,20 @@ public class SuperVisor extends Employee {
 		String TargetLine = FileData.getData("Target.txt") ;
 		String[] Line = TargetLine.split("#");
 		System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * numOfWorkers));
-		//reader.close();
 		return (Integer.parseInt(Line[1]) * numOfWorkers);
 	}
 	
-	public void setTargetResult(int amount, int target) {
-		String storedGoods;
-		storedGoods = FileData.getData("Storage.txt");
-		FileData.setData(storedGoods, "Storage.txt");
+	public int setTargetResult() {
+		Scanner input = new Scanner (System.in);
+		System.out.println("Enter the number of manufactured goods this month");
+		String  amount = input.next();
+		int target = this.showTarget();
 		System.out.println("And your team manufactured " + amount + " goods this month ..");
-		double ratio = (amount * 1.0) / target;
+		double ratio = (Integer.parseInt(amount) * 1.0) / target;
 		this.setMonthlyRate(ratio * 10);
 		this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
+	return Integer.parseInt(amount);
 	}
+	
 
 }
