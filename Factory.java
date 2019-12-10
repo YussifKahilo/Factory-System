@@ -1,4 +1,5 @@
 
+import java.net.Socket;
 import java.util.ArrayList;
 
 public class Factory {
@@ -62,6 +63,14 @@ public class Factory {
 
 	public ArrayList<Employee> getSalesMen() {
 		return salesMen;
+	}
+
+	public Financial getFinancial() {
+		return financial;
+	}
+
+	public Storage getStorage() {
+		return storage;
 	}
 
 	public void userUtility(Person user) {
