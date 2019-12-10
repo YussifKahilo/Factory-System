@@ -65,9 +65,12 @@ public class Address {
         this.city = city;
     }
 
+    public String Display_Address() {
+        return buldingNumber + " " + streetName + " " + block + " " + city + "[ Floor Number:" + floorNumber + " / House Number:" + apartmentNumber + "]";
+    }
 
     public String toString() {
-        return buldingNumber + " " + streetName + " " + block + " " +city + "[ Floor Number:" + floorNumber + " / House Number:" + apartmentNumber + "]";
+        return apartmentNumber + "#" + floorNumber + "#" + buldingNumber + "#" + streetName + "#" + block + "#" + city;
     }
 
 }
