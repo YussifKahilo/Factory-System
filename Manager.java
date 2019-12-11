@@ -27,7 +27,7 @@ public class Manager extends Person {
 			factory.removeWorker(employee);
 			factory.addSalesMan(employee);
 			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
-				salesMen.add(factory.getSuperVisors().get(i).toString());
+				salesMen.add(factory.getSalesMen().get(i).toString());
 			}
 			FileData.setData(salesMen, "SuperVisors.txt");
 
@@ -140,6 +140,12 @@ public class Manager extends Person {
 	}
 
 	public void firingEmployee(Employee employee, Factory factory) {
-		factory.removeWorker(employee);
+		if (employee instanceof Worker) {
+			factory.removeWorker(employee);
+		} else if (employee instanceof SalesMan) {
+			factory.removeSalesMan(employee);
+		} else {
+			factory.removeSuperVisor(employee);
+		}
 	}
 }
