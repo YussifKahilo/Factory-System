@@ -148,4 +148,19 @@ public class Manager extends Person {
 			factory.removeSuperVisor(employee);
 		}
 	}
+
+	public void giveSalary(BankAccount bankAccount, ArrayList<Employee> employees) {
+		for (int i = 0; i < employees.size(); i++) {
+			if (employees.get(i) instanceof Worker) {
+				bankAccount = employees.get(i).getBankAccount();
+				bankAccount.setBalance(employees.get(i).getSalary() + employees.get(i).getBonus());
+			} else if (employees.get(i) instanceof SuperVisor) {
+				bankAccount = employees.get(i).getBankAccount();
+				bankAccount.setBalance(employees.get(i).getSalary() + employees.get(i).getBonus());
+			} else {
+				bankAccount = employees.get(i).getBankAccount();
+				bankAccount.setBalance(employees.get(i).getSalary() + employees.get(i).getBonus());
+			}
+		}
+	}
 }
