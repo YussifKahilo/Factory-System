@@ -11,10 +11,11 @@ public class Manager extends Person {
 
 	public void promote(Employee employee, String promotedEmployee, Factory factory) {
 		employee.setOverallRate(0);
-		if (promotedEmployee.equals("SuperVisor")) {
-			employee.setId("33" + employee.getId().substring(2));
+		if (promotedEmployee.equalsIgnoreCase("SuperVisor")) {
+
 			factory.removeWorker(employee);
-			factory.addNewSuperVisor(employee);
+			employee.setId("33" + employee.getId().substring(2));
+			factory.addSuperVisor(employee);
 			ArrayList<String> superVisors = new ArrayList<String>();
 			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
 				superVisors.add(factory.getSuperVisors().get(i).toString());
@@ -24,7 +25,7 @@ public class Manager extends Person {
 			ArrayList<String> salesMen = new ArrayList<String>();
 			employee.setId("44" + employee.getId().substring(2));
 			factory.removeWorker(employee);
-			factory.addNewSalesMan(employee);
+			factory.addSalesMan(employee);
 			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
 				salesMen.add(factory.getSuperVisors().get(i).toString());
 			}
@@ -131,16 +132,13 @@ public class Manager extends Person {
 			financial.setTotalMoney(financial.getTotalMoney() + financial.getMatrialsPrice());
 		}
 	}
-	
-	public void setTarget(int target) {
+
+	public void setTarget(int target, int numberOfWorkers) {
 		ArrayList<String> arrayListOfTarget = new ArrayList<String>();
-		ArrayList<String> workers = new ArrayList<String>();
-		FileData.getData(workers, "Workers.txt");
-		arrayListOfTarget.add(target + "#" + (target / workers.size()));
+		arrayListOfTarget.add(target + "#" + (target / numberOfWorkers));
 		FileData.setData(arrayListOfTarget, "Target.txt");
 	}
 
-	//
 	public void firingEmployee(Employee employee, Factory factory) {
 		factory.removeWorker(employee);
 	}
