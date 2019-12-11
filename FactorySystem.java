@@ -5,11 +5,12 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class FactorySystem {
-
-    private static ArrayList<Employee> users = new ArrayList<Employee>();
+    
+    private ArrayList<Employee> users = new ArrayList<Employee>();
     private Manager userOfManager;
-
-    public FactorySystem(ArrayList<Employee> usersOfWorkers, ArrayList<Employee> usersOfSuperVisors, ArrayList<Employee> usersOfSalesMen, Manager userOfManager) {
+    
+    public FactorySystem(ArrayList<Employee> usersOfWorkers, ArrayList<Employee>
+            usersOfSuperVisors, ArrayList<Employee> usersOfSalesMen, Manager userOfManager) {
         this.userOfManager = userOfManager;
         for (int i = 0; i < usersOfWorkers.size(); i++) {
             users.add(usersOfWorkers.get(i));
@@ -21,7 +22,19 @@ public class FactorySystem {
             users.add(usersOfSalesMen.get(i));
         }
     }
-
+    
+    public void addUser(Employee user) {
+        users.add(user);
+    }
+    
+    public void removeUser(Employee user) {
+        users.remove(user);
+    }
+    
+    public ArrayList<Employee> getUsers(){
+        return users;
+    }
+    
     private void creatingUser() {
         Scanner in = new Scanner(System.in);
         String password;
@@ -96,10 +109,10 @@ public class FactorySystem {
         }
         String informations = password + "#" + name + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber + "#" + buldingNumber + "#" + streetName + "#"
                 + blockName + "#" + cityName + "#" + dayOfBirth + "#" + monthOfBirth + "#" + yearOfBirth;
-        addUser("Workers", informations);
-
+        addUser(informations);
+        
     }
-
+    
     public boolean isPasswordValid(String password) {
         int[] arr = new int[3];
         boolean isValid = false;
@@ -117,7 +130,7 @@ public class FactorySystem {
         }
         return isValid;
     }
-
+    
     public Person loginingIn() {
         Scanner in = new Scanner(System.in);
         String id;
@@ -126,9 +139,13 @@ public class FactorySystem {
         while (!logedIn) {
             System.out.print("Enter your ID : ");
             id = in.next();
-            MainClass.checkForClose(id);
+            if (id.equalsIgnoreCase("Q")) {
+                saveChanges();
+                System.exit(0);
+            }
             if (id.equalsIgnoreCase("c")) {
                 this.creatingUser();
+                logedIn = true;
             } else {
                 System.out.print("Enter your Password : ");
                 String password = in.next();
@@ -153,15 +170,15 @@ public class FactorySystem {
                         user = new SalesMan(getEmployee(id));
                     }
                 } else {
-                    System.out.println("***********************");
-                    System.out.println("Invalid ID OR PASSWORD*");
-                    System.out.println("***********************");
+                    System.out.println("**************************");
+                    System.out.println("**Invalid ID OR PASSWORD**");
+                    System.out.println("**************************");
                 }
             }
         }
         return user;
     }
-
+    
     public Employee getEmployee(String id) {
         Employee user = null;
         for (int i = 0; i < users.size(); i++) {
@@ -171,7 +188,7 @@ public class FactorySystem {
         }
         return user;
     }
-
+    
     public boolean verifyLogin(String id, String password) {
         for (int i = 0; i < users.size(); i++) {
             if (id.equals(users.get(i).getId())) {
@@ -182,15 +199,15 @@ public class FactorySystem {
         }
         return false;
     }
-
-    public void addUser(String fileName, String informations) {
+    
+    public void addUser(String informations) {
         LocalDate date = LocalDate.now();
         StringBuilder line = new StringBuilder();
         String[] infromations_array = informations.split("#");
         line.append(infromations_array[0] + "#" + infromations_array[1] + "#" + 2000 + "#0#" + "0#0#" + date
                 + "#" + infromations_array[2] + "#" + infromations_array[3] + "#" + infromations_array[4] + "#" + infromations_array[5]
                 + "#" + infromations_array[6] + "#" + infromations_array[7] + "#" + infromations_array[8] + "#" + infromations_array[9] + "#");
-        if (users == null) {
+        if (!users.isEmpty()) {
             ArrayList<String> IDs = new ArrayList<String>();
             for (int i = 0; i < users.size(); i++) {
                 IDs.add(users.get(i).getId().substring(3));
@@ -204,7 +221,7 @@ public class FactorySystem {
                         maxIndex = j;
                     }
                 }
-                Collections.swap(IDs, maxIndex, maxIndex);
+                Collections.swap(IDs, i, maxIndex);
             }
             String lastID = "220" + IDs.get(0);
             int id = Integer.parseInt(lastID);
@@ -220,8 +237,37 @@ public class FactorySystem {
                 workers.add(users.get(i).toString());
             }
         }
-        workers.add(line.toString());
-        FileData.setData(workers, "Workers.txt");
+        String[] Line = line.toString().split("#");
+        Employee person = new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
+                Double.parseDouble(Line[4]), Double.parseDouble(Line[5]), Double.parseDouble(Line[6]), Line[7],
+                Line[8], Line[9],
+                new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]), Integer.parseInt(Line[12]),
+                        Line[13], Line[14], Line[15]),
+                new BankAccount(Line[16], Double.parseDouble(Line[17])),
+                new BirthDate(Integer.parseInt(Line[18]), Integer.parseInt(Line[19]), Integer.parseInt(Line[20])));
+        this.addUser(person);
+        System.out.println("*************************");
+        System.out.println("*************************");
+        System.out.println("** Your id is : " + person.getId() + " **");
+        System.out.println("*************************");
+        System.out.println("*************************");
     }
-
+    
+    public void saveChanges(){
+       ArrayList<String> workersData = new ArrayList<String>();
+       ArrayList<String> superVisorsData = new ArrayList<String>();
+       ArrayList<String> salesMenData = new ArrayList<String>();
+       for(int i = 0 ; i < users.size();i++){
+           if(users.get(i).getId().startsWith("22")){
+               workersData.add(users.get(i).toString());
+           }else if (users.get(i).getId().startsWith("33")){
+               superVisorsData.add(users.get(i).toString());
+           }else if (users.get(i).getId().startsWith("44")){
+               salesMenData.add(users.get(i).toString());
+           }
+       }
+       FileData.setData(workersData, "Workers.txt");
+       FileData.setData(superVisorsData, "SuperVsiors.txt");
+       FileData.setData(salesMenData, "SalesMen.txt");
+    }
 }
