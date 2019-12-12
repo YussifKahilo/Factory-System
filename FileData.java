@@ -39,6 +39,7 @@ public class FileData {
             BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
             for (int i = 0; i < LINES.size(); i++) {
                 writer.write(LINES.get(i));
+                writer.write("\n");
             }
             writer.close();
         } catch (IOException e) {

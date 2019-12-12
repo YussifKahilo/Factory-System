@@ -30,13 +30,13 @@ public class BankAccount {
     public String generatrNewBankAccount() {
         long newAccount = 0;
         boolean isCreated = false;
+        ArrayList<String> accounts = new ArrayList<String>();
         while (!isCreated) {
             newAccount = (long) (5000000000000000L + Math.random()
                     * 1000000000000000L);
-            if (isValid(newAccount)) {
-                ArrayList<String> NewAccount = new ArrayList<String>();
-                NewAccount.add(newAccount + "");
-                FileData.setData(NewAccount, "BankAccount.txt");
+            if (isValid(newAccount,accounts)) {
+                accounts.add(newAccount + "");
+                FileData.setData(accounts, "BankAccount.txt");
                 isCreated = true;
             }
         }
@@ -44,9 +44,8 @@ public class BankAccount {
 
     }
 
-    private boolean isValid(long newAccountCopy) {
-        ArrayList<String> oldAccounts = new ArrayList<String>();
-        FileData.getData(oldAccounts, "BankAccount.txt");
+    private boolean isValid(long newAccountCopy,ArrayList<String> accounts) {
+        FileData.getData(accounts, "BankAccount.txt");
         long newAccount = newAccountCopy;
         int sumOFeven = 0;
         long EevenNumber;
@@ -83,8 +82,8 @@ public class BankAccount {
         }
         boolean isNew = true;
 
-        for (int i = 0; i < oldAccounts.size(); i++) {
-            if (newAccount == Long.parseLong(oldAccounts.get(i))) {
+        for (int i = 0; i < accounts.size(); i++) {
+            if (newAccount == Long.parseLong(accounts.get(i))) {
                 isNew = false;
                 break;
             }

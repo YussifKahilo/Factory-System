@@ -76,8 +76,8 @@ public class FactorySystem {
         String apartmentNumber = in.next();
         System.out.print("-->Floor number : ");
         String floorNumber = in.next();
-        System.out.print("-->Bulding Number : ");
-        String buldingNumber = in.next();
+        System.out.print("-->Building Number : ");
+        String buildingNumber = in.next();
         System.out.print("-->Street name : ");
         in.nextLine();
         String streetName = in.nextLine();
@@ -107,7 +107,7 @@ public class FactorySystem {
             }
             System.out.println("---------------------------");
         }
-        String informations = password + "#" + name + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber + "#" + buldingNumber + "#" + streetName + "#"
+        String informations = password + "#" + name + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber + "#" + buildingNumber + "#" + streetName + "#"
                 + blockName + "#" + cityName + "#" + dayOfBirth + "#" + monthOfBirth + "#" + yearOfBirth;
         addUser(informations);
         
@@ -137,10 +137,10 @@ public class FactorySystem {
         boolean logedIn = false;
         Person user = null;
         while (!logedIn) {
+            System.out.println("---------------------");
             System.out.print("Enter your ID : ");
             id = in.next();
             if (id.equalsIgnoreCase("Q")) {
-                saveChanges();
                 System.exit(0);
             }
             if (id.equalsIgnoreCase("c")) {
@@ -267,7 +267,7 @@ public class FactorySystem {
            }
        }
        FileData.setData(workersData, "Workers.txt");
-       FileData.setData(superVisorsData, "SuperVsiors.txt");
+       FileData.setData(superVisorsData, "SuperVisors.txt");
        FileData.setData(salesMenData, "SalesMen.txt");
     }
 }

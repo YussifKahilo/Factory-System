@@ -21,7 +21,7 @@ public class SuperVisor extends Employee {
         setNumberOfWorkers();
     }
 
-    private void setNumberOfWorkers(){
+    private void setNumberOfWorkers() {
         for (int i = 0; i < 5; i++) {
             if (this.workers[i] != null) {
                 numOfWorkers++;
@@ -30,7 +30,7 @@ public class SuperVisor extends Employee {
             }
         }
     }
-    
+
     private void setWorkers(ArrayList<Employee> workers) {
         int index = 0;
         ArrayList<String> SuperVisors = new ArrayList<String>();
@@ -42,12 +42,12 @@ public class SuperVisor extends Employee {
             }
         }
         ArrayList<String> WorkersId = new ArrayList<String>();
-        FileData.getData(WorkersId, "WorkersId.txt");
+        FileData.getData(WorkersId, "WorkersOfSuperVisors.txt");
         String[] workersid = WorkersId.get(index).split("#");
         int ind = 0;
         for (int i = 0; i < workersid.length; i++) {
             for (int j = 0; j < workers.size(); j++) {
-                if (workersid[i] == workers.get(j).getId()) {
+                if (workersid[i].equalsIgnoreCase(workers.get(j).getId())) {
                     this.workers[ind++] = workers.get(j);
                     break;
                 }
@@ -57,15 +57,15 @@ public class SuperVisor extends Employee {
 
     public Employee showWorkersInformation() {
         Scanner input = new Scanner(System.in);
-        for (int i = 0; i < 5; i++) {
+        int i = 0;
+        for (; i < 5; i++) {
             if (this.workers[i] != null) {
                 System.out.println((i + 1) + "- " + this.workers[i].getName());
-                numOfWorkers++;
-            } else {
-                System.out.println((i + 1) + "- " + "Back");
+            }else
                 break;
-            }
         }
+        System.out.println((i + 1) + "- " + "Back");
+
         System.out.print("Choose : ");
         String inn = input.next();
         if (inn.equals("1") && Integer.parseInt(inn) <= numOfWorkers) {
@@ -178,13 +178,13 @@ public class SuperVisor extends Employee {
         this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
         return Integer.parseInt(amount);
     }
-    
+
     @Override
-    public void showInformations(){
+    public void showInformations() {
         super.showInformations();
         System.out.println("| The Worker responsible for : ");
-        for(int i = 0 ; i < workers.length && workers[i] != null ; i ++){
-            System.out.println("| "+(i+1) +"- "+workers[i].getName().substring(0,workers[i].getName().indexOf(" ")));
+        for (int i = 0; i < workers.length && workers[i] != null; i++) {
+            System.out.println("| " + (i + 1) + "- " + workers[i].getName());
         }
         System.out.println("*--------------------------------------------------------------------------");
     }

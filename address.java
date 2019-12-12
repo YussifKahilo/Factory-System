@@ -3,15 +3,15 @@ public class Address {
 
     private int apartmentNumber;
     private int floorNumber;
-    private int buldingNumber;
+    private int buildingNumber;
     private String streetName;
     private String block;
     private String city;
 
-    public Address(int apartmentNumber, int floorNumber, int buldingNumber, String streetName, String block, String city) {
+    public Address(int apartmentNumber, int floorNumber, int buildingNumber, String streetName, String block, String city) {
         this.apartmentNumber = apartmentNumber;
         this.floorNumber = floorNumber;
-        this.buldingNumber = buldingNumber;
+        this.buildingNumber = buildingNumber;
         this.streetName = streetName;
         this.block = block;
         this.city = city;
@@ -25,8 +25,8 @@ public class Address {
         return floorNumber;
     }
 
-    public int getBuldingNumber() {
-        return buldingNumber;
+    public int getBuildingNumber() {
+        return buildingNumber;
     }
 
     public String getStreetName() {
@@ -42,11 +42,11 @@ public class Address {
     }
 
     public String Display_Address() {
-        return buldingNumber + " " + streetName + " " + block + " " + city + "[ Floor Number:" + floorNumber + " / Apartment Number:" + apartmentNumber + "]";
+        return buildingNumber + " " + streetName + " " + block + " " + city + "[ Floor Number:" + floorNumber + " / Apartment Number:" + apartmentNumber + "]";
     }
 
     public String toString() {
-        return apartmentNumber + "#" + floorNumber + "#" + buldingNumber + "#" + streetName + "#" + block + "#" + city;
+        return apartmentNumber + "#" + floorNumber + "#" + buildingNumber + "#" + streetName + "#" + block + "#" + city;
     }
 
 }
