@@ -7,21 +7,21 @@ public class MainClass {
         while (true) {
             Person user = factory.getFactorySystem().loginingIn();
             if (user instanceof Worker) {
-                if (!factory.getWorkers().contains((Worker) user)) {
+                if (!factory.getFactorySystem().checkForUser((Worker) user)) {
                     factory.addWorker((Worker) user);
                 }
             } else if (user instanceof SuperVisor) {
-                if (!factory.getSuperVisors().contains((SuperVisor) user)) {
+                if (!factory.getFactorySystem().checkForUser((SuperVisor) user)) {
                     factory.addSuperVisor((SuperVisor) user);
                 }
             } else if (user instanceof SalesMan) {
-                if (!factory.getSalesMen().contains((SalesMan) user)) {
+                if (!factory.getFactorySystem().checkForUser((SalesMan) user)) {
                     factory.addSalesMan((SalesMan) user);
                 }
             }
             if (user != null) {
                 factory.userUtility(user);
-            } 
+            }
         }
     }
 }
