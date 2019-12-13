@@ -245,7 +245,7 @@ public class Factory {
                 }
             }
         }
-        factorySystem.saveChanges();
+        factorySystem.saveChanges(workers,superVisors,salesMen);
     }
 
 }

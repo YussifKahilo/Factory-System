@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 public class FactorySystem {
 
-    private ArrayList<Employee> users = new ArrayList<Employee>();
-    private Manager userOfManager;
+    final private ArrayList<Employee> users = new ArrayList<Employee>();
+    final private Manager userOfManager;
 
     public FactorySystem(ArrayList<Employee> usersOfWorkers, ArrayList<Employee> usersOfSuperVisors, ArrayList<Employee> usersOfSalesMen, Manager userOfManager) {
         this.userOfManager = userOfManager;
@@ -43,7 +43,7 @@ public class FactorySystem {
         System.out.println("---------------------------");
         for (;;) {
             for (;;) {
-                System.out.println("(INFO)=> \n :: Your pass word must have at least : ");
+                System.out.println("(INFO)=> \n :: Your password must have at least : ");
                 System.out.println("   - Four Charecters \n   - One upercase letter . "
                         + "\n   - One lowercase letter . "
                         + "\n   - One Number or Symbol .");
@@ -112,7 +112,7 @@ public class FactorySystem {
 
     }
 
-    public boolean isPasswordValid(String password) {
+    public static boolean isPasswordValid(String password) {
         int[] arr = new int[3];
         boolean isValid = false;
         for (int i = 0; i < password.length(); i++) {
@@ -256,31 +256,31 @@ public class FactorySystem {
         System.out.println("*************************");
     }
 
-    public boolean checkForUser(Employee user){
+    public boolean checkForUser(Employee user) {
         boolean isFound = false;
-        for(int i = 0 ; i < users.size()&&!isFound; i ++){
-            if(user.getId().equals(users.get(i).getId())){
-               isFound=true; 
+        for (int i = 0; i < users.size() && !isFound; i++) {
+            if (user.getId().equals(users.get(i).getId())) {
+                isFound = true;
             }
         }
         return isFound;
     }
-    
-    public void saveChanges() {
+
+    public void saveChanges(ArrayList<Employee> workers, ArrayList<Employee> superVisors, ArrayList<Employee> salesMen) {
         ArrayList<String> workersData = new ArrayList<String>();
         ArrayList<String> superVisorsData = new ArrayList<String>();
         ArrayList<String> salesMenData = new ArrayList<String>();
-        for (int i = 0; i < users.size(); i++) {
-            if (users.get(i).getId().startsWith("22")) {
-                workersData.add(users.get(i).toString());
-            } else if (users.get(i).getId().startsWith("33")) {
-                superVisorsData.add(users.get(i).toString());
-            } else if (users.get(i).getId().startsWith("44")) {
-                salesMenData.add(users.get(i).toString());
-            }
+        for (int i = 0; i < workers.size(); i++) {
+            workersData.add(workers.get(i).toString());
         }
-        FileData.setData(workersData, "Workers.txt");
-        FileData.setData(superVisorsData, "SuperVisors.txt");
-        FileData.setData(salesMenData, "SalesMen.txt");
+        for (int i = 0; i < superVisors.size(); i++) {
+            superVisorsData.add(superVisors.get(i).toString());
+        }
+        for (int i = 0; i < salesMen.size(); i++) {
+            salesMenData.add(salesMen.get(i).toString());
+        }
+        FileData.setData(workersData,"Workers.txt");
+        FileData.setData(superVisorsData,"SuperVisors.txt");
+        FileData.setData(salesMenData,"SalesMen.txt");
     }
 }

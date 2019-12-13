@@ -10,6 +10,7 @@ public class FileData {
 
     public static void getData(ArrayList<String> LINES,String fileName) {
         try {
+            LINES.clear();
             BufferedReader reader = new BufferedReader(new FileReader(fileName));
             String line = reader.readLine();
             while (line != null) {
