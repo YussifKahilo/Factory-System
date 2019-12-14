@@ -1,192 +1,138 @@
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class SuperVisor extends Employee {
+private ArrayList<Worker> Workers = new ArrayList<Worker>();
+	
 
-    private Employee[] workers = new Employee[5];
-    private int numOfWorkers;
+	public SuperVisor(Employee superVisor, ArrayList<Worker> Employees) {
+		super(
+				superVisor.getId(), superVisor.getPassword(),
+				superVisor.getName(), superVisor.getSalary(),
+				superVisor.getBonus(), superVisor.getMonthlyRate(),
+				superVisor.getOverallRate(), superVisor.getHiringDate(),
+				superVisor.getPhoneNumber(), superVisor.getEmail(),
+				superVisor.getAddress(),
+				superVisor.getBankAccount(), superVisor.getBirthDate());
+		setWorkers(Employees);
+		}
 
-    public SuperVisor(Employee superVisor, ArrayList<Employee> Employees) {
-        super(
-                superVisor.getId(), superVisor.getPassword(),
-                superVisor.getName(), superVisor.getSalary(),
-                superVisor.getBonus(), superVisor.getMonthlyRate(),
-                superVisor.getOverallRate(), superVisor.getHiringDate(),
-                superVisor.getPhoneNumber(), superVisor.getEmail(),
-                superVisor.getAddress(),
-                superVisor.getBankAccount(), superVisor.getBirthDate());
-        setWorkers(Employees);
-        numOfWorkers = 0;
-        setNumberOfWorkers();
-    }
+	
+	private void setWorkers(ArrayList<Worker> workers) {
+		int index = 0;
+		ArrayList<String> SuperVisors = new ArrayList<String>();
+		FileData.getData(SuperVisors, "SuperVisors.txt");
+		for (int i = 0; i < SuperVisors.size(); i++) {
+			if (this.getId().equalsIgnoreCase(SuperVisors.get(i).substring(0, SuperVisors.get(i).indexOf('#')))) {
+				index = i;
+				break;
+			}
+		}
+		ArrayList<String> WorkersId = new ArrayList<String>();
+		FileData.getData(WorkersId, "WorkersOfSuperVisors.txt");
+		String[] workersid = WorkersId.get(index).split("#");
+		for (int i = 0; i < workersid.length; i++) {
+			for (int j = 0; j < workers.size(); j++) {
+				if (workersid[i].equalsIgnoreCase(workers.get(j).getId())) {
+					this.Workers.add(workers.get(j));
+					break;
+				}
+			}
+		}
+	}
 
-    private void setNumberOfWorkers() {
-        for (int i = 0; i < 5; i++) {
-            if (this.workers[i] != null) {
-                numOfWorkers++;
-            } else {
-                break;
-            }
-        }
-    }
+	public Employee showWorkersInformation() {
+		Scanner input = new Scanner(System.in);
+		int i = 0;
+		for (; i < Workers.size(); i++) {
+				System.out.println((i + 1) + "- " + this.Workers.get(i).getName());
+			
+		}
+		System.out.println((i + 1) + "- " + "Back");
 
-    private void setWorkers(ArrayList<Employee> workers) {
-        int index = 0;
-        ArrayList<String> SuperVisors = new ArrayList<String>();
-        FileData.getData(SuperVisors, "SuperVisors.txt");
-        for (int i = 0; i < SuperVisors.size(); i++) {
-            if (this.getId().equalsIgnoreCase(SuperVisors.get(i).substring(0, SuperVisors.get(i).indexOf('#')))) {
-                index = i;
-                break;
-            }
-        }
-        ArrayList<String> WorkersId = new ArrayList<String>();
-        FileData.getData(WorkersId, "WorkersOfSuperVisors.txt");
-        String[] workersid = WorkersId.get(index).split("#");
-        int ind = 0;
-        for (int i = 0; i < workersid.length; i++) {
-            for (int j = 0; j < workers.size(); j++) {
-                if (workersid[i].equalsIgnoreCase(workers.get(j).getId())) {
-                    this.workers[ind++] = workers.get(j);
-                    break;
-                }
-            }
-        }
-    }
+		System.out.print("Choose : ");
+		String inn = input.next();
+		int ss= Integer.parseInt(inn);
+		if (Integer.parseInt(inn) <= Workers.size()) {
+			  System.out.println("*--------------------------------------------------------------------------");
+		        System.out.println("|Name                    : " + Workers.get(ss-1).getName());
+		        System.out.println("|ID                      : " + Workers.get(ss-1).getId());
+		        System.out.println("|Overall Rate            : " + Workers.get(ss-1).getOverallRate());
+		        System.out.println("|Hiring Date             : " + Workers.get(ss-1).getHiringDate());
+		        System.out.println("|Phone Number            : " + Workers.get(ss-1).getPhoneNumber());
+		        System.out.println("|E-mail                  : " + Workers.get(ss-1).getEmail());
+		        System.out.println("|Address                 : " + Workers.get(ss-1).getAddress().Display_Address());
+		        System.out.println("*--------------------------------------------------------------------------");
+		        return Workers.get(ss-1);
 
-    public Employee showWorkersInformation() {
-        Scanner input = new Scanner(System.in);
-        int i = 0;
-        for (; i < 5; i++) {
-            if (this.workers[i] != null) {
-                System.out.println((i + 1) + "- " + this.workers[i].getName());
-            }else
-                break;
-        }
-        System.out.println((i + 1) + "- " + "Back");
+		}
+		return null;
+	}
 
-        System.out.print("Choose : ");
-        String inn = input.next();
-        if (inn.equals("1") && Integer.parseInt(inn) <= numOfWorkers) {
-            System.out.println("name of this employee is" + workers[0].getName());
-            System.out.println("id of this employee is" + workers[0].getId());
-            System.out.println("phone number of this employee is" + workers[0].getPhoneNumber());
-            System.out.println("email of this employee is" + workers[0].getEmail());
-            System.out.println("address of this employee is" + workers[0].getAddress());
-            System.out.println("hiring date of this employee is" + workers[0].getHiringDate());
-            System.out.println("overall rate of this employee is" + workers[0].getOverallRate());
-            System.out.println("----------------------------------------------------");
-            return workers[0];
-        } else if (inn.equals("2") && Integer.parseInt(inn) <= numOfWorkers) {
-            System.out.println("name of this employee is" + workers[1].getName());
-            System.out.println("id of this employee is" + workers[1].getId());
-            System.out.println("phone number of this employee is" + workers[1].getPhoneNumber());
-            System.out.println("email of this employee is" + workers[1].getEmail());
-            System.out.println("address of this employee is" + workers[1].getAddress());
-            System.out.println("hiring date of this employee is" + workers[1].getHiringDate());
-            System.out.println("overall rate of this employee is" + workers[1].getOverallRate());
-            System.out.println("----------------------------------------------------");
-            return workers[1];
-        } else if (inn.equals("3") && Integer.parseInt(inn) <= numOfWorkers) {
-            System.out.println("name of this employee is" + workers[2].getName());
-            System.out.println("id of this employee is" + workers[2].getId());
-            System.out.println("phone number of this employee is" + workers[2].getPhoneNumber());
-            System.out.println("email of this employee is" + workers[2].getEmail());
-            System.out.println("address of this employee is" + workers[2].getAddress());
-            System.out.println("hiring date of this employee is" + workers[2].getHiringDate());
-            System.out.println("overall rate of this employee is" + workers[2].getOverallRate());
-            System.out.println("----------------------------------------------------");
-            return workers[2];
-        } else if (inn.equals("4") && Integer.parseInt(inn) <= numOfWorkers) {
-            System.out.println("name of this employee is" + workers[3].getName());
-            System.out.println("id of this employee is" + workers[3].getId());
-            System.out.println("phone number of this employee is" + workers[3].getPhoneNumber());
-            System.out.println("email of this employee is" + workers[3].getEmail());
-            System.out.println("address of this employee is" + workers[3].getAddress());
-            System.out.println("hiring date of this employee is" + workers[3].getHiringDate());
-            System.out.println("overall rate of this employee is" + workers[3].getOverallRate());
-            System.out.println("----------------------------------------------------");
-            return workers[3];
-        } else if (inn.equals("5") && Integer.parseInt(inn) <= numOfWorkers) {
-            System.out.println("name of this employee is" + workers[4].getName());
-            System.out.println("id of this employee is" + workers[4].getId());
-            System.out.println("phone number of this employee is" + workers[4].getPhoneNumber());
-            System.out.println("email of this employee is" + workers[4].getEmail());
-            System.out.println("address of this employee is" + workers[4].getAddress());
-            System.out.println("hiring date of this employee is" + workers[4].getHiringDate());
-            System.out.println("overall rate of this employee is" + workers[4].getOverallRate());
-            System.out.println("----------------------------------------------------");
-            return workers[4];
-        } else {
-        }
-        return null;
-    }
+	public double answerFeedback() {
+		Scanner input = new Scanner(System.in);
+		double Y = 0;
+		String answer;
+		String questions[] = new String[7];
+		questions[0] = "Does the worker come on time ? : ";
+		questions[1] = "Does the worker have passion on work ? : ";
+		questions[2] = "Is the worker good at collaborating with teammates ? : ";
+		questions[3] = "Does the worker behave well ? : ";
+		questions[4] = "Does the worker do his job efficiently ? : ";
+		questions[5] = "Does the worker bear the pressure of work ? : ";
+		questions[6] = "-->So the number of goods made by him is : ";
 
-    public double answerFeedback() {
-        Scanner input = new Scanner(System.in);
-        double Y = 0;
-        String answer;
-        String questions[] = new String[7];
-        questions[0] = "Does the worker come on time ? : ";
-        questions[1] = "Does the worker have passion on work ? : ";
-        questions[2] = "Is the worker good at collaborating with teammates ? : ";
-        questions[3] = "Does the worker behave well ? : ";
-        questions[4] = "Does the worker do his job efficiently ? : ";
-        questions[5] = "Does the worker bear the pressure of work ? : ";
-        questions[6] = "-->So the number of goods made by him is : ";
+		for (int i = 0; i < 6; i++) {
+			System.out.print(questions[i]);
+			answer = input.next();
+			if (answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("T")) {
+				Y++;
+			}
+		}
+		int target = super.showTarget();
+		System.out.print(questions[6]);
+		for (;;) {
+			answer = input.next();
 
-        for (int i = 0; i < 6; i++) {
-            System.out.print(questions[i]);
-            answer = input.next();
-            if (answer.equalsIgnoreCase("Y") || answer.equalsIgnoreCase("T")) {
-                Y++;
-            }
-        }
-        int target = super.showTarget();
-        System.out.print(questions[6]);
-        for (;;) {
-            answer = input.next();
+			if (Integer.parseInt(answer) > target) {
+				System.out.print("You entered a number greater than the target please try again : ");
+			} else {
+				Y += ((Double.parseDouble(answer) / target) * 4);
+				break;
+			}
+		}
+		return Y;
+	}
 
-            if (Integer.parseInt(answer) > target) {
-                System.out.print("You entered a number greater than the target please try again : ");
-            } else {
-                Y += ((Double.parseDouble(answer) / target) * 4);
-                break;
-            }
-        }
-        return Y;
-    }
+	@Override
+	public int showTarget() {
+		super.showTarget();
+		String TargetLine = FileData.getData("Target.txt");
+		String[] Line = TargetLine.split("#");
+		System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * Workers.size()));
+		return (Integer.parseInt(Line[1]) * Workers.size());
+	}
 
-    @Override
-    public int showTarget() {
-        super.showTarget();
-        String TargetLine = FileData.getData("Target.txt");
-        String[] Line = TargetLine.split("#");
-        System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * numOfWorkers));
-        return (Integer.parseInt(Line[1]) * numOfWorkers);
-    }
+	public int setTargetResult() {
+		Scanner input = new Scanner(System.in);
+		System.out.println("Enter the number of manufactured goods this month");
+		String amount = input.next();
+		int target = this.showTarget();
+		System.out.println("And your team manufactured " + amount + " goods this month ..");
+		double ratio = (Integer.parseInt(amount) * 1.0) / target;
+		this.setMonthlyRate(ratio * 10);
+		this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
+		return Integer.parseInt(amount);
+	}
 
-    public int setTargetResult() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Enter the number of manufactured goods this month");
-        String amount = input.next();
-        int target = this.showTarget();
-        System.out.println("And your team manufactured " + amount + " goods this month ..");
-        double ratio = (Integer.parseInt(amount) * 1.0) / target;
-        this.setMonthlyRate(ratio * 10);
-        this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
-        return Integer.parseInt(amount);
-    }
-
-    @Override
-    public void showInformations() {
-        super.showInformations();
-        System.out.println("| The Worker responsible for : ");
-        for (int i = 0; i < workers.length && workers[i] != null; i++) {
-            System.out.println("| " + (i + 1) + "- " + workers[i].getName());
-        }
-        System.out.println("*--------------------------------------------------------------------------");
-    }
+	@Override
+	public void showInformations() {
+		super.showInformations();
+		System.out.println("| The Workers responsible for : ");
+		for (int i = 0; i <Workers.size(); i++) {
+			System.out.println("| " + (i + 1) + "- " + Workers.get(i).getName());
+		}
+		System.out.println("*--------------------------------------------------------------------------");
+	}
 
 }
