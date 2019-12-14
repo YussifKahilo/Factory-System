@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -9,43 +8,19 @@ public class Manager extends Person {
 		super("1100", "Kahilo", "00");
 	}
 
-	
 	public void promote(Employee employee, String promotedEmployee, Factory factory) {
 		employee.setOverallRate(0);
 		if (promotedEmployee.equalsIgnoreCase("SuperVisor")) {
 
-			factory.removeEmployee((Worker) employee);
+			factory.removeEmployee(employee);
 			employee.setId("33" + employee.getId().substring(2));
 			factory.addSuperVisor((SuperVisor) employee);
-			ArrayList<String> superVisors = new ArrayList<String>();
-			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
-				superVisors.add(factory.getSuperVisors().get(i).toString());
-			}
-			FileData.setData(superVisors, "SuperVisors.txt");
 		} else {
-			ArrayList<String> salesMen = new ArrayList<String>();
 			employee.setId("44" + employee.getId().substring(2));
 			factory.removeEmployee(employee);
 			factory.addSalesMan((SalesMan) employee);
-			for (int i = 0; i < factory.getSuperVisors().size(); i++) {
-				salesMen.add(factory.getSalesMen().get(i).toString());
-			}
-			FileData.setData(salesMen, "SuperVisors.txt");
-
 		}
 
-	}
-
-	public Employee searchForEmployee(String id, ArrayList<Employee> employees) {
-		boolean employeeIsFound = false;
-		Employee chosenEmployee = null;
-		for (int i = 0; i < employees.size() && !employeeIsFound; i++) {
-			if (id.equals(employees.get(i).getId())) {
-				employeeIsFound = true;
-				chosenEmployee = employees.get(i);
-			}
-		}
-		return chosenEmployee;
 	}
 
 	public void showEmployees(int table_option, ArrayList<Employee> persons) {
@@ -206,4 +181,5 @@ public class Manager extends Person {
 		}
 		return chosenEmployee;
 	}
+
 }

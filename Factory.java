@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public class Factory {
@@ -83,8 +82,7 @@ public class Factory {
 
 	public void removeEmployee(Employee employee) {
 		ArrayList<String> bankAccount = new ArrayList<String>();
-		
-		FileData.getData(bankAccount,"BankAccount.txt");
+		FileData.getData(bankAccount, "BankAccount.txt");
 		bankAccount.remove(employee.getBankAccount().getAccountNumber());
 		FileData.setData(bankAccount, "BankAccount.txt");
 		if (employee.getId().startsWith("2")) {
@@ -99,22 +97,24 @@ public class Factory {
 		}
 
 	}
+
 	public void assignWokersToSupervisors() {
 		ArrayList<String> idsOfWorkers = new ArrayList<String>();
 		String str = "";
 		int totalNumberOfWorkers = workers.size();
-		int totalNumberOfSuperVisors=superVisors.size();
-		if(totalNumberOfWorkers%totalNumberOfSuperVisors==0) {
-			int numberOfWorkersForEach =totalNumberOfWorkers/totalNumberOfSuperVisors;
-			for(int i =0;i<totalNumberOfWorkers;i++) {
-				if((i+1)%numberOfWorkersForEach!=0) {
+		int totalNumberOfSuperVisors = superVisors.size();
+		if (totalNumberOfWorkers % totalNumberOfSuperVisors == 0) {
+			int numberOfWorkersForEach = totalNumberOfWorkers / totalNumberOfSuperVisors;
+			for (int i = 0; i < totalNumberOfWorkers; i++) {
+				if ((i + 1) % numberOfWorkersForEach != 0) {
 					str += workers.get(i).getId() + "#";
 				}
 				idsOfWorkers.add(str);
 			}
 		}
-		
+
 	}
+
 	public void addWorker(Worker worker) {
 		factorySystem.addUser(worker);
 		workers.add(worker);
