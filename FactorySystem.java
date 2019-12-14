@@ -9,7 +9,7 @@ public class FactorySystem {
     final private ArrayList<Employee> users = new ArrayList<Employee>();
     final private Manager userOfManager;
 
-    public FactorySystem(ArrayList<Employee> usersOfWorkers, ArrayList<Employee> usersOfSuperVisors, ArrayList<Employee> usersOfSalesMen, Manager userOfManager) {
+    public FactorySystem(ArrayList<Worker> usersOfWorkers, ArrayList<SuperVisor> usersOfSuperVisors, ArrayList<SalesMan> usersOfSalesMen, Manager userOfManager) {
         this.userOfManager = userOfManager;
         for (int i = 0; i < usersOfWorkers.size(); i++) {
             users.add(usersOfWorkers.get(i));
@@ -165,7 +165,13 @@ public class FactorySystem {
                 } else if (id.startsWith("33")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
-                        user = new SuperVisor(getEmployee(id), users);
+                        ArrayList<Worker> workers = new ArrayList<Worker>();
+                        for (int i = 0; i < users.size(); i++) {
+                            if (users.get(i) instanceof Worker) {
+                                workers.add(new Worker(users.get(i)));
+                            }
+                        }
+                        user = new SuperVisor(getEmployee(id), workers);
                     }
                 } else if (id.startsWith("44")) {
                     if (this.verifyLogin(id, password)) {
@@ -266,7 +272,7 @@ public class FactorySystem {
         return isFound;
     }
 
-    public void saveChanges(ArrayList<Employee> workers, ArrayList<Employee> superVisors, ArrayList<Employee> salesMen) {
+    public void saveChanges(ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen) {
         ArrayList<String> workersData = new ArrayList<String>();
         ArrayList<String> superVisorsData = new ArrayList<String>();
         ArrayList<String> salesMenData = new ArrayList<String>();
@@ -279,8 +285,173 @@ public class FactorySystem {
         for (int i = 0; i < salesMen.size(); i++) {
             salesMenData.add(salesMen.get(i).toString());
         }
-        FileData.setData(workersData,"Workers.txt");
-        FileData.setData(superVisorsData,"SuperVisors.txt");
-        FileData.setData(salesMenData,"SalesMen.txt");
+        FileData.setData(workersData, "Workers.txt");
+        FileData.setData(superVisorsData, "SuperVisors.txt");
+        FileData.setData(salesMenData, "SalesMen.txt");
+    }
+
+    public void userUtility(Person user, Manager manager, ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen, Financial financial,
+            Storage storage, Factory factory) {
+        Scanner in = new Scanner(System.in);
+        boolean logOut = false;
+        if (user instanceof Manager) {
+            while (!logOut) {
+                UserMenu.managerMenu();
+                int choice = in.nextInt();
+                if (choice == 1) {
+                    UserMenu.employeeTableOptionsMenu();
+                    int table_option = in.nextInt();
+                    if (table_option <= 3 && table_option >= 1) {
+                        manager.showEmployees(table_option, users);
+                        System.out.println("Invalid input ..");
+                    }
+                } else if (choice == 2) {
+                    System.out.print("Enter the employee's id : ");
+                    String id = in.next();
+                    Employee person = null;
+                    if(id.startsWith("2")){
+                        person = manager.searchForWorker(id, workers);
+                    }else if(id.startsWith("3")){
+                        person = manager.searchForSuperVisor(id, superVisors);
+                    }else if(id.startsWith("4")){
+                        person = manager.searchSalesMan(id, salesMen);
+                    }
+                    if (person != null) {
+                        person.showInformations();
+                        UserMenu.employeeOptionsMenu();
+                        int employee_option = in.nextInt();
+                        if (employee_option == 1) {
+                            System.out.println("1-Promote to Super Visor");
+                            System.out.println("2-Promote to Sales Man");
+                            System.out.println("3-Back");
+                            System.out.print("::");
+                            int promoteTo_number = in.nextInt();
+                            if (promoteTo_number == 1) {
+                                manager.promote(person, "SuperVisor", factory);
+                            } else if (promoteTo_number == 2) {
+                                manager.promote(person, "SalesMan", factory);
+                            }
+                        } else if (employee_option == 2) {
+                            System.out.print("Enter The New Salary : ");
+                            person.setSalary(in.nextDouble());
+                        } else if (employee_option == 3) {
+                            manager.firingEmployee(person, factory);
+                        }
+                    } else {
+                        System.out.println("You entered a wrong id..");
+                    }
+                } else if (choice == 3) {
+                    System.out.print("The Target this month is : ");
+                    manager.setTarget(in.nextInt(), workers.size());
+                } else if (choice == 4) {
+                    UserMenu.managerStorageOptionsMenu();
+                    String NUM = in.next();
+                    manager.storageManagment(Integer.parseInt(NUM), storage);
+                } else if (choice == 5) {
+                    UserMenu.managerFinancialOptionsMenu();
+                    String NUM = in.next();
+                    manager.financialManagment(Integer.parseInt(NUM), financial);
+                } else if (choice == 6) {
+                    logOut = true;
+                }
+            }
+        } else if (user instanceof Worker) {
+            Worker USER = null;
+            for(int i = 0 ; i < workers.size();i++){
+                if(user.getId().equals(workers.get(i).getId())){
+                    USER = workers.get(i);
+                }
+            }
+            while (!logOut) {
+                UserMenu.workerMenu();
+                int choice = in.nextInt();
+                if (choice == 1) {
+                    USER.showInformations();
+                    System.out.print("Do you want to edit any informations ? (Y/N)\n::");
+                    String ch = in.next();
+                    if (ch.equalsIgnoreCase("Y")) {
+                        USER.editInformations();
+                    }
+                } else if (choice == 2) {
+                    USER.showTarget();
+                } else if (choice == 3) {
+                    logOut = true;
+                } else {
+                    System.out.println("invalid input .. ");
+                }
+            }
+        } else if (user instanceof SuperVisor) {
+            SuperVisor USER = null;
+            for(int i = 0 ; i < superVisors.size();i++){
+                if(user.getId().equals(superVisors.get(i).getId())){
+                    USER = superVisors.get(i);
+                }
+            }
+            while (!logOut) {
+                UserMenu.superVisorMenu();
+                int choice = in.nextInt();
+                if (choice == 1) {
+                    USER.showInformations();
+                    System.out.print("Do you want to edit any informations ? (Y/N)\n::");
+                    String ch = in.next();
+                    if (ch.equalsIgnoreCase("Y")) {
+                        USER.editInformations();
+                    }
+                } else if (choice == 2) {
+                    Employee worker = USER.showWorkersInformation();
+                    if (worker != null) {
+                        System.out.print("1-Give Feedback\n2-back\n::");
+                        String NUM = in.next();
+                        if (NUM.equalsIgnoreCase("1")) {
+                            double rate = USER.answerFeedback();
+                            worker.setMonthlyRate(rate);
+                            worker.setBonus(rate / 100);
+                            worker.setOverallRate((worker.getOverallRate() + rate) / 2);
+                        }
+                    }
+                } else if (choice == 3) {
+                    USER.showTarget();
+                } else if (choice == 4) {
+                    int target_result = USER.setTargetResult();
+                    storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() + target_result);
+                    storage.setnumberOfGoodsThisMonth(target_result);
+                } else if (choice == 5) {
+                    logOut = true;
+                } else {
+                    System.out.println("Invalid input .. ");
+                }
+            }
+
+        } else if (user instanceof SalesMan) {
+            SalesMan USER = null;
+            for(int i = 0 ; i < salesMen.size();i++){
+                if(user.getId().equals(salesMen.get(i).getId())){
+                    USER = salesMen.get(i);
+                }
+            }
+            while (!logOut) {
+                UserMenu.salesManMenu();
+                int choice = in.nextInt();
+                if (choice == 1) {
+                    USER.showInformations();
+                    System.out.print("Do you want to edit any information ? (Y/N)\n::");
+                    String ch = in.next();
+                    if (ch.equalsIgnoreCase("Y")) {
+                        USER.editInformations();
+                    }
+                } else if (choice == 2) {
+                    USER.showTarget();
+                } else if (choice == 3) {
+                    int target_result = USER.setTargetResult();
+                    storage.setNumberOfSoldGoods(target_result);
+                    storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() - target_result);
+                    financial.setTotalMoney(storage.getPriceofGoods() * target_result);
+                } else if (choice == 4) {
+                    logOut = true;
+                }
+            }
+        }
+
+        saveChanges(workers, superVisors, salesMen);
     }
 }
