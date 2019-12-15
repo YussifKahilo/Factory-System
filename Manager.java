@@ -14,69 +14,16 @@ public class Manager extends Person {
 		if (promotedEmployee.equalsIgnoreCase("SuperVisor")) {
 
 			factory.removeEmployee(employee);
-			employee.setId("33" + employee.getId().substring(2));
+			employee.setId("3" + employee.getId().substring(1));
 			factory.assignWorkersToSupperVisors(factory.getWorkers().size(), factory.getSuperVisors().size() + 1);
 			factory.addSuperVisor(new SuperVisor(employee, factory.getWorkers()));
 		} else {
-			employee.setId("44" + employee.getId().substring(2));
+			employee.setId("4" + employee.getId().substring(1));
 			factory.removeEmployee(employee);
 			factory.addSalesMan(new SalesMan(employee));
 		}
 
 	}
-	public void formatOfDisplayEmployee() {
-		System.out.println(
-				".____________________________________________________________________________________________________________________________________.");
-		System.out.println(
-				"|   ID   |       Name        |  Overall Rate  |      Salary      |  Phone Number  | Hiring Date |               E-Mail               |");
-		System.out.println(
-				"+--------+-------------------+----------------+------------------+----------------+-------------+------------------------------------+");
-	}
-	
-	public void sortEmployeesByIdOrOverAllRate(ArrayList<Employee> employee) {
-		Scanner input = new Scanner(System.in);
-		System.out.println("Do you Want to sort employees By thier ID OR Over All Rate ?\n1)ID\n2)Over All Rate");
-		int sortingChoice = input.nextInt();
-		formatOfDisplayEmployee();
-		int indexOfMax = 0;
-		if (sortingChoice == 2) {
-			for (int k = 0; k < employee.size(); k++) {
-				double max = employee.get(k).getOverallRate();
-				for (int j= k; j < employee.size(); j++) {
-					if (max < employee.get(j).getOverallRate()) {
-						max = employee.get(j).getOverallRate();
-						indexOfMax = j;
-					}
-				}
-				Collections.swap(employee, indexOfMax, k);
-			}
-		}
-	}
-	
-	public void dataOfDisplayEmployee(ArrayList<Employee> employee) {
-		for (int i = 0; i < employee.size(); i++) {
-			System.out.print("|");
-			String[] Name = employee.get(i).getName().split(" ");
-			String name = " " + Name[0];
-			String space = "", space_for_email = "";
-			for (int k = 0; k < 19 - name.length(); k++) {
-				space += " ";
-			}
-			name = name.concat(space);
-			for (int j = 0; j < 35 - employee.get(i).getEmail().length(); j++) {
-				space_for_email += " ";
-			}
-			String email = " " + employee.get(i).getEmail() + space_for_email;
-
-			System.out.printf("%7s%2s%19s%1s%11s%6s%13.2f%6s%15s%2s%11s%3s%35s%1s", employee.get(i).getId(), "|", name,
-					"|", (int) employee.get(i).getOverallRate() + " / 10", "|", employee.get(i).getSalary(), "|",
-					"+02" + employee.get(i).getPhoneNumber(), "|", employee.get(i).getHiringDate(), "|", email, "|");
-			System.out.println("");
-		}
-		System.out.println(
-				"+------------------------------------------------------------------------------------------------------------------------------------+");
-	}
-	
 
 	public void showEmployees(int table_option, ArrayList<Employee> persons) {
 		ArrayList<Employee> employee = new ArrayList<Employee>();
@@ -100,8 +47,13 @@ public class Manager extends Person {
 				}
 			}
 		}
-		sortEmployeesByIdOrOverAllRate(employee);
-		dataOfDisplayEmployee(employee);	
+		Scanner input = new Scanner(System.in);
+		System.out.println("Do you Want to sort employees By thier ID OR Over All Rate ?\n1)ID\n2)Over All Rate");
+		int sortingChoice = input.nextInt();
+		if (sortingChoice == 2) {
+			FactorySystem.sortEmployeesByOverAllRate(employee);
+		}
+		UserMenu.employeesTable(employee);
 	}
 
 	public void storageManagment(int num, Storage storage) {
@@ -147,10 +99,12 @@ public class Manager extends Person {
 		factory.removeEmployee(employee);
 	}
 
-	public void giveSalary(ArrayList<Employee> employees) {
+	public void giveSalary(ArrayList<Employee> employees, Financial financial) {
 		for (int i = 0; i < employees.size(); i++) {
 			employees.get(i).getBankAccount().setBalance(employees.get(i).getSalary() + employees.get(i).getBonus()
 					+ employees.get(i).getBankAccount().getBalance());
+
+			financial.setTotalMoney((financial.getTotalMoney()) - employees.get(i).getSalary());
 		}
 	}
 
