@@ -161,7 +161,7 @@ public class FactorySystem {
                         logedIn = true;
                         user = userOfManager;
                     }
-                } else if (id.startsWith("22")) {
+                } else if (id.startsWith("2")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
                         user = new Worker(getEmployee(id));
@@ -170,7 +170,7 @@ public class FactorySystem {
                         System.out.println("**Invalid ID or Password**");
                         System.out.println("**************************");
                     }
-                } else if (id.startsWith("33")) {
+                } else if (id.startsWith("3")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
                         ArrayList<Worker> workers = new ArrayList<Worker>();
@@ -181,7 +181,7 @@ public class FactorySystem {
                         }
                         user = new SuperVisor(getEmployee(id), workers);
                     }
-                } else if (id.startsWith("44")) {
+                } else if (id.startsWith("4")) {
                     if (this.verifyLogin(id, password)) {
                         logedIn = true;
                         user = new SalesMan(getEmployee(id));
@@ -225,28 +225,8 @@ public class FactorySystem {
                 + infromations_array[2] + "#" + infromations_array[3] + "#" + infromations_array[4] + "#"
                 + infromations_array[5] + "#" + infromations_array[6] + "#" + infromations_array[7] + "#"
                 + infromations_array[8] + "#" + infromations_array[9] + "#");
-        if (!users.isEmpty()) {
-            ArrayList<String> IDs = new ArrayList<String>();
-            for (int i = 0; i < users.size(); i++) {
-                IDs.add(users.get(i).getId().substring(3));
-            }
-            for (int i = 0; i < IDs.size(); i++) {
-                int max = Integer.parseInt(IDs.get(i));
-                int maxIndex = i;
-                for (int j = i; j < IDs.size(); j++) {
-                    if (max < Integer.parseInt(IDs.get(j))) {
-                        max = Integer.parseInt(IDs.get(j));
-                        maxIndex = j;
-                    }
-                }
-                Collections.swap(IDs, i, maxIndex);
-            }
-            String lastID = "220" + IDs.get(0);
-            int id = Integer.parseInt(lastID);
-            line.insert(0, (id + 1) + "#");
-        } else {
-            line.insert(0, "220000" + "#");
-        }
+
+        line.insert(0, generateId() + "#");
         BankAccount ba = new BankAccount();
         line.append(ba.getAccountNumber() + "#" + ba.getBalance() + "#" + infromations_array[10] + "#"
                 + infromations_array[11] + "#" + infromations_array[12]);
@@ -270,6 +250,31 @@ public class FactorySystem {
         System.out.println("** Your id is : " + person.getId() + " **");
         System.out.println("*************************");
         System.out.println("*************************");
+    }
+
+    public String generateId() {
+        if (!users.isEmpty()) {
+            ArrayList<String> IDs = new ArrayList<String>();
+            for (int i = 0; i < users.size(); i++) {
+                IDs.add(users.get(i).getId().substring(1));
+            }
+            for (int i = 0; i < IDs.size(); i++) {
+                int max = Integer.parseInt(IDs.get(i));
+                int maxIndex = i;
+                for (int j = i; j < IDs.size(); j++) {
+                    if (max < Integer.parseInt(IDs.get(j))) {
+                        max = Integer.parseInt(IDs.get(j));
+                        maxIndex = j;
+                    }
+                }
+                Collections.swap(IDs, i, maxIndex);
+            }
+            String lastID = "2" + IDs.get(0);
+            int id = Integer.parseInt(lastID);
+            return (id + 1) + "";
+        } else {
+            return "200000";
+        }
     }
 
     public boolean checkForUser(Employee user) {
