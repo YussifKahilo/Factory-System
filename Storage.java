@@ -3,18 +3,16 @@ public class Storage {
 
     private int numberOfStoredGoods;
     private int numberOfSoldGoods;
-    private int numberOfGoodsToBeSold;
     private double priceOfGood;
-    private int numberOfGoodsThisMonth;
+    private int numberOfGoodsManufacturedThisMonth;
 
     public Storage(String line) {
         if (line != null) {
             String[] arr = line.split("#");
             this.numberOfStoredGoods = Integer.parseInt(arr[0]);
             this.numberOfSoldGoods = Integer.parseInt(arr[1]);
-            this.numberOfGoodsToBeSold = Integer.parseInt(arr[2]);
-            this.priceOfGood = Double.parseDouble(arr[3]);
-            this.numberOfGoodsThisMonth = Integer.parseInt(arr[4]);
+            this.priceOfGood = Double.parseDouble(arr[2]);
+            this.numberOfGoodsManufacturedThisMonth = Integer.parseInt(arr[3]);
         }
     }
 
@@ -34,14 +32,6 @@ public class Storage {
         return numberOfSoldGoods;
     }
 
-    public void setNumberOfGoodsTobeSold(int amount) {
-        this.numberOfGoodsToBeSold = amount;
-    }
-
-    public int getNumberOfGoodsToBeSold() {
-        return numberOfGoodsToBeSold;
-    }
-
     public void setPriceOfGoods(double price) {
         this.priceOfGood = price;
     }
@@ -50,15 +40,15 @@ public class Storage {
         return priceOfGood;
     }
 
-    public void setnumberOfGoodsThisMonth(int amount) {
-        this.numberOfGoodsThisMonth = amount;
+    public void setNumberOfGoodsManufacturedThisMonth(int amount) {
+        this.numberOfGoodsManufacturedThisMonth = amount;
     }
 
-    public int getnumberOfGoodsThisMonth() {
-        return numberOfGoodsThisMonth;
+    public int getNumberOfGoodsManufacturedThisMonth() {
+        return numberOfGoodsManufacturedThisMonth;
     }
 
     public String toString() {
-        return numberOfStoredGoods + "#" + numberOfSoldGoods + "#" + numberOfGoodsToBeSold + "#" + priceOfGood + "#" + numberOfGoodsThisMonth;
+        return numberOfStoredGoods + "#" + numberOfSoldGoods + "#" + priceOfGood + "#" + numberOfGoodsManufacturedThisMonth;
     }
 }

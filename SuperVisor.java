@@ -69,7 +69,7 @@ public class SuperVisor extends Employee {
         return null;
     }
 
-    public double answerFeedback() {
+    public double answerFeedback(Target target) {
         Scanner input = new Scanner(System.in);
         double Y = 0;
         String answer;
@@ -89,15 +89,15 @@ public class SuperVisor extends Employee {
                 Y++;
             }
         }
-        int target = super.showTarget();
+        int satTarget = super.showTarget(target);
         System.out.print(questions[6]);
         for (;;) {
             answer = input.next();
 
-            if (Integer.parseInt(answer) > target) {
+            if (Integer.parseInt(answer) > satTarget) {
                 System.out.print("You entered a number greater than the target please try again : ");
             } else {
-                Y += ((Double.parseDouble(answer) / target) * 4);
+                Y += ((Double.parseDouble(answer) / satTarget) * 4);
                 break;
             }
         }
@@ -105,21 +105,19 @@ public class SuperVisor extends Employee {
     }
 
     @Override
-    public int showTarget() {
-        super.showTarget();
-        String TargetLine = FileData.getData("Target.txt");
-        String[] Line = TargetLine.split("#");
-        System.out.println("The total team target is : " + (Integer.parseInt(Line[1]) * Workers.size()));
-        return (Integer.parseInt(Line[1]) * Workers.size());
+    public int showTarget(Target target) {
+        super.showTarget(target);
+        System.out.println("The total team target is : " + target.getTargetOfGoodsToBeManufacturedForEachWorker() * Workers.size());
+        return target.getTargetOfGoodsToBeManufacturedForEachWorker() * Workers.size();
     }
 
-    public int setTargetResult() {
+    public int setTargetResult(Target target) {
         Scanner input = new Scanner(System.in);
         System.out.println("Enter the number of manufactured goods this month");
         String amount = input.next();
-        int target = this.showTarget();
+        int satTarget = this.showTarget(target);
         System.out.println("And your team manufactured " + amount + " goods this month ..");
-        double ratio = (Integer.parseInt(amount) * 1.0) / target;
+        double ratio = (Integer.parseInt(amount) * 1.0) / satTarget;
         this.setMonthlyRate(ratio * 10);
         this.setOverallRate((this.getOverallRate() + this.getMonthlyRate()) / 2);
         return Integer.parseInt(amount);

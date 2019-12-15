@@ -10,6 +10,7 @@ public class Factory {
     private Storage storage;
     private Financial financial;
     private FactorySystem factorySystem;
+    private Target target;
 
     public Factory() {
         manager = new Manager();
@@ -18,6 +19,7 @@ public class Factory {
         salesMen = new ArrayList<>();
         storage = new Storage(FileData.getData("Storage.txt"));
         financial = new Financial(FileData.getData("Financial.txt"));
+        target = new Target(FileData.getData("Target.txt"));
         setWorkers();
         assignWorkersToSupperVisors(workers.size(),superVisors.size());
         setSuperVisors();
@@ -102,7 +104,6 @@ public class Factory {
         }
         return isFound;
     }
-
     
     public void addWorker(Worker worker) {
         factorySystem.addUser(worker);
@@ -170,7 +171,7 @@ public class Factory {
     }
 
     public void startUserInterface(Person user) {
-        factorySystem.userUtility(user, manager, workers, superVisors, salesMen, financial, storage, this);
+        factorySystem.userUtility(user, manager, workers, superVisors, salesMen, financial, storage,target, this);
     }
 
 }
