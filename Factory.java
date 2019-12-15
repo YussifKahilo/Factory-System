@@ -88,11 +88,21 @@ public class Factory {
     public ArrayList<SuperVisor> getSuperVisors(){
     	return superVisors;
     }
+    
     public ArrayList<SalesMan> getSalesMen(){
     	return salesMen;
     }
-    
-    
+     
+    public boolean checkForWorker(Worker user) {
+        boolean isFound = false;
+        for (int i = 0; i < workers.size() && !isFound; i++) {
+            if (user.getId().equals(workers.get(i).getId())) {
+                isFound = true;
+            }
+        }
+        return isFound;
+    }
+
     
     public void addWorker(Worker worker) {
         factorySystem.addUser(worker);
@@ -124,7 +134,7 @@ public class Factory {
         String str = "";
         for (int j = 0; j < numberOfWorkersForEachSuperVisor * totalNumberOfSuperVisors; j++) {
             if ((j + 1) % numberOfWorkersForEachSuperVisor == 0) {
-                str = str + "#" + workers.get(numberofWorkersassigned++);
+                str = str + "#" + workers.get(numberofWorkersassigned++).getId();
                 idsOfWorkers.add(str.substring(1));
                 str = "";
             } else {

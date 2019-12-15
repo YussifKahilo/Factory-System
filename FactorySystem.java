@@ -237,14 +237,15 @@ public class FactorySystem {
             }
         }
         String[] Line = line.toString().split("#");
-        Employee person = new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
+        Worker person = new Worker(new Employee(Line[0], Line[1], Line[2], Double.parseDouble(Line[3]),
                 Double.parseDouble(Line[4]), Double.parseDouble(Line[5]), Double.parseDouble(Line[6]), Line[7], Line[8],
                 Line[9],
                 new Address(Integer.parseInt(Line[10]), Integer.parseInt(Line[11]), Integer.parseInt(Line[12]),
                         Line[13], Line[14], Line[15]),
                 new BankAccount(Line[16], Double.parseDouble(Line[17])),
-                new BirthDate(Integer.parseInt(Line[18]), Integer.parseInt(Line[19]), Integer.parseInt(Line[20])));
+                new BirthDate(Integer.parseInt(Line[18]), Integer.parseInt(Line[19]), Integer.parseInt(Line[20]))));
         this.addUser(person);
+        
         System.out.println("*************************");
         System.out.println("*************************");
         System.out.println("** Your id is : " + person.getId() + " **");
