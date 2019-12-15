@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -14,17 +15,19 @@ public class Manager extends Person {
 
 			factory.removeEmployee(employee);
 			employee.setId("33" + employee.getId().substring(2));
-			factory.addSuperVisor((SuperVisor) employee);
+			factory.assignWorkersToSupperVisors(factory.getWorkers().size(), factory.getSuperVisors().size() + 1);
+			factory.addSuperVisor(new SuperVisor(employee, factory.getWorkers()));
 		} else {
 			employee.setId("44" + employee.getId().substring(2));
 			factory.removeEmployee(employee);
-			factory.addSalesMan((SalesMan) employee);
+			factory.addSalesMan(new SalesMan(employee));
 		}
 
 	}
 
 	public void showEmployees(int table_option, ArrayList<Employee> persons) {
 		ArrayList<Employee> employee = new ArrayList<Employee>();
+
 		if (table_option == 1) {
 			for (int i = 0; i < persons.size(); i++) {
 				if (persons.get(i).getId().startsWith("2")) {
@@ -99,11 +102,7 @@ public class Manager extends Person {
 			System.out.println("The number of goods that have been manufactured this month: "
 					+ storage.getnumberOfGoodsThisMonth());
 		} else if (num == 3) {
-			Financial financial = new Financial();
 			System.out.println("The number of sold goods:" + storage.getNumberOfSoldGood());
-			financial.setProfit(
-					financial.getMatrialsPrice() + (storage.getNumberOfSoldGood() * storage.getPriceofGoods()));
-			financial.setTotalMoney(financial.getTotalMoney() + financial.getProfit());
 		} else if (num == 4) {
 			System.out.println("Enter The Number Of Goods To be Sold: ");
 			String numOfGoodsToBeSold = input.next();

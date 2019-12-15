@@ -5,8 +5,7 @@ public class Financial {
     private double matrialsPrice;
     private double profit;
 
-    public Financial() {
-        String line = FileData.getData("Financial.txt");
+    public Financial(String line) {
         if (line != null) {
             String[] arr = line.split("#");
             this.setTotalMoney(Double.parseDouble(arr[0]));
@@ -18,8 +17,6 @@ public class Financial {
 
     public void setTotalMoney(double amount) {
         this.totalMoney = amount;
-        String line = this.toString();
-        FileData.setData(line, "Financial.txt");
     }
 
     public double getMatrialsPrice() {
@@ -28,8 +25,6 @@ public class Financial {
 
     public void setMatrialsPrice(double matrialsPrice) {
         this.matrialsPrice = matrialsPrice;
-        String line = this.toString();
-        FileData.setData(line, "Financial.txt");
     }
 
     public double getTotalMoney() {
@@ -42,8 +37,6 @@ public class Financial {
 
     public void setProfit(double profit) {
         this.profit = profit;
-        String line = this.toString();
-        FileData.setData(line, "Financial.txt");
     }
 
     public String toString() {

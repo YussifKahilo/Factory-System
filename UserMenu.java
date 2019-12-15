@@ -7,14 +7,15 @@ public class UserMenu {
     }
 
     public static void managerMenu() {
-        System.out.println("-------------------------.");
-        System.out.println("1-Show Employees         |");
-        System.out.println("2-Search for Employee    |");
-        System.out.println("3-Set Target             |");
-        System.out.println("4-Storage informations   |");
-        System.out.println("5-Financial Informations |");
-        System.out.println("6-Log Out                |");
-        System.out.println("-------------------------*");
+        System.out.println("----------------------------------.");
+        System.out.println("1-Show Employees                  |");
+        System.out.println("2-Search for Employee             |");
+        System.out.println("3-Set Target                      |");
+        System.out.println("4-Storage informations            |");
+        System.out.println("5-Financial Informations          |");
+        System.out.println("6-Give The Salaries For Employees |");
+        System.out.println("7-Log Out                         |");
+        System.out.println("----------------------------------*");
         System.out.print("::");
     }
 

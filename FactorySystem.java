@@ -5,10 +5,10 @@ import java.util.Collections;
 import java.util.Scanner;
 
 public class FactorySystem {
-
+    
     final private ArrayList<Employee> users = new ArrayList<Employee>();
     final private Manager userOfManager;
-
+    
     public FactorySystem(ArrayList<Worker> usersOfWorkers, ArrayList<SuperVisor> usersOfSuperVisors, ArrayList<SalesMan> usersOfSalesMen, Manager userOfManager) {
         this.userOfManager = userOfManager;
         for (int i = 0; i < usersOfWorkers.size(); i++) {
@@ -21,19 +21,15 @@ public class FactorySystem {
             users.add(usersOfSalesMen.get(i));
         }
     }
-
+    
     public void addUser(Employee user) {
         users.add(user);
     }
-
+    
     public void removeUser(Employee user) {
         users.remove(user);
     }
-
-    public ArrayList<Employee> getUsers() {
-        return users;
-    }
-
+        
     private void creatingUser() {
         Scanner in = new Scanner(System.in);
         String password;
@@ -109,9 +105,9 @@ public class FactorySystem {
         String informations = password + "#" + name + "#" + phoneNumber + "#" + email + "#" + apartmentNumber + "#" + floorNumber + "#" + buildingNumber + "#" + streetName + "#"
                 + blockName + "#" + cityName + "#" + dayOfBirth + "#" + monthOfBirth + "#" + yearOfBirth;
         addUser(informations);
-
+        
     }
-
+    
     public static boolean isPasswordValid(String password) {
         int[] arr = new int[3];
         boolean isValid = false;
@@ -129,7 +125,7 @@ public class FactorySystem {
         }
         return isValid;
     }
-
+    
     public Person loginingIn() {
         Scanner in = new Scanner(System.in);
         String id;
@@ -187,7 +183,7 @@ public class FactorySystem {
         }
         return user;
     }
-
+    
     public Employee getEmployee(String id) {
         Employee user = null;
         for (int i = 0; i < users.size(); i++) {
@@ -197,7 +193,7 @@ public class FactorySystem {
         }
         return user;
     }
-
+    
     public boolean verifyLogin(String id, String password) {
         for (int i = 0; i < users.size(); i++) {
             if (id.equals(users.get(i).getId())) {
@@ -208,7 +204,7 @@ public class FactorySystem {
         }
         return false;
     }
-
+    
     public void addUser(String informations) {
         LocalDate date = LocalDate.now();
         StringBuilder line = new StringBuilder();
@@ -261,7 +257,7 @@ public class FactorySystem {
         System.out.println("*************************");
         System.out.println("*************************");
     }
-
+    
     public boolean checkForUser(Employee user) {
         boolean isFound = false;
         for (int i = 0; i < users.size() && !isFound; i++) {
@@ -271,8 +267,8 @@ public class FactorySystem {
         }
         return isFound;
     }
-
-    public void saveChanges(ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen) {
+    
+    public void saveChanges(ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen,Storage storage , Financial financial) {
         ArrayList<String> workersData = new ArrayList<String>();
         ArrayList<String> superVisorsData = new ArrayList<String>();
         ArrayList<String> salesMenData = new ArrayList<String>();
@@ -288,8 +284,11 @@ public class FactorySystem {
         FileData.setData(workersData, "Workers.txt");
         FileData.setData(superVisorsData, "SuperVisors.txt");
         FileData.setData(salesMenData, "SalesMen.txt");
+        FileData.setData(storage.toString(), "Storage.txt");
+        FileData.setData(financial.toString(), "Financial.txt");
+        
     }
-
+    
     public void userUtility(Person user, Manager manager, ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen, Financial financial,
             Storage storage, Factory factory) {
         Scanner in = new Scanner(System.in);
@@ -303,17 +302,17 @@ public class FactorySystem {
                     int table_option = in.nextInt();
                     if (table_option <= 3 && table_option >= 1) {
                         manager.showEmployees(table_option, users);
-                        System.out.println("Invalid input ..");
+                        //System.out.println("Invalid input ..");
                     }
                 } else if (choice == 2) {
                     System.out.print("Enter the employee's id : ");
                     String id = in.next();
                     Employee person = null;
-                    if(id.startsWith("2")){
+                    if (id.startsWith("2")) {
                         person = manager.searchForWorker(id, workers);
-                    }else if(id.startsWith("3")){
+                    } else if (id.startsWith("3")) {
                         person = manager.searchForSuperVisor(id, superVisors);
-                    }else if(id.startsWith("4")){
+                    } else if (id.startsWith("4")) {
                         person = manager.searchSalesMan(id, salesMen);
                     }
                     if (person != null) {
@@ -352,13 +351,15 @@ public class FactorySystem {
                     String NUM = in.next();
                     manager.financialManagment(Integer.parseInt(NUM), financial);
                 } else if (choice == 6) {
+                    manager.giveSalary(users);
+                } else if (choice == 7) {
                     logOut = true;
                 }
             }
         } else if (user instanceof Worker) {
             Worker USER = null;
-            for(int i = 0 ; i < workers.size();i++){
-                if(user.getId().equals(workers.get(i).getId())){
+            for (int i = 0; i < workers.size(); i++) {
+                if (user.getId().equals(workers.get(i).getId())) {
                     USER = workers.get(i);
                 }
             }
@@ -382,8 +383,8 @@ public class FactorySystem {
             }
         } else if (user instanceof SuperVisor) {
             SuperVisor USER = null;
-            for(int i = 0 ; i < superVisors.size();i++){
-                if(user.getId().equals(superVisors.get(i).getId())){
+            for (int i = 0; i < superVisors.size(); i++) {
+                if (user.getId().equals(superVisors.get(i).getId())) {
                     USER = superVisors.get(i);
                 }
             }
@@ -421,11 +422,11 @@ public class FactorySystem {
                     System.out.println("Invalid input .. ");
                 }
             }
-
+            
         } else if (user instanceof SalesMan) {
             SalesMan USER = null;
-            for(int i = 0 ; i < salesMen.size();i++){
-                if(user.getId().equals(salesMen.get(i).getId())){
+            for (int i = 0; i < salesMen.size(); i++) {
+                if (user.getId().equals(salesMen.get(i).getId())) {
                     USER = salesMen.get(i);
                 }
             }
@@ -451,7 +452,7 @@ public class FactorySystem {
                 }
             }
         }
-
-        saveChanges(workers, superVisors, salesMen);
+        
+        saveChanges(workers, superVisors, salesMen,storage,financial);
     }
 }

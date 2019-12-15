@@ -20,7 +20,7 @@ public class MainClass {
                 }
             }
             if (user != null) {
-                factory.userUtility(user);
+                factory.startUserInterface(user);
             }
         }
     }

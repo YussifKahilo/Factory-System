@@ -7,8 +7,7 @@ public class Storage {
     private double priceOfGood;
     private int numberOfGoodsThisMonth;
 
-    public Storage() {
-        String line = FileData.getData("Storage.txt");
+    public Storage(String line) {
         if (line != null) {
             String[] arr = line.split("#");
             this.numberOfStoredGoods = Integer.parseInt(arr[0]);
@@ -21,8 +20,6 @@ public class Storage {
 
     public void setNumberOfStoredGoods(int SoldGoods) {
         this.numberOfStoredGoods = SoldGoods;
-        String line = this.toString();
-        FileData.setData(line, "Storage.txt");
     }
 
     public int getNumberOfStoredGoods() {
@@ -31,9 +28,6 @@ public class Storage {
 
     public void setNumberOfSoldGoods(int numberOfSoldGoods) {
         this.numberOfSoldGoods = numberOfSoldGoods;
-        String line = this.toString();
-        FileData.setData(line, "Storage.txt");
-
     }
 
     public int getNumberOfSoldGood() {
@@ -42,8 +36,6 @@ public class Storage {
 
     public void setNumberOfGoodsTobeSold(int amount) {
         this.numberOfGoodsToBeSold = amount;
-        String line = this.toString();
-        FileData.setData(line, "Storage.txt");
     }
 
     public int getNumberOfGoodsToBeSold() {
@@ -52,8 +44,6 @@ public class Storage {
 
     public void setPriceOfGoods(double price) {
         this.priceOfGood = price;
-        String line = this.toString();
-        FileData.setData(line, "Storage.txt");
     }
 
     public double getPriceofGoods() {
@@ -62,8 +52,6 @@ public class Storage {
 
     public void setnumberOfGoodsThisMonth(int amount) {
         this.numberOfGoodsThisMonth = amount;
-        String line = this.toString();
-        FileData.setData(line, "Storage.txt");
     }
 
     public int getnumberOfGoodsThisMonth() {
