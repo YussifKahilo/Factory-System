@@ -7,6 +7,34 @@ public class UserMenu {
 		System.out.println("(INFO)=>If you don't have a user press 'C' ..");
 	}
 
+	public static void editMenu() {
+		System.out.println("----------------.");
+		System.out.println("1- Name         |");
+		System.out.println("2- passwor      |");
+		System.out.println("3- Phone Number |");
+		System.out.println("4- Address      |");
+		System.out.println("5- Email        |");
+		System.out.println("6- Back         |");
+		System.out.println("----------------*");
+		System.out.print("::");
+
+	}
+
+	public static void passwordConditions() {
+		System.out.println("(INFO)=> \n :: Your password must have at least : ");
+		System.out.println("   - Four Charecters \n   - One upercase letter . " + "\n   - One lowercase letter . "
+				+ "\n   - One Number or Symbol .");
+	}
+
+	public static void bankAccountServices() {
+		System.out.println("------------.");
+		System.out.println("1- Deposit  |");
+		System.out.println("2- Withdraw |");
+		System.out.println("3- Back     |");
+		System.out.println("------------*");
+		System.out.print("::");
+	}
+
 	public static void managerMenu() {
 		System.out.println("----------------------------------.");
 		System.out.println("1-Show Employees                  |");
