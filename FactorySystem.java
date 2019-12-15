@@ -308,21 +308,18 @@ public class FactorySystem {
 			int choice = in.nextInt();
 			if (choice == 1) {
 				UserMenu.employeeTableOptionsMenu();
-				int table_option = in.nextInt();
-				boolean isValid = true;
+				boolean isValid = false;
 				do {
-					UserMenu.employeeTableOptionsMenu();
-					table_option = in.nextInt();
+					int table_option = in.nextInt();
 					if (table_option <= 3 && table_option >= 1) {
 						manager.showEmployees(table_option, users);
+						isValid = true;
+
 					} else {
 						System.out.println("Invalid Input :: ");
-						isValid = false;
 					}
 				} while (!isValid);
-				if (table_option <= 3 && table_option >= 1) {
-					manager.showEmployees(table_option, users);
-				}
+
 			} else if (choice == 2) {
 				System.out.print("Enter the employee's id : ");
 				String id = in.next();
