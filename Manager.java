@@ -53,7 +53,7 @@ public class Manager extends Person {
 		}
 	}
 	
-	public void displayEmployee(ArrayList<Employee> employee) {
+	public void dataOfDisplayEmployee(ArrayList<Employee> employee) {
 		for (int i = 0; i < employee.size(); i++) {
 			System.out.print("|");
 			String[] Name = employee.get(i).getName().split(" ");
@@ -101,7 +101,7 @@ public class Manager extends Person {
 			}
 		}
 		sortEmployeesByIdOrOverAllRate(employee);
-		displayEmployee(employee);	
+		dataOfDisplayEmployee(employee);	
 	}
 
 	public void storageManagment(int num, Storage storage) {
