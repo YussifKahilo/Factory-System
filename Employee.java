@@ -14,6 +14,23 @@ public class Employee extends Person {
 	private Address address;
 	private BirthDate birthdate;
 
+	/**
+	 * employee constructor.
+	 * 
+	 * @param id          of an employee.
+	 * @param password    of account of an employee.
+	 * @param name        of an employee.
+	 * @param salary      of an employee.
+	 * @param bonus       of an employee.
+	 * @param monthlyRate of an employee.
+	 * @param overallRate of an employee.
+	 * @param hiringDate  when the employee is hired.
+	 * @param phoneNumber of an employee.
+	 * @param email       of an employee.
+	 * @param address     of an employee.
+	 * @param bankAccount of an employee.
+	 * @param birthdate   of an employee.
+	 */
 	public Employee(String id, String password, String name, double salary, double bonus, double monthlyRate,
 			double overallRate, String hiringDate, String phoneNumber, String email, Address address,
 			BankAccount bankAccount, BirthDate birthdate) {
@@ -99,10 +116,11 @@ public class Employee extends Person {
 		return birthdate;
 	}
 
-	public void setBirthDate(int dayOfBirth, int monthOfBirth, int yearOfBirth) {
-		this.birthdate = new BirthDate(dayOfBirth, monthOfBirth, yearOfBirth);
-	}
-
+	/**
+	 * takes an amount from an employee's bank account.
+	 * 
+	 * @param amount to be taken.
+	 */
 	public void withDraw(double amount) {
 		double balance = bankAccount.getBalance();
 		if (amount > balance) {
@@ -112,22 +130,36 @@ public class Employee extends Person {
 		}
 	}
 
+	/**
+	 * adds an amount to an employee's bank account.
+	 * 
+	 * @param amount to be added.
+	 */
 	public void deposit(double amount) {
 		bankAccount.setBalance(amount + bankAccount.getBalance());
 	}
 
+	/**
+	 * edits an employee's name
+	 * 
+	 * @param input a reference from scanner class.
+	 */
 	public void editName(Scanner input) {
 		System.out.println("Enter Your Name : ");
+		input.nextLine();
 		String newName = input.nextLine();
 		setName(newName);
 	}
 
+	/**
+	 * edits an employee's password.
+	 * 
+	 * @param input a reference from scanner class.
+	 */
 	public void editPassword(Scanner input) {
 		boolean isPasswordValid = false;
 		do {
-			System.out.println("(INFO)=> \n :: Your password must have at least : ");
-			System.out.println("   - Four Charecters \n   - One upercase letter . " + "\n   - One lowercase letter . "
-					+ "\n   - One Number or Symbol .");
+			UserMenu.passwordConditions();
 			System.out.print("Enter a password : ");
 			String newPaswword = input.next();
 			if (FactorySystem.isPasswordValid(newPaswword)) {
@@ -135,7 +167,7 @@ public class Employee extends Person {
 				String confirmingPassword = input.next();
 				if (confirmingPassword.equals(newPaswword)) {
 					setPassword(newPaswword);
-					isPasswordValid = true;
+					isPasswordValid = true;// to break the loop if the password is valid.
 				} else {
 					System.out.println("The Two Passwords aren't identical");
 				}
@@ -146,22 +178,51 @@ public class Employee extends Person {
 		} while (!isPasswordValid);
 	}
 
+	/**
+	 * edits the phone number of an employee.
+	 * 
+	 * @param input a reference from scanner class.
+	 */
 	public void editPhoneNumber(Scanner input) {
+		boolean isInvalid = true;
 		System.out.println("Enter Your new Phone number : ");
-		String newPhoneNumber = input.next();
-		if (newPhoneNumber.length() == 11 && newPhoneNumber.startsWith("01")) {
-			setPhoneNumber(newPhoneNumber);
-		}
+		do {
+			String newPhoneNumber = input.next();
+			if (newPhoneNumber.length() == 11 && newPhoneNumber.startsWith("01")) {
+				isInvalid = true; // to break the loop if the number is valid.
+				setPhoneNumber(newPhoneNumber);
+
+			} else {
+				System.out.println("invalid input\nEnter the phone number again :: ");
+				isInvalid = false;
+			}
+		} while (!isInvalid);
 	}
 
+	/**
+	 * edits the email of an employee.
+	 * 
+	 * @param input a reference from Scanner Class.
+	 */
 	public void editEmail(Scanner input) {
 		System.out.println("enter Your New Email : ");
-		String newEmail = input.next();
-		if (newEmail.contains("@") && newEmail.contains(".com")) {
-			setEmail(newEmail);
-		}
+		boolean isValidEmail = false;
+		do {
+			String newEmail = input.next();
+			if (newEmail.contains("@") && newEmail.contains(".com")) {
+				isValidEmail = true;// to break the loop is the email is valid.
+				setEmail(newEmail);
+			} else {
+				System.out.println("invalid input\nEnter the email again :: ");
+			}
+		} while (!isValidEmail);
 	}
 
+	/**
+	 * edits the address where an employee lives.
+	 * 
+	 * @param input a reference from Scanner Class.
+	 */
 	public void editAddress(Scanner input) {
 		System.out.println("Enter Your new Address : ");
 		System.out.print("-->Apartment Number : ");
@@ -177,39 +238,53 @@ public class Employee extends Person {
 		String blockName = input.nextLine();
 		System.out.print("-->City name : ");
 		String cityName = input.nextLine();
-		this.address = new Address(Integer.parseInt(apartmentNumber), Integer.parseInt(floorNumber),
-				Integer.parseInt(buildingNumber), streetName, blockName, cityName);
+		setAddress(Integer.parseInt(apartmentNumber), Integer.parseInt(floorNumber), Integer.parseInt(buildingNumber),
+				streetName, blockName, cityName);
 	}
 
+	/**
+	 * edits information of an employee.
+	 */
 	public void editInformations() {
 		Scanner input = new Scanner(System.in);
-		boolean isInvalidInput = true;
+		boolean ifEditAgain = true;
+		;
 		do {
 			UserMenu.editMenu();
 			int chosenEdit = input.nextInt();
 			if (chosenEdit == 1) {
 				editName(input);
-				isInvalidInput = false;
 			} else if (chosenEdit == 2) {
 				editPassword(input);
-				isInvalidInput = false;
 			} else if (chosenEdit == 3) {
 				editPhoneNumber(input);
-				isInvalidInput = false;
 			} else if (chosenEdit == 4) {
 				editAddress(input);
-				isInvalidInput = false;
 			} else if (chosenEdit == 5) {
 				editEmail(input);
-				isInvalidInput = false;
 			} else if (chosenEdit == 6) {
-				isInvalidInput = false;
+				ifEditAgain = false;// to break the loop and back to the last menu.
 			} else {
 				System.out.println("invalid input.");
+
 			}
-		} while (isInvalidInput);
+			/*
+			 * to check if the "if edit again " is still true.
+			 */
+			if (ifEditAgain) {
+				System.out.println("Do you want to edit another ?\n(Press 'y' if you want) ::");
+				char editAgain = input.next().charAt(0);
+				if (Character.toLowerCase(editAgain) == 'y')
+					ifEditAgain = true;
+				else
+					ifEditAgain = false;
+			}
+		} while (ifEditAgain);
 	}
 
+	/**
+	 * shows information of an employee.
+	 */
 	public void showInformations() {
 		System.out.println("*--------------------------------------------------------------------------");
 		System.out.println("|Name                    : " + this.getName());
@@ -226,12 +301,21 @@ public class Employee extends Person {
 		System.out.println("*--------------------------------------------------------------------------");
 	}
 
+	/**
+	 * shows the target.
+	 * 
+	 * @param target that will be showed.
+	 * @return the target of each worker.
+	 */
 	public int showTarget(Target target) {
 		System.out.println("The Target this month is : " + target.getTargetOfGoodsToBeManufactured());
 		System.out.println("Target for each worker is : " + target.getTargetOfGoodsToBeManufacturedForEachWorker());
 		return target.getTargetOfGoodsToBeManufacturedForEachWorker();
 	}
 
+	/**
+	 * the way of saving the data to the file.
+	 */
 	public String toString() {
 		return getId() + "#" + getPassword() + "#" + getName() + "#" + salary + "#" + bonus + "#" + monthlyRate + "#"
 				+ overallRate + "#" + hiringDate + "#" + phoneNumber + "#" + email + "#" + address.toString() + "#"

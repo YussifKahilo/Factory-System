@@ -1,16 +1,22 @@
+
 import java.util.ArrayList;
 
 public class UserMenu {
-
+	/**
+	 * shows the start up menu of the program.
+	 */
 	public static void startUpMassege() {
 		System.out.println("::IMPORTANT:: => IF YOU WANT TO EXIT TYPE 'Q' AT THE LOGIN MENU::");
 		System.out.println("(INFO)=>If you don't have a user press 'C' ..");
 	}
 
+	/**
+	 * shows the edit menu to the employee to choose between them.
+	 */
 	public static void editMenu() {
 		System.out.println("----------------.");
 		System.out.println("1- Name         |");
-		System.out.println("2- passwor      |");
+		System.out.println("2- password     |");
 		System.out.println("3- Phone Number |");
 		System.out.println("4- Address      |");
 		System.out.println("5- Email        |");
@@ -20,12 +26,18 @@ public class UserMenu {
 
 	}
 
+	/**
+	 * shows the password criteria and conditions.
+	 */
 	public static void passwordConditions() {
 		System.out.println("(INFO)=> \n :: Your password must have at least : ");
 		System.out.println("   - Four Charecters \n   - One upercase letter . " + "\n   - One lowercase letter . "
 				+ "\n   - One Number or Symbol .");
 	}
 
+	/**
+	 * shows bank account's services to choose between them.
+	 */
 	public static void bankAccountServices() {
 		System.out.println("------------.");
 		System.out.println("1- Deposit  |");
@@ -35,6 +47,9 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows manager's menu to choose between them.
+	 */
 	public static void managerMenu() {
 		System.out.println("----------------------------------.");
 		System.out.println("1-Show Employees                  |");
@@ -48,6 +63,9 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows worker's menu to choose between them.
+	 */
 	public static void workerMenu() {
 		System.out.println("------------------------.");
 		System.out.println("1-Show Your Information |");
@@ -58,6 +76,9 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows supervisor's menu to choose between them.
+	 */
 	public static void superVisorMenu() {
 		System.out.println("---------------------------------------.");
 		System.out.println("1-Show Your Information                |");
@@ -69,6 +90,9 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows sales man's menu to choose between them.
+	 */
 	public static void salesManMenu() {
 		System.out.println("-------------------------------------.");
 		System.out.println("1-Show Your Information              |");
@@ -79,16 +103,21 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows employee's menu to choose between them.
+	 */
 	public static void employeeOptionsMenu() {
 		System.out.println("*******************************************");
 		System.out.println("* 1-Promote                               *");
-		System.out.println("* 2-Change salary                         *");
-		System.out.println("* 3-Fire                                  *");
-		System.out.println("* 4-Back                                  *");
+		System.out.println("* 2-Fire                                  *");
+		System.out.println("* 3-Back                                  *");
 		System.out.println("*******************************************");
 		System.out.print("::");
 	}
 
+	/**
+	 * shows storage menu to the manager to choose between them.
+	 */
 	public static void managerStorageOptionsMenu() {
 		System.out.println("*******************************************");
 		System.out.println("* 1-Show the number of the stored goods   *");
@@ -100,6 +129,9 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows financial's menu to the manager to choose between them.
+	 */
 	public static void managerFinancialOptionsMenu() {
 		System.out.println("*******************************************");
 		System.out.println("* 1-Show the total money                  *");
@@ -110,6 +142,9 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows employee's menu to manager to choose between them.
+	 */
 	public static void employeeTableOptionsMenu() {
 		System.out.println("*******************************************");
 		System.out.println("* 1- Worker                               *");
@@ -120,6 +155,11 @@ public class UserMenu {
 		System.out.print("::");
 	}
 
+	/**
+	 * shows the employees to the manager.
+	 * 
+	 * @param employee who will be showed.
+	 */
 	public static void employeesTable(ArrayList<Employee> employee) {
 		System.out.println(
 				".____________________________________________________________________________________________________________________________________.");

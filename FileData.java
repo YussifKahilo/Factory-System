@@ -7,14 +7,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 public class FileData {
-
-	public static void getData(ArrayList<String> LINES, String fileName) {
+	/**
+	 * gets the data from the file to the array list.
+	 * 
+	 * @param lines    to set the data in.
+	 * @param fileName to get the data from.
+	 */
+	public static void getData(ArrayList<String> lines, String fileName) {
 		try {
-			LINES.clear();
+			lines.clear();
 			BufferedReader reader = new BufferedReader(new FileReader(fileName));
 			String line = reader.readLine();
 			while (line != null) {
-				LINES.add(line);
+				lines.add(line);
 				line = reader.readLine();
 			}
 			reader.close();
@@ -23,6 +28,11 @@ public class FileData {
 		}
 	}
 
+	/**
+	 * gets the data from the file.
+	 * 
+	 * @param fileName to get the data from.
+	 */
 	public static String getData(String fileName) {
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(fileName));
@@ -35,11 +45,17 @@ public class FileData {
 		return null;
 	}
 
-	public static void setData(ArrayList<String> LINES, String fileName) {
+	/**
+	 * set the data from the array list to the file.
+	 * 
+	 * @param lines    the array list to be set in the file.
+	 * @param fileName the file to be set the data in.
+	 */
+	public static void setData(ArrayList<String> lines, String fileName) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-			for (int i = 0; i < LINES.size(); i++) {
-				writer.write(LINES.get(i));
+			for (int i = 0; i < lines.size(); i++) {
+				writer.write(lines.get(i));
 				writer.write("\n");
 			}
 			writer.close();
@@ -48,10 +64,16 @@ public class FileData {
 		}
 	}
 
-	public static void setData(String LINE, String fileName) {
+	/**
+	 * set the data from the line to the file.
+	 * 
+	 * @param line     line to be set in the file.
+	 * @param fileName the file to be set the data in.
+	 */
+	public static void setData(String line, String fileName) {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(fileName));
-			writer.write(LINE);
+			writer.write(line);
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("The file \"" + fileName + "\" is not at the right location..");

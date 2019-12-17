@@ -8,37 +8,60 @@ public class Manager extends Person {
 		super("1100", "Kahilo", "00");
 	}
 
-	public void promote(Employee employee, String promotedEmployee, Factory factory) {
+	/**
+	 * promotes a Specified employee
+	 * 
+	 * @param employee      a reference from employee class to access its methods
+	 *                      and attributes a
+	 * @param promptionType if the promotion type is a supervisor the employee will
+	 *                      be promoted to supervisor otherwise it will be promoted
+	 *                      to sales man.
+	 * @param factory       a reference form factory to access its methods and
+	 *                      attributes.
+	 */
+	public void promote(Employee employee, String promptionType, Factory factory) {
+		// sets the overall rate of the employee to zero.
+		factory.removeEmployee(employee);// removes the employee from the array list in of factory.
 		employee.setOverallRate(0);
-		if (promotedEmployee.equalsIgnoreCase("SuperVisor")) {
-			factory.removeEmployee(employee);
-			employee.setId("3" + employee.getId().substring(1));
-			employee.setSalary(3000);
+		// if the promoted was a supervisor.
+		if (promptionType.equalsIgnoreCase("SuperVisor")) {
+			employee.setId("3" + employee.getId().substring(1));// changes the first number of an employee's id.
+			employee.setSalary(3000);// changes the salary of the promoted employee.
+			// assign the workers to the supervisors after promoting an employee.
 			factory.assignWorkersToSupperVisors(factory.getWorkers().size(), factory.getSuperVisors().size() + 1);
+			// adds the promoted employee to the supervisor array list in the factory.
 			factory.addSuperVisor(new SuperVisor(employee, factory.getWorkers()));
 		} else {
-			employee.setId("4" + employee.getId().substring(1));
-			employee.setSalary(4000);
-			factory.removeEmployee(employee);
-			factory.addSalesMan(new SalesMan(employee));
+			employee.setId("4" + employee.getId().substring(1));// changes the first number of an employee's id.
+			employee.setSalary(4000);// changes the salary of the promoted employee
+			factory.addSalesMan(new SalesMan(employee)); // adds the employee to the array list of factory.
 		}
 	}
 
+	/**
+	 * shows the employees to the manager.
+	 * 
+	 * @param table_option which type of employees that will be showed.
+	 * @param persons      all the employees in the factory.
+	 */
 	public void showEmployees(int table_option, ArrayList<Employee> persons) {
 		ArrayList<Employee> employee = new ArrayList<Employee>();
 		if (table_option == 1) {
 			for (int i = 0; i < persons.size(); i++) {
+				// if it was worker, it will be added to the employee list.
 				if (persons.get(i).getId().startsWith("2")) {
 					employee.add(persons.get(i));
 				}
 			}
 		} else if (table_option == 2) {
+			// if it was supervisor, it will be added to the employee list.
 			for (int i = 0; i < persons.size(); i++) {
 				if (persons.get(i).getId().startsWith("3")) {
 					employee.add(persons.get(i));
 				}
 			}
 		} else {
+			// if it was salesman, it will be added to the employee list.
 			for (int i = 0; i < persons.size(); i++) {
 				if (persons.get(i).getId().startsWith("4")) {
 					employee.add(persons.get(i));
@@ -46,24 +69,38 @@ public class Manager extends Person {
 			}
 		}
 		Scanner input = new Scanner(System.in);
+		// asking the manager if he wants to sort the employees.
 		System.out.println("Do you Want to sort employees By thier ID OR Over All Rate ?\n1)ID\n2)Over All Rate");
 		int sortingChoice = input.nextInt();
 		if (sortingChoice == 2) {
+			// sort employees list.
 			FactorySystem.sortEmployeesByOverAllRate(employee);
 		}
 		UserMenu.employeesTable(employee);
 	}
 
-	public void storageManagment(int num, Storage storage, Target target) {
+	/**
+	 * storage management that will make the manager access to it.
+	 * 
+	 * @param choice  to be chosen from the list, if the choice was : 1) shows
+	 *                number of stored goods. 2) shows number of manufactured goods
+	 *                during the month. 3) shows the sold goods. 4) sets the number
+	 *                of the goods that will be sold and their prices.
+	 * @param storage a reference from storage class to access its methods and
+	 *                attributes.
+	 * @param target  a reference from target class to access its methods and
+	 *                attributes.
+	 */
+	public void storageManagment(int choice, Storage storage, Target target) {
 		Scanner input = new Scanner(System.in);
-		if (num == 1) {
+		if (choice == 1) {
 			System.out.println("The number of stored goods: " + storage.getNumberOfStoredGoods());
-		} else if (num == 2) {
+		} else if (choice == 2) {
 			System.out.println("The number of goods that have been manufactured this month: "
 					+ storage.getNumberOfGoodsManufacturedThisMonth());
-		} else if (num == 3) {
+		} else if (choice == 3) {
 			System.out.println("The number of sold goods:" + storage.getNumberOfSoldGood());
-		} else if (num == 4) {
+		} else if (choice == 4) {
 			System.out.println("Enter The Number Of Goods To be Sold: ");
 			String numOfGoodsToBeSold = input.next();
 			target.setTargetOfGoodsToBeSold(Integer.parseInt(numOfGoodsToBeSold));
@@ -82,20 +119,41 @@ public class Manager extends Person {
 		} else if (num == 3) {
 			System.out.println("Enter the price of materials you bought :");
 			String priceOfTheMaterials = input.next();
-			financial.setMatrialsPrice(Double.parseDouble(priceOfTheMaterials) * (-1));
-			financial.setTotalMoney(financial.getTotalMoney() + financial.getMatrialsPrice());
+			financial.setMaterialsPrice(Double.parseDouble(priceOfTheMaterials) * (-1));
+			financial.setTotalMoney(financial.getTotalMoney() + financial.getMaterialsPrice());
 		}
 	}
 
-	public void setTarget(int satTarget, int numberOfWorkers, Target target) {
-		target.setTargetOfGoodsToBeManufactured(satTarget);
-		target.setTargetOfGoodsToBeManufacturedForEachWorker(satTarget / numberOfWorkers);
+	/**
+	 * sets the target of this month.
+	 * 
+	 * @param setTarget       the target to be set.
+	 * @param numberOfWorkers to get the target for each one.
+	 * @param target          a reference from target to set the target in the
+	 *                        storage.
+	 */
+	public void setTarget(int setTarget, int numberOfWorkers, Target target) {
+		target.setTargetOfGoodsToBeManufactured(setTarget);
+		target.setTargetOfGoodsToBeManufacturedForEachWorker(setTarget / numberOfWorkers);
 	}
 
+	/**
+	 * fires employee from the factory.
+	 * 
+	 * @param employee that will be fired.
+	 * @param factory  a reference from the factory to the fire the employee from.
+	 */
 	public void firingEmployee(Employee employee, Factory factory) {
 		factory.removeEmployee(employee);
 	}
 
+	/**
+	 * gives the salary for the employees.
+	 * 
+	 * @param employees to get the salaries.
+	 * @param financial a reference from financial to access to the total money in
+	 *                  in.
+	 */
 	public void giveSalary(ArrayList<Employee> employees, Financial financial) {
 		for (int i = 0; i < employees.size(); i++) {
 			employees.get(i).getBankAccount().setBalance(employees.get(i).getSalary() + employees.get(i).getBonus()
@@ -104,6 +162,13 @@ public class Manager extends Person {
 		}
 	}
 
+	/**
+	 * searches for an worker.
+	 * 
+	 * @param id      of an employee to be searched by.
+	 * @param workers of the factory.
+	 * @return the chosen worker.
+	 */
 	public Employee searchForWorker(String id, ArrayList<Worker> workers) {
 		Employee chosenEmployee = null;
 		for (int i = 0; i < workers.size(); i++) {
@@ -115,6 +180,13 @@ public class Manager extends Person {
 		return chosenEmployee;
 	}
 
+	/**
+	 * searches for an supervisor.
+	 * 
+	 * @param id      of an employee to be searched by.
+	 * @param workers of the factory.
+	 * @return the chosen worker.
+	 */
 	public Employee searchForSuperVisor(String id, ArrayList<SuperVisor> superVisors) {
 		Employee chosenEmployee = null;
 		for (int i = 0; i < superVisors.size(); i++) {
@@ -126,6 +198,13 @@ public class Manager extends Person {
 		return chosenEmployee;
 	}
 
+	/**
+	 * searches for an salesman.
+	 * 
+	 * @param id      of an employee to be searched by.
+	 * @param workers of the factory.
+	 * @return the chosen worker.
+	 */
 	public Employee searchSalesMan(String id, ArrayList<SalesMan> salesMen) {
 		Employee chosenEmployee = null;
 		for (int i = 0; i < salesMen.size(); i++) {
