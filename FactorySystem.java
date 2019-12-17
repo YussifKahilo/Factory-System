@@ -300,6 +300,7 @@ public class FactorySystem {
 
     }
 
+<<<<<<< HEAD
     public void managerUtility(Scanner in, Manager manager, ArrayList<Worker> workers,
             ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen, Financial financial, Storage storage,
             Factory factory, Target target) {
@@ -369,6 +370,82 @@ public class FactorySystem {
             }
         }
     }
+=======
+	public void managerUtility(Scanner in, Manager manager, ArrayList<Worker> workers,
+			ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen, Financial financial, Storage storage,
+			Factory factory, Target target) {
+		boolean logOut = false;
+		while (!logOut) {
+			UserMenu.managerMenu();
+			int choice = in.nextInt();
+			if (choice == 1) {
+				UserMenu.employeeTableOptionsMenu();
+				boolean isValid = false;
+				do {
+					int table_option = in.nextInt();
+					if (table_option <= 3 && table_option >= 1) {
+						manager.showEmployees(table_option, users);
+						isValid = true;
+
+					} else {
+						System.out.println("Invalid Input :: ");
+					}
+				} while (!isValid);
+
+			} else if (choice == 2) {
+				System.out.print("Enter the employee's id : ");
+				String id = in.next();
+				Employee person = null;
+				if (id.startsWith("2")) {
+					person = manager.searchForWorker(id, workers);
+				} else if (id.startsWith("3")) {
+					person = manager.searchForSuperVisor(id, superVisors);
+				} else if (id.startsWith("4")) {
+					person = manager.searchSalesMan(id, salesMen);
+				}
+				if (person != null) {
+					person.showInformations();
+					UserMenu.employeeOptionsMenu();
+					int employee_option = in.nextInt();
+					if (employee_option == 1) {
+						System.out.println("1-Promote to Super Visor");
+						System.out.println("2-Promote to Sales Man");
+						System.out.println("3-Back");
+						System.out.print("::");
+						int promoteTo_number = in.nextInt();
+						if (promoteTo_number == 1) {
+							manager.promote(person, "SuperVisor", factory);
+						} else if (promoteTo_number == 2) {
+							manager.promote(person, "SalesMan", factory);
+						}
+					} else if (employee_option == 2) {
+						System.out.print("Enter The New Salary : ");
+						person.setSalary(in.nextDouble());
+					} else if (employee_option == 3) {
+						manager.firingEmployee(person, factory);
+					}
+				} else {
+					System.out.println("You entered a wrong id..");
+				}
+			} else if (choice == 3) {
+				System.out.print("The Target this month is : ");
+				manager.setTarget(in.nextInt(), workers.size(), target);
+			} else if (choice == 4) {
+				UserMenu.managerStorageOptionsMenu();
+				String NUM = in.next();
+				manager.storageManagment(Integer.parseInt(NUM), storage, target);
+			} else if (choice == 5) {
+				UserMenu.managerFinancialOptionsMenu();
+				String NUM = in.next();
+				manager.financialManagment(Integer.parseInt(NUM), financial);
+			} else if (choice == 6) {
+				manager.giveSalary(users, financial);
+			} else if (choice == 7) {
+				logOut = true;
+			}
+		}
+	}
+>>>>>>> 471335a343ea48c667c39a3060b3630fea7c2614
 
     public void SuperVisorUtility(Scanner in, SuperVisor user, Storage storage, Target target) {
         boolean logOut = false;
