@@ -22,7 +22,7 @@ public class Manager extends Person {
     public void promote(Employee employee, String promptionType, Factory factory) {
         // sets the overall rate of the employee to zero.
         factory.removeEmployee(employee);// removes the employee from the array list in of factory.
-        employee.setOverallRate(0);
+        employee.setOverallRate(5);
         // if the promoted was a supervisor.
         if (promptionType.equalsIgnoreCase("SuperVisor")) {
             employee.setId("3" + employee.getId().substring(1));// changes the first number of an employee's id.

@@ -156,22 +156,33 @@ public class UserMenu {
         System.out.print("::");
     }
 
-    public static void employeesTableSortingOptions(){
-         System.out.println("Sort the employees by : ");
-         System.out.println("********************");       
-         System.out.println("* 1 - ID           *");
-         System.out.println("* 2 - OverAll Rate *");
-         System.out.println("********************");
-         System.out.print("::");
+    public static void employeesTableSortingOptions() {
+        System.out.println("Sort the employees by : ");
+        System.out.println("********************");
+        System.out.println("* 1 - ID           *");
+        System.out.println("* 2 - OverAll Rate *");
+        System.out.println("********************");
+        System.out.print("::");
     }
+
+    public static void promotionOptions() {
+        System.out.println("***************************");
+        System.out.println("* 1-Promote to Super Visor *");
+        System.out.println("* 2-Promote to Sales Man   *");
+        System.out.println("* 3-Back                   *");
+        System.out.println("****************************");
+        System.out.print("::");
+    }
+
     /**
-	 * shows message to the user if the password or the id is valid.
-	 */
-	public static void invalidIdOrPassword() {
-		System.out.println("**************************");
-		System.out.println("**Invalid ID or Password**");
-		System.out.println("**************************");
-	}
+     * shows message to the user if the password or the id is valid.
+     */
+    public static void invalidIdOrPassword() {
+        System.out.println("**************************");
+        System.out.println("**Invalid ID or Password**");
+        System.out.println("**************************");
+    }
+
     /**
      * shows the employees to the manager.
      *
@@ -200,7 +211,7 @@ public class UserMenu {
             String email = " " + employee.get(i).getEmail() + space_for_email;
 
             System.out.printf("%7s%2s%19s%1s%7.2f%s%5s%5d%3s%15s%2s%11s%3s%35s%1s", employee.get(i).getId(), "|", name,
-                    "|",  employee.get(i).getOverallRate() , " / 10", "|", employee.get(i).getBirthDate().getAge(), "|",
+                    "|", employee.get(i).getOverallRate(), " / 10", "|", employee.get(i).getBirthDate().getAge(), "|",
                     "+02" + employee.get(i).getPhoneNumber(), "|", employee.get(i).getHiringDate(), "|", email, "|");
             System.out.println("");
 
