@@ -72,21 +72,24 @@ public class Manager extends Person {
 		Scanner input = new Scanner(System.in);
 		// asking the manager if he wants to sort the employees.
 		UserMenu.employeesTableSortingOptions();
-		char sortingChoice = input.next().charAt(0);
 		boolean isValid = false;
-		while (!isValid) {
+		do {
+			char sortingChoice = input.next().charAt(0);
 			if (sortingChoice == '1') {
 				// sort employees list.
-				FactorySystem.sortEmployeesByIds(ids,employee);
+				FactorySystem.sortEmployeesByIds(ids, employee);
 				isValid = true;
+
 			} else if (sortingChoice == '2') {
 				// sort employees list.
-				FactorySystem.sortEmployeesByOverAllRate(ids,employee);
+				FactorySystem.sortEmployeesByOverAllRate(ids, employee);
 				isValid = true;
+
 			} else {
-				System.out.println("Invalid input..");
+				System.out.println("Invalid input..\ninput again:: ");
 			}
-		}
+		} while (!isValid);
+
 		UserMenu.employeesTable(employee);
 	}
 
