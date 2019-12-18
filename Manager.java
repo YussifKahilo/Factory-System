@@ -103,25 +103,25 @@ public class Manager extends Person {
 	 * @param number  of the workers in the factory
 	 * @param number  of sales men in the factory
 	 */
-	public void storageManagment(int choice, Storage storage, Target target, int numberOfWorkers,
+	public void storageManagment(char choice, Storage storage, Target target, int numberOfWorkers,
 			int numberOfSalesMen) {
 		Scanner input = new Scanner(System.in);
 		boolean isValid = false;
 		while (!isValid) {
-			if (choice == 1) {
+			if (choice == '1') {
 				System.out.println("The number of stored goods: " + storage.getNumberOfStoredGoods());
 				isValid = true;
 
-			} else if (choice == 2) {
+			} else if (choice == '2') {
 				System.out.println("The number of goods that have been manufactured this month: "
 						+ storage.getNumberOfGoodsManufacturedThisMonth());
 				isValid = true;
 
-			} else if (choice == 4) {
+			} else if (choice == '3') {
 				System.out.println("The number of sold goods:" + storage.getNumberOfSoldGood());
 				isValid = true;
 
-			} else if (choice == 3) {
+			} else if (choice == '4') {
 				System.out.print("Enter The Number Of Goods To be manufactured : ");
 				String numOfGoodsToBeSold = input.next();
 				if (numberOfWorkers > Long.parseLong(numOfGoodsToBeSold)) {
@@ -134,11 +134,9 @@ public class Manager extends Person {
 							"You can not set a target less than the number of workers .. \"HINT:NUMBER OF WORKERS IS :"
 									+ numberOfWorkers + "\"");
 				}
-			} else if (choice == 5) {
-				isValid = true;
-			} else if (choice == 4) {
+			} else if (choice == '5') {
 				System.out.println("___________________________________________");
-				System.out.print("Enter The Number Of Goods To be Sold : ");
+				System.out.println("Enter The Number Of Goods To be Sold : ");
 				String numOfGoodsToBeSold = input.next();
 				if (Integer.parseInt(numOfGoodsToBeSold) > numberOfSalesMen) {
 					target.setTargetOfGoodsToBeSold(Integer.parseInt(numOfGoodsToBeSold));
@@ -154,17 +152,19 @@ public class Manager extends Person {
 							"You can not set a target less than the number of sales men .. \"HINT:NUMBER OF WORKERS IS :"
 									+ numberOfSalesMen + "\"");
 				}
+			} else if (choice == '6') {
+				isValid = true;
 			}
 		}
 	}
 
-	public void financialManagment(int num, Financial financial) {
+	public void financialManagment(char num, Financial financial) {
 		Scanner input = new Scanner(System.in);
-		if (num == 1) {
+		if (num == '1') {
 			System.out.println("The total money is : " + financial.getTotalMoney());
-		} else if (num == 2) {
+		} else if (num == '2') {
 			System.out.println("profits is : " + financial.getProfit());
-		} else if (num == 3) {
+		} else if (num == '3') {
 			System.out.println("Enter the price of materials you bought :");
 			String priceOfTheMaterials = input.next();
 			financial.setMaterialsPrice(Double.parseDouble(priceOfTheMaterials) * (-1));
