@@ -124,8 +124,8 @@ public class UserMenu {
         System.out.println("* 2-Show the number of goods manufactured  *");
         System.out.println("* 3-Show the number of the Sold goods      *");
         System.out.println("* 4-Set target of goods to be manufactured *");
-        System.out.println("* 4-Set target of goods to be sold         *");
-        System.out.println("* 5-Back                                   *");
+        System.out.println("* 5-Set target of goods to be sold         *");
+        System.out.println("* 6-back                                   *");
         System.out.println("*******************************************");
         System.out.print("::");
     }
