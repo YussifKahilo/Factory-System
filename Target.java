@@ -1,83 +1,92 @@
 
 public class Target {
 
-	private int targetOfGoodsToBeManufactured;
-	private int targetOfGoodsToBeSold;
-	private int targetOfGoodsToBeManufacturedForEachWorker;
+    private long targetOfGoodsToBeManufactured;
+    private long targetOfGoodsToBeSold;
+    private long targetOfGoodsToBeManufacturedForEachWorker;
+    private long targetOfGoodsToBeSoldByEachSalesMan;
 
-	/**
-	 * target constructor.
-	 * 
-	 * @param line of the total target & the target for each worker.
-	 */
-	public Target(String line) {
-		String[] data = line.split("#");
-		this.targetOfGoodsToBeManufactured = Integer.parseInt(data[0]);// target of goods that will be manufactured.
-		this.targetOfGoodsToBeSold = Integer.parseInt(data[1]);// target of goods that will be sold.
-		// target of goods that will be manufactured from each worker.
-		this.targetOfGoodsToBeManufacturedForEachWorker = Integer.parseInt(data[2]);
-	}
+    /**
+     * target constructor.
+     *
+     * @param line of the total target & the target for each worker.
+     */
+    public Target(String line) {
+        String[] data = line.split("#");
+        this.targetOfGoodsToBeManufactured = Long.parseLong(data[0]);// target of goods that will be manufactured.
+        this.targetOfGoodsToBeSold = Long.parseLong(data[1]);// target of goods that will be sold.
+        // target of goods that will be manufactured from each worker.
+        this.targetOfGoodsToBeManufacturedForEachWorker = Long.parseLong(data[2]);
+        this.targetOfGoodsToBeSoldByEachSalesMan = Long.parseLong(data[3]);
+    }
 
-	/**
-	 * gets the target of goods that will be manufactured.
-	 * 
-	 * @return number of the target.
-	 */
-	public int getTargetOfGoodsToBeManufactured() {
-		return targetOfGoodsToBeManufactured;
-	}
+    /**
+     * gets the target of goods that will be manufactured.
+     *
+     * @return number of the target.
+     */
+    public long getTargetOfGoodsToBeManufactured() {
+        return targetOfGoodsToBeManufactured;
+    }
 
-	/**
-	 * sets the number of goods that will be manufactured.
-	 * 
-	 * @param targetOfGoodsToBeManufactured
-	 */
-	public void setTargetOfGoodsToBeManufactured(int targetOfGoodsToBeManufactured) {
-		this.targetOfGoodsToBeManufactured = targetOfGoodsToBeManufactured;
-	}
+    /**
+     * sets the number of goods that will be manufactured.
+     *
+     * @param targetOfGoodsToBeManufactured
+     */
+    public void setTargetOfGoodsToBeManufactured(long targetOfGoodsToBeManufactured) {
+        this.targetOfGoodsToBeManufactured = targetOfGoodsToBeManufactured;
+    }
 
-	/**
-	 * gets the target of goods that will be sold.
-	 * 
-	 * @return number of the target.
-	 */
-	public int getTargetOfGoodsToBeSold() {
-		return targetOfGoodsToBeSold;
-	}
+    /**
+     * gets the target of goods that will be sold.
+     *
+     * @return number of the target.
+     */
+    public long getTargetOfGoodsToBeSold() {
+        return targetOfGoodsToBeSold;
+    }
 
-	/**
-	 * sets the number of goods that will be sold.
-	 * 
-	 * @param targetOfGoodsToBeManufactured
-	 */
-	public void setTargetOfGoodsToBeSold(int targetOfGoodsToBeSold) {
-		this.targetOfGoodsToBeSold = targetOfGoodsToBeSold;
-	}
+    /**
+     * sets the number of goods that will be sold.
+     *
+     * @param targetOfGoodsToBeSold
+     */
+    public void setTargetOfGoodsToBeSold(long targetOfGoodsToBeSold) {
+        this.targetOfGoodsToBeSold = targetOfGoodsToBeSold;
+    }
 
-	/**
-	 * gets the target of goods that will be manufactured from each worker.
-	 * 
-	 * @return number of the target.
-	 */
-	public int getTargetOfGoodsToBeManufacturedForEachWorker() {
-		return targetOfGoodsToBeManufacturedForEachWorker;
-	}
+    /**
+     * gets the target of goods that will be manufactured from each worker.
+     *
+     * @return number of the target.
+     */
+    public long getTargetOfGoodsToBeManufacturedForEachWorker() {
+        return targetOfGoodsToBeManufacturedForEachWorker;
+    }
 
-	/**
-	 * sets the number of goods that will be manufactured from each worker.
-	 * 
-	 * @param targetOfGoodsToBeManufactured
-	 */
-	public void setTargetOfGoodsToBeManufacturedForEachWorker(int targetOfGoodsToBeManufacturedForEachWorker) {
-		this.targetOfGoodsToBeManufacturedForEachWorker = targetOfGoodsToBeManufacturedForEachWorker;
-	}
+    /**
+     * sets the number of goods that will be manufactured from each worker.
+     *
+     * @param targetOfGoodsToBeManufacturedForEachWorker
+     */
+    public void setTargetOfGoodsToBeManufacturedForEachWorker(long targetOfGoodsToBeManufacturedForEachWorker) {
+        this.targetOfGoodsToBeManufacturedForEachWorker = targetOfGoodsToBeManufacturedForEachWorker;
+    }
 
-	/**
-	 * the way of saving in the file.
-	 */
-	public String toString() {
-		return targetOfGoodsToBeManufactured + "#" + targetOfGoodsToBeManufacturedForEachWorker + "#"
-				+ targetOfGoodsToBeSold;
-	}
+    public long getTargetOfGoodsToBeSoldByEachSalesMan() {
+        return targetOfGoodsToBeSoldByEachSalesMan;
+    }
 
+    public void setTargetOfGoodsToBeSoldByEachSalesMan(long targetOfGoodsToBeSoldByEachSalesMan) {
+        this.targetOfGoodsToBeSoldByEachSalesMan = targetOfGoodsToBeSoldByEachSalesMan;
+    }
+
+    /**
+     * the way of saving in the file.
+     */
+    public String toString() {
+        return targetOfGoodsToBeManufactured + "#" + targetOfGoodsToBeSold + "#"
+                + targetOfGoodsToBeManufacturedForEachWorker + "#" + targetOfGoodsToBeSoldByEachSalesMan;
+    }
 }
