@@ -11,7 +11,9 @@ public class Factory {
     private Financial financial;
     private FactorySystem factorySystem;
     private Target target;
-
+   /**
+    * no argument Factory class.
+    */
     public Factory() {
         manager = new Manager();
         workers = new ArrayList<>();
@@ -24,13 +26,17 @@ public class Factory {
         assignWorkersToSupperVisors(workers.size(), superVisors.size());
         setSuperVisors();
         setSalesMen();
+        // initializing a new system for the factory.
         this.factorySystem = new FactorySystem(workers, superVisors, salesMen, manager);
     }
-
+    /**
+     * gets the factory system .
+     * @return factory system.
+     */
     public FactorySystem getFactorySystem() {
         return factorySystem;
     }
-
+    
     public void setWorkers() {
         ArrayList<String> LINES = new ArrayList<String>();
         FileData.getData(LINES, "Workers.txt");
@@ -87,48 +93,74 @@ public class Factory {
     public ArrayList<Worker> getWorkers() {
         return workers;
     }
-
+    /**
+     * it's to get all of the supervisor.
+     * @return array list of the super visors.
+     */
     public ArrayList<SuperVisor> getSuperVisors() {
         return superVisors;
     }
-
+    /**
+     * it's to get all of the salesmem.
+     * @return array list of the salesmen.
+     */
     public ArrayList<SalesMan> getSalesMen() {
         return salesMen;
     }
-
+    /**
+     * checks for a worker if it's exist.
+     * 
+     * @param user to searched for.
+     * @return if the employee is found or ni
+     */
     public boolean checkForWorker(Worker user) {
         boolean isFound = false;
         for (int i = 0; i < workers.size() && !isFound; i++) {
             if (user.getId().equals(workers.get(i).getId())) {
-                isFound = true;
+                isFound = true;//to break the loop if the employee is found.
             }
         }
         return isFound;
     }
-
+    /**
+     * adds a new worker to the workers.
+     * @param worker to be added.
+     */
     public void addWorker(Worker worker) {
         factorySystem.addUser(worker);
         workers.add(worker);
         assignWorkersToSupperVisors(workers.size(), superVisors.size());
     }
-
+    /**
+     * adds a new superVisor to the system , this used when the manager promotes an employee to salesman.
+     * @param superVisor to add the the system.
+     */
     public void addSuperVisor(SuperVisor superVisor) {
         factorySystem.addUser(superVisor);
         superVisors.add(superVisor);
         assignWorkersToSupperVisors(workers.size(), superVisors.size());
     }
-
+    /**
+     * adds a new salesman to the system , this used when the manager promotes an employee to supervisor.
+     * @param salesMan to add the the system.
+     */
     public void addSalesMan(SalesMan salesMan) {
         factorySystem.addUser(salesMan);
         salesMen.add(salesMan);
     }
-
+    /**
+     * Assigns the employee to the supervisors by dividing the number of the employees over the number of supervisor.
+     * 
+     * @param totalNumberOFWorkers who will be assigns to the supervisor.
+     * @param totalNumberOfSuperVisors who will be responsible for the queen has asked for.
+     */
     public void assignWorkersToSupperVisors(int totalNumberOFWorkers, int totalNumberOfSuperVisors) {
+    	//creating a new array list carrying the values of supervisors's employees.
         ArrayList<String> idsOfWorkers = new ArrayList<String>();
         if (totalNumberOfSuperVisors == 0) {
             ArrayList<String> superVisorsNumbers = new ArrayList<>();
-            FileData.getData(superVisorsNumbers, "SuperVisors.txt");
-            totalNumberOfSuperVisors = superVisorsNumbers.size();
+            FileData.getData(superVisorsNumbers, "SuperVisors.txt");//get data from the file.
+            totalNumberOfSuperVisors = superVisorsNumbers.size();//gets the total number of supervisors.
         }
         int numberOfWorkersForEachSuperVisor = totalNumberOFWorkers / totalNumberOfSuperVisors;
         int remainder = totalNumberOFWorkers % totalNumberOfSuperVisors;
@@ -151,26 +183,32 @@ public class Factory {
         }
         FileData.setData(idsOfWorkers, "WorkersOfSuperVisors.txt");
     }
-
+    /**
+     * remove the user from the system this method is for firing an employee.
+     * @param employee to be removed.
+     */
     public void removeEmployee(Employee employee) {
         ArrayList<String> bankAccount = new ArrayList<String>();
         FileData.getData(bankAccount, "BankAccount.txt");
+        //remove its bank accout.
         bankAccount.remove(employee.getBankAccount().getAccountNumber());
+        //removes him from the system.
+        factorySystem.removeUser(employee);
         FileData.setData(bankAccount, "BankAccount.txt");
         if (employee.getId().startsWith("2")) {
-            factorySystem.removeUser(employee);
-            workers.remove(employee);
+            workers.remove(employee);//if it was a worker it would be removed form worker list.
         } else if (employee.getId().startsWith("4")) {
-            factorySystem.removeUser(employee);
-            salesMen.remove(employee);
+            salesMen.remove(employee);//if it was a worker it would be removed form salesmen list.
         } else if (employee.getId().startsWith("3")) {
-            factorySystem.removeUser(employee);
-            superVisors.remove(employee);
+            superVisors.remove(employee);//if it was a worker it would be removed form supervisor list.
         }
 
         assignWorkersToSupperVisors(workers.size(), superVisors.size());
     }
-
+    /**
+     * start user interface 
+     * @param user the one who entered to the system.
+     */
     public void startUserInterface(Person user) {
         factorySystem.userUtility(user, manager, workers, superVisors, salesMen, financial, storage, target, this);
     }
