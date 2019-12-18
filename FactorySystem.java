@@ -498,25 +498,25 @@ public class FactorySystem {
 		boolean logOut = false;
 		while (!logOut) {
 			UserMenu.managerMenu();
-			int choice = in.nextInt();
-			if (choice == 1) {
+			char choice = in.next().charAt(0);
+			if (choice == '1') {
 				UserMenu.employeeTableOptionsMenu();
 				boolean isValid = false;
 				// to make the manager to choose between the options and if it's different asks
 				// the same questions again.
 				do {
-					int table_option = in.nextInt();
-					if (table_option <= 3 && table_option >= 1) {
+					char table_option = in.next().charAt(0);
+					if (table_option <= '3' && table_option >= '1') {
 						manager.showEmployees(table_option, users);
 						isValid = true;
-					} else if (table_option == 4) {
+					} else if (table_option == '4') {
 						isValid = true;
 					} else {
 						System.out.println("Invalid Input :: ");
 					}
 				} while (!isValid);
 				// to search for an employee using his id.
-			} else if (choice == 2) {
+			} else if (choice == '2') {
 				System.out.print("Enter the employee's id : ");
 				String id = in.next();
 				Employee person = null;
@@ -532,32 +532,32 @@ public class FactorySystem {
 				if (person != null) {
 					person.showInformations();
 					UserMenu.employeeOptionsMenu();
-					int employee_option = in.nextInt();
-					if (employee_option == 1) {
+					char employee_option = in.next().charAt(0);
+					if (employee_option == '1') {
 						UserMenu.promotionOptions();
-						int promoteTo_number = in.nextInt();
-						if (promoteTo_number == 1) {
+						char promoteTo_number = in.next().charAt(0);
+						if (promoteTo_number == '1') {
 							manager.promote(person, "SuperVisor", factory);
-						} else if (promoteTo_number == 2) {
+						} else if (promoteTo_number == '2') {
 							manager.promote(person, "SalesMan", factory);
 						}
-					} else if (employee_option == 2) {
+					} else if (employee_option == '2') {
 						manager.firingEmployee(person, factory);
 					}
 				} else {
 					System.out.println("You entered a wrong id..");
 				}
-			} else if (choice == 3) {
+			} else if (choice == '3') {
 				UserMenu.managerStorageOptionsMenu();
-				String num = in.next();
-				manager.storageManagment(Integer.parseInt(num), storage, target, workers.size(), salesMen.size());
-			} else if (choice == 4) {
+				char num = in.next().charAt(0);
+				manager.storageManagment(num, storage, target, workers.size(), salesMen.size());
+			} else if (choice == '4') {
 				UserMenu.managerFinancialOptionsMenu();
-				String num = in.next();
-				manager.financialManagment(Integer.parseInt(num), financial);
-			} else if (choice == 5) {
+				char num = in.next().charAt(0);
+				manager.financialManagment(num, financial);
+			} else if (choice == '5') {
 				manager.giveSalary(users, financial);
-			} else if (choice == 6) {
+			} else if (choice == '6') {
 				logOut = true;
 			}
 		}
