@@ -44,23 +44,23 @@ public class Manager extends Person {
 	 * @param table_option which type of employees that will be showed.
 	 * @param persons      all the employees in the factory.
 	 */
-	public void showEmployees(int table_option, ArrayList<Employee> persons) {
+	public void showEmployees(char table_option, ArrayList<Employee> persons) {
 		ArrayList<Employee> employee = new ArrayList<Employee>();
-		if (table_option == 1) {
+		if (table_option == '1') {
 			for (int i = 0; i < persons.size(); i++) {
 				// if it was worker, it will be added to the employee list.
 				if (persons.get(i).getId().startsWith("2")) {
 					employee.add(persons.get(i));
 				}
 			}
-		} else if (table_option == 2) {
+		} else if (table_option == '2') {
 			// if it was supervisor, it will be added to the employee list.
 			for (int i = 0; i < persons.size(); i++) {
 				if (persons.get(i).getId().startsWith("3")) {
 					employee.add(persons.get(i));
 				}
 			}
-		} else if (table_option == 3) {
+		} else if (table_option == '3') {
 			// if it was salesman, it will be added to the employee list.
 			for (int i = 0; i < persons.size(); i++) {
 				if (persons.get(i).getId().startsWith("4")) {
@@ -71,14 +71,14 @@ public class Manager extends Person {
 		Scanner input = new Scanner(System.in);
 		// asking the manager if he wants to sort the employees.
 		UserMenu.employeesTableSortingOptions();
-		int sortingChoice = input.nextInt();
+		char sortingChoice = input.next().charAt(0);
 		boolean isValid = false;
 		while (!isValid) {
-			if (sortingChoice == 1) {
+			if (sortingChoice == '1') {
 				// sort employees list.
 				FactorySystem.sortEmployeesById(employee);
 				isValid = true;
-			} else if (sortingChoice == 2) {
+			} else if (sortingChoice == '2') {
 				// sort employees list.
 				FactorySystem.sortEmployeesByOverAllRate(employee);
 				isValid = true;
@@ -124,7 +124,7 @@ public class Manager extends Person {
 			} else if (choice == '4') {
 				System.out.print("Enter The Number Of Goods To be manufactured : ");
 				String numOfGoodsToBeSold = input.next();
-				if (numberOfWorkers > Long.parseLong(numOfGoodsToBeSold)) {
+				if (numberOfWorkers < Long.parseLong(numOfGoodsToBeSold)) {
 					target.setTargetOfGoodsToBeManufactured(Long.parseLong(numOfGoodsToBeSold));
 					target.setTargetOfGoodsToBeManufacturedForEachWorker(
 							Long.parseLong(numOfGoodsToBeSold) / numberOfWorkers);

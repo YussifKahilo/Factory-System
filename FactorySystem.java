@@ -702,13 +702,13 @@ public class FactorySystem {
 			}
 			WorkerUtility(in, user1, target);
 		} else if (user instanceof SuperVisor) {
-			SuperVisor USER = null;
+			SuperVisor user1 = null;
 			for (int i = 0; i < superVisors.size(); i++) {
 				if (user.getId().equals(superVisors.get(i).getId())) {
-					USER = superVisors.get(i);
+					user1 = superVisors.get(i);
 				}
 			}
-			SuperVisorUtility(in, USER, storage, target);
+			SuperVisorUtility(in, user1, storage, target);
 		} else if (user instanceof SalesMan) {
 			SalesMan user1 = null;
 			for (int i = 0; i < salesMen.size(); i++) {
@@ -754,6 +754,7 @@ public class FactorySystem {
 			}
 			// swaps two elements.
 			Collections.swap(employee, indexOfMax, k);
+
 		}
 	}
 }
