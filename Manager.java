@@ -77,12 +77,12 @@ public class Manager extends Person {
 			char sortingChoice = input.next().charAt(0);
 			if (sortingChoice == '1') {
 				// sort employees list.
-				FactorySystem.sortEmployeesByIds(ids, employee);
+				FactorySystem.sortEmployeesById(employee);
 				isValid = true;
 
 			} else if (sortingChoice == '2') {
 				// sort employees list.
-				FactorySystem.sortEmployeesByOverAllRate(ids, employee);
+				FactorySystem.sortEmployeesByOverAllRate(employee);
 				isValid = true;
 
 			} else {
@@ -158,6 +158,9 @@ public class Manager extends Person {
 				}
 			} else if (choice == '6') {
 				isValid = true;
+			} else {
+				System.out.println("Invalid input\ninput again :: ");
+				choice = input.next().charAt(0);
 			}
 		}
 	}

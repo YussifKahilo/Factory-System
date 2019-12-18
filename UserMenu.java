@@ -155,7 +155,9 @@ public class UserMenu {
         System.out.println("*******************************************");
         System.out.print("::");
     }
-
+    /**
+     * shows employee table to the manager to choose between them in which way the employees will be sorted.
+     */
     public static void employeesTableSortingOptions() {
         System.out.println("Sort the employees by : ");
         System.out.println("********************");
@@ -164,7 +166,9 @@ public class UserMenu {
         System.out.println("********************");
         System.out.print("::");
     }
-
+    /**
+     * shows promotion to the manager to choose between them to promote the worker.
+     */
     public static void promotionOptions() {
         System.out.println("***************************");
         System.out.println("* 1-Promote to Super Visor *");
