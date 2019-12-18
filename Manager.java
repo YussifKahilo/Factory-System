@@ -180,19 +180,6 @@ public class Manager extends Person {
 	}
 
 	/**
-	 * sets the target of this month.
-	 *
-	 * @param setTarget       the target to be set.
-	 * @param numberOfWorkers to get the target for each one.
-	 * @param target          a reference from target to set the target in the
-	 *                        storage.
-	 */
-	public void setTarget(int setTarget, int numberOfWorkers, Target target) {
-		target.setTargetOfGoodsToBeManufactured(setTarget);
-		target.setTargetOfGoodsToBeManufacturedForEachWorker(setTarget / numberOfWorkers);
-	}
-
-	/**
 	 * fires employee from the factory.
 	 *
 	 * @param employee that will be fired.

@@ -530,6 +530,7 @@ public class FactorySystem {
 				// after the manager chose the employee , he decided what to do with him or just
 				// showing his searching for him.
 				if (person != null) {
+					// shows person's information
 					person.showInformations();
 					UserMenu.employeeOptionsMenu();
 					char employee_option = in.next().charAt(0);
@@ -537,11 +538,15 @@ public class FactorySystem {
 						UserMenu.promotionOptions();
 						char promoteTo_number = in.next().charAt(0);
 						if (promoteTo_number == '1') {
+							// promote the employee to supervisor.
 							manager.promote(person, "SuperVisor", factory);
 						} else if (promoteTo_number == '2') {
+							// promote the employee to salesman.
 							manager.promote(person, "SalesMan", factory);
 						}
+
 					} else if (employee_option == '2') {
+						// fires the employee from tha factory.
 						manager.firingEmployee(person, factory);
 					}
 				} else {
@@ -563,6 +568,15 @@ public class FactorySystem {
 		}
 	}
 
+	/**
+	 *
+	 * supervisor utility where the actions are done and made the changes.
+	 * 
+	 * @param in      reference of Scanner class to input the values using it.
+	 * @param user    of the system.
+	 * @param storage of the factory where the goods are kept.
+	 * @param target  that all the employees aim to achieve.
+	 */
 	public void SuperVisorUtility(Scanner in, SuperVisor user, Storage storage, Target target) {
 		boolean logOut = false;
 		while (!logOut) {
@@ -601,19 +615,33 @@ public class FactorySystem {
 		}
 	}
 
+	/**
+	 *
+	 * salesman utility where the actions are done and made the changes.
+	 * 
+	 * @param in        reference of Scanner class to input the values using it.
+	 * @param user      of the system.
+	 * @param financial of the factory where the money is kept.
+	 * @param storage   of the factory where the goods are kept.
+	 * @param target    that all the employees aim to achieve.
+	 */
 	public void SalesManUtility(Scanner in, SalesMan user, Financial financial, Storage storage, Target target) {
 		boolean logOut = false;
 		while (!logOut) {
+			// shows the salesman menu to the salesman.
 			UserMenu.salesManMenu();
 			int choice = in.nextInt();
 			if (choice == 1) {
+				// shows the information of the sales man.
 				user.showInformations();
 				System.out.print("Do you want to edit any information ? (Y/N)\n::");
 				String ch = in.next();
 				if (ch.equalsIgnoreCase("Y")) {
+					// edits his information.
 					user.editInformations();
 				}
 			} else if (choice == 2) {
+				// shows the target.
 				user.showTarget(target);
 			} else if (choice == 3) {
 				int target_result = user.setTargetResult(target);
@@ -621,54 +649,70 @@ public class FactorySystem {
 				storage.setNumberOfStoredGoods(storage.getNumberOfStoredGoods() - target_result);
 				financial.setTotalMoney(storage.getPriceofGoods() * target_result);
 			} else if (choice == 4) {
-				logOut = true;
+				logOut = true;// to break the loop.
 			}
 		}
 	}
 
+	/**
+	 * worker utility where the actions are done and made the changes.
+	 * 
+	 * @param in     a reference from the scanner class.
+	 * @param user   the user of the system
+	 * @param target the number of goods that employees aim to achieve.
+	 */
 	public void WorkerUtility(Scanner in, Worker user, Target target) {
 		boolean logOut = false;
 		while (!logOut) {
+			// shows the worker menu to the worker.
 			UserMenu.workerMenu();
+			// inputs the choice of the showed list.
 			int choice = in.nextInt();
+			// check on the choice.
 			if (choice == 1) {
 				user.showInformations();
 				System.out.print("Do you want to edit any informations ? (Y/N)\n::");
 				String ch = in.next();
 				if (ch.equalsIgnoreCase("Y")) {
+					// edits information if the worker said so.
 					user.editInformations();
 				}
 			} else if (choice == 2) {
+				// shows the target for the worker.
 				user.showTarget(target);
 			} else if (choice == 3) {
 				System.out.println("What do you want to do?");
+				// bank account services menu.
 				UserMenu.bankAccountServices();
-				boolean isValidInput = false;
+				boolean isValidInput = false;// to break the loop.
 				do {
 					int bankServiceChoice = in.nextInt();
 					if (bankServiceChoice == 1) {
 						System.out.println("input your ammount :: ");
 						int amount = in.nextInt();
 						Employee employee = (Employee) user;
+						// added an amount to the balance.
 						employee.deposit(amount);
 						System.out.println("Now Your Balance Is " + employee.getBankAccount().getBalance());
-						isValidInput = true;
+						isValidInput = true;// to break the loop.
 					} else if (bankServiceChoice == 2) {
 						System.out.println("input your ammount :: ");
 						int amount = in.nextInt();
 						Employee employee = (Employee) user;
+						// takes an amount from the balance in the account.
 						employee.withDraw(amount);
 						System.out.println("Now Your Balance Is " + employee.getBankAccount().getBalance());
-						isValidInput = true;
+						isValidInput = true;// to break the loop.
 					} else if (bankServiceChoice == 3) {
-						isValidInput = true;
+						isValidInput = true;// to break the loop.
 					} else {
 						System.out.println("Invalid input");
 					}
+					// check on the conditions.
 				} while (!isValidInput);
 
 			} else if (choice == 4) {
-				logOut = true;
+				logOut = true;// to break the loop.
 			} else {
 				System.out.println("invalid input .. ");
 			}
@@ -676,22 +720,23 @@ public class FactorySystem {
 	}
 
 	/**
-	 * this where the program
+	 * this where the program make action in the code.
 	 *
-	 * @param user
-	 * @param manager
-	 * @param workers
-	 * @param superVisors
-	 * @param salesMen
-	 * @param financial
-	 * @param storage
-	 * @param target
-	 * @param factory
+	 * @param user        of the system.
+	 * @param manager     who manage the factory.
+	 * @param workers     who work for the factory.
+	 * @param superVisors who supervised the workers
+	 * @param salesMen    who sales and distributes the goods of the factory.
+	 * @param financial   of the factory where the money is kept.
+	 * @param storage     of the factory where the goods are kept.
+	 * @param target      number of the goods to be achieved.
+	 * @param factory     reference from the factory class.
 	 */
 	public void userUtility(Person user, Manager manager, ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors,
 			ArrayList<SalesMan> salesMen, Financial financial, Storage storage, Target target, Factory factory) {
 		Scanner in = new Scanner(System.in);
 		if (user instanceof Manager) {
+			// manager utility has all the actions of the manager.
 			managerUtility(in, manager, workers, superVisors, salesMen, financial, storage, factory, target);
 		} else if (user instanceof Worker) {
 			Worker user1 = null;
@@ -700,6 +745,7 @@ public class FactorySystem {
 					user1 = workers.get(i);
 				}
 			}
+			// worker utility has all the actions of the worker.
 			WorkerUtility(in, user1, target);
 		} else if (user instanceof SuperVisor) {
 			SuperVisor user1 = null;
@@ -708,6 +754,7 @@ public class FactorySystem {
 					user1 = superVisors.get(i);
 				}
 			}
+			// supervisor utility has all the actions of the supervisor.
 			SuperVisorUtility(in, user1, storage, target);
 		} else if (user instanceof SalesMan) {
 			SalesMan user1 = null;
@@ -716,6 +763,7 @@ public class FactorySystem {
 					user1 = salesMen.get(i);
 				}
 			}
+			// salesman utility has all the actions of the salesman.
 			SalesManUtility(in, user1, financial, storage, target);
 		}
 		// to save any change in the file.
@@ -727,34 +775,38 @@ public class FactorySystem {
 	 * 
 	 * @param employee the employees to be sorted in the array list.
 	 */
-	public static void sortEmployeesByOverAllRate(ArrayList<Employee> employee) {
-			int indexOfMax = 0;
-			for (int k = 0; k < employee.size(); k++) {
-				double max = employee.get(k).getOverallRate();
-				for (int j = k; j < employee.size(); j++) {
-					if (max < employee.get(j).getOverallRate()) {
-						max = employee.get(j).getOverallRate();
-						indexOfMax = j;
-					}
-				}
-				// swaps two elements.
-				Collections.swap(employee, indexOfMax, k);
-			}
-		}
-
-
-	public static void sortEmployeesById(ArrayList<Employee> employee) {
+	public static void sortEmployeesByOverAllRate(ArrayList<Employee> employees) {
 		int indexOfMax = 0;
-		for (int k = 0; k < employee.size(); k++) {
-			double max = Integer.parseInt(employee.get(k).getId());
-			for (int j = k; j <employee.size(); j++) {
-				if (max < Integer.parseInt(employee.get(j).getId())) {
-					max = Integer.parseInt(employee.get(j).getId());
+		for (int k = 0; k < employees.size(); k++) {
+			double max = employees.get(k).getOverallRate();
+			for (int j = k; j < employees.size(); j++) {
+				if (max < employees.get(j).getOverallRate()) {
+					max = employees.get(j).getOverallRate();
 					indexOfMax = j;
 				}
 			}
 			// swaps two elements.
-			Collections.swap(employee, indexOfMax, k);
+			Collections.swap(employees, indexOfMax, k);
+		}
+	}
+
+	/**
+	 * sort the the employees by the Id to them for the manager.
+	 * 
+	 * @param employees the workers that will be sorted.
+	 */
+	public static void sortEmployeesById(ArrayList<Employee> employees) {
+		int indexOfMax = 0;
+		for (int k = 0; k < employees.size(); k++) {
+			double max = Integer.parseInt(employees.get(k).getId());
+			for (int j = k; j < employees.size(); j++) {
+				if (max < Integer.parseInt(employees.get(j).getId())) {
+					max = Integer.parseInt(employees.get(j).getId());
+					indexOfMax = j;
+				}
+			}
+			// swaps two elements.
+			Collections.swap(employees, indexOfMax, k);
 		}
 	}
 }
