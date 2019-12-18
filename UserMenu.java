@@ -164,7 +164,14 @@ public class UserMenu {
          System.out.println("********************");
          System.out.print("::");
     }
-    
+    /**
+	 * shows message to the user if the password or the id is valid.
+	 */
+	public static void invalidIdOrPassword() {
+		System.out.println("**************************");
+		System.out.println("**Invalid ID or Password**");
+		System.out.println("**************************");
+	}
     /**
      * shows the employees to the manager.
      *
