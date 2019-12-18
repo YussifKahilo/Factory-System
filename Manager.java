@@ -60,7 +60,7 @@ public class Manager extends Person {
 					employee.add(persons.get(i));
 				}
 			}
-		} else {
+		} else if (table_option == 3) {
 			// if it was salesman, it will be added to the employee list.
 			for (int i = 0; i < persons.size(); i++) {
 				if (persons.get(i).getId().startsWith("4")) {
@@ -117,11 +117,11 @@ public class Manager extends Person {
 						+ storage.getNumberOfGoodsManufacturedThisMonth());
 				isValid = true;
 
-			} else if (choice == 3) {
+			} else if (choice == 4) {
 				System.out.println("The number of sold goods:" + storage.getNumberOfSoldGood());
 				isValid = true;
 
-			} else if (choice == 4) {
+			} else if (choice == 3) {
 				System.out.print("Enter The Number Of Goods To be manufactured : ");
 				String numOfGoodsToBeSold = input.next();
 				if (numberOfWorkers > Long.parseLong(numOfGoodsToBeSold)) {
@@ -135,6 +135,8 @@ public class Manager extends Person {
 									+ numberOfWorkers + "\"");
 				}
 			} else if (choice == 5) {
+				isValid = true;
+			} else if (choice == 4) {
 				System.out.println("___________________________________________");
 				System.out.print("Enter The Number Of Goods To be Sold : ");
 				String numOfGoodsToBeSold = input.next();
