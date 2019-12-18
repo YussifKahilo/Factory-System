@@ -727,9 +727,10 @@ public class FactorySystem {
 	 * 
 	 * @param employee the employees to be sorted in the array list.
 	 */
-	public static void sortEmployeesByOverAllRate(ArrayList<Employee> employee) {
+	public static void sortEmployeesByIds(ArrayList<String> ids,ArrayList<Employee>employee) {
 		int indexOfMax = 0;
-		for (int k = 0; k < employee.size(); k++) {
+		
+		/*for (int k = 0; k < employee.size(); k++) {
 			double max = employee.get(k).getOverallRate();
 			for (int j = k; j < employee.size(); j++) {
 				if (max < employee.get(j).getOverallRate()) {
@@ -739,12 +740,19 @@ public class FactorySystem {
 			}
 			// swaps two elements.
 			Collections.swap(employee, indexOfMax, k);
+			
+		}*/
+		for(int i =0;i<employee.size();i++) {
+			ids.add(employee.get(i).getOverallRate()+"");
 		}
+		
+		Collections.sort(ids);
+		
 	}
 
-	public static void sortEmployeesById(ArrayList<Employee> employee) {
+	public static void sortEmployeesByOverAllRate(ArrayList<String>overAllRate,ArrayList<Employee> employee) {
 		int indexOfMax = 0;
-		for (int k = employee.size() - 1; k >= 0; k--) {
+		/*for (int k = employee.size() - 1; k >= 0; k--) {
 			double max = Integer.parseInt(employee.get(k).getId());
 			for (int j = k; j >= 0; j--) {
 				if (max < Integer.parseInt(employee.get(j).getId())) {
@@ -753,8 +761,12 @@ public class FactorySystem {
 				}
 			}
 			// swaps two elements.
-			Collections.swap(employee, indexOfMax, k);
-
+		}*/
+		for(int i =0;i<employee.size();i++) {
+			overAllRate.add(employee.get(i).getOverallRate()+"");
+		}
+		Collections.sort(overAllRate);
+		for(int i = 0;i<overAllRate.size();i++) {
 		}
 	}
 }

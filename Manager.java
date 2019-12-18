@@ -45,6 +45,7 @@ public class Manager extends Person {
 	 * @param persons      all the employees in the factory.
 	 */
 	public void showEmployees(char table_option, ArrayList<Employee> persons) {
+		ArrayList<String> ids = new ArrayList<String>();
 		ArrayList<Employee> employee = new ArrayList<Employee>();
 		if (table_option == '1') {
 			for (int i = 0; i < persons.size(); i++) {
@@ -76,11 +77,11 @@ public class Manager extends Person {
 		while (!isValid) {
 			if (sortingChoice == '1') {
 				// sort employees list.
-				FactorySystem.sortEmployeesById(employee);
+				FactorySystem.sortEmployeesByIds(ids,employee);
 				isValid = true;
 			} else if (sortingChoice == '2') {
 				// sort employees list.
-				FactorySystem.sortEmployeesByOverAllRate(employee);
+				FactorySystem.sortEmployeesByOverAllRate(ids,employee);
 				isValid = true;
 			} else {
 				System.out.println("Invalid input..");
