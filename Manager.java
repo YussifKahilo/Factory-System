@@ -1,24 +1,35 @@
 
+///**
+//* this class contains the only manager of the factory and all his relations and connects the component of the factory with each other.
+//* the manager can promote,fire,access to the storage,financial and sets the target for the employees.
+//* @author Eslam Amin Ahmed
+//* @ID 220180011
+//*/
 import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Manager extends Person {
 
 	public Manager() {
+		// the only manager of the factory has.
+		// first his id.
+		// second his name.
+		// his password.
 		super("1100", "Kahilo", "00");
 	}
 
-	/**
-	 * promotes a Specified employee
-	 *
-	 * @param employee      a reference from employee class to access its methods
-	 *                      and attributes a
-	 * @param promptionType if the promotion type is a supervisor the employee will
-	 *                      be promoted to supervisor otherwise it will be promoted
-	 *                      to sales man.
-	 * @param factory       a reference form factory to access its methods and
-	 *                      attributes.
-	 */
+	/// **
+	// * promotes a Specified employee
+	// *
+	// * @param employee a reference from employee class to access its methods
+	// * and attributes a
+	// * @param promptionType if the promotion type is a supervisor the employee
+	/// will
+	// * be promoted to supervisor otherwise it will be promoted
+	// * to sales man.
+	// * @param factory a reference form factory to access its methods and
+	// * attributes.
+	// */
 	public void promote(Employee employee, String promptionType, Factory factory) {
 		// sets the overall rate of the employee to zero.
 		factory.removeEmployee(employee);// removes the employee from the array list in of factory.
@@ -38,12 +49,12 @@ public class Manager extends Person {
 		}
 	}
 
-	/**
-	 * shows the employees to the manager.
-	 *
-	 * @param table_option which type of employees that will be showed.
-	 * @param persons      all the employees in the factory.
-	 */
+	/// **
+	// * shows the employees to the manager.
+	// *
+	// * @param table_option which type of employees that will be showed.
+	// * @param persons all the employees in the factory.
+	// */
 	public void showEmployees(char table_option, ArrayList<Employee> persons) {
 		ArrayList<String> ids = new ArrayList<String>();
 		ArrayList<Employee> employee = new ArrayList<Employee>();
@@ -93,20 +104,20 @@ public class Manager extends Person {
 		UserMenu.employeesTable(employee);
 	}
 
-	/**
-	 * storage management that will make the manager access to it.
-	 *
-	 * @param choice  to be chosen from the list, if the choice was : 1) shows
-	 *                number of stored goods. 2) shows number of manufactured goods
-	 *                during the month. 3) shows the sold goods. 4) sets the number
-	 *                of the goods that will be sold and their prices.
-	 * @param storage a reference from storage class to access its methods and
-	 *                attributes.
-	 * @param target  a reference from target class to access its methods and
-	 *                attributes.
-	 * @param number  of the workers in the factory
-	 * @param number  of sales men in the factory
-	 */
+	/// **
+	// * storage management that will make the manager access to it.
+	// *
+	// * @param choice to be chosen from the list, if the choice was : 1) shows
+	// * number of stored goods. 2) shows number of manufactured goods
+	// * during the month. 3) shows the sold goods. 4) sets the number
+	// * of the goods that will be sold and their prices.
+	// * @param storage a reference from storage class to access its methods and
+	// * attributes.
+	// * @param target a reference from target class to access its methods and
+	// * attributes.
+	// * @param number of the workers in the factory
+	// * @param number of sales men in the factory
+	// */
 	public void storageManagment(char choice, Storage storage, Target target, int numberOfWorkers,
 			int numberOfSalesMen) {
 		Scanner input = new Scanner(System.in);
@@ -165,6 +176,11 @@ public class Manager extends Person {
 		}
 	}
 
+	/// *
+	//
+	// @param num of the choice from the menu that have been showed to the manager.
+	// @param financial of the
+	// *\
 	public void financialManagment(char num, Financial financial) {
 		Scanner input = new Scanner(System.in);
 		if (num == '1') {
@@ -179,23 +195,23 @@ public class Manager extends Person {
 		}
 	}
 
-	/**
-	 * fires employee from the factory.
-	 *
-	 * @param employee that will be fired.
-	 * @param factory  a reference from the factory to the fire the employee from.
-	 */
+	/// **
+	// * fires employee from the factory.
+	// *
+	// * @param employee that will be fired.
+	// * @param factory a reference from the factory to the fire the employee from.
+	// */
 	public void firingEmployee(Employee employee, Factory factory) {
 		factory.removeEmployee(employee);
 	}
 
-	/**
-	 * gives the salary for the employees.
-	 *
-	 * @param employees to get the salaries.
-	 * @param financial a reference from financial to access to the total money in
-	 *                  in.
-	 */
+	/// **
+	// * gives the salary for the employees.
+	// *
+	// * @param employees to get the salaries.
+	// * @param financial a reference from financial to access to the total money in
+	// * in.
+	// */
 	public void giveSalary(ArrayList<Employee> employees, Financial financial) {
 		for (int i = 0; i < employees.size(); i++) {
 			employees.get(i).getBankAccount().setBalance(employees.get(i).getSalary() + employees.get(i).getBonus()
@@ -204,13 +220,13 @@ public class Manager extends Person {
 		}
 	}
 
-	/**
-	 * searches for an worker.
-	 *
-	 * @param id      of an employee to be searched by.
-	 * @param workers of the factory.
-	 * @return the chosen worker.
-	 */
+	/// **
+	// * searches for an worker.
+	// *
+	// * @param id of an employee to be searched by.
+	// * @param workers of the factory.
+	// * @return the chosen worker.
+	// */
 	public Employee searchForWorker(String id, ArrayList<Worker> workers) {
 		Employee chosenEmployee = null;
 		for (int i = 0; i < workers.size(); i++) {
@@ -222,13 +238,13 @@ public class Manager extends Person {
 		return chosenEmployee;
 	}
 
-	/**
-	 * searches for an supervisor.
-	 *
-	 * @param id          of an employee to be searched by.
-	 * @param superVisors of the factory.
-	 * @return the chosen worker.
-	 */
+	/// **
+	// * searches for an supervisor.
+	// *
+	// * @param id of an employee to be searched by.
+	// * @param superVisors of the factory.
+	// * @return the chosen worker.
+	// */
 	public Employee searchForSuperVisor(String id, ArrayList<SuperVisor> superVisors) {
 		Employee chosenEmployee = null;
 		for (int i = 0; i < superVisors.size(); i++) {
@@ -240,13 +256,13 @@ public class Manager extends Person {
 		return chosenEmployee;
 	}
 
-	/**
-	 * searches for an salesman.
-	 *
-	 * @param id       of an employee to be searched by.
-	 * @param salesMen of the factory.
-	 * @return the chosen worker.
-	 */
+	/// **
+	// * searches for an salesman.
+	// *
+	// * @param id of an employee to be searched by.
+	// * @param salesMen of the factory.
+	// * @return the chosen worker.
+	// */
 	public Employee searchSalesMan(String id, ArrayList<SalesMan> salesMen) {
 		Employee chosenEmployee = null;
 		for (int i = 0; i < salesMen.size(); i++) {

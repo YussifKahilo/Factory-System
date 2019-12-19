@@ -1,54 +1,72 @@
 
+///**
+//* This class contains the bank account for every employee.
+//* generates a new bank account number and checks if the valid to set in the file.
+//* @author Mostafa Hassan
+//* @ID
+//*/
 import java.util.ArrayList;
 
 public class BankAccount {
-
+	// attributes of the bank account.
 	private String accountNumber;
 	private double balance;
 
-	/**
-	 * Bank Account no argument Constructor.
-	 */
+	/// **
+	// * Bank Account no argument Constructor.
+	// */
 	public BankAccount() {
 		this.accountNumber = generatrNewBankAccount();
 	}
 
-	/**
-	 * Bank Account overloaded constructor.
-	 * 
-	 * @param accountNumber of an employee's account.
-	 * @param balance       of an employee's bank account.
-	 */
+	/// **
+	// * Bank Account overloaded constructor.
+	// *
+	// * @param accountNumber of an employee's account.
+	// * @param balance of an employee's bank account.
+	// */
 	public BankAccount(String accountNumber, double balance) {
 		this.accountNumber = accountNumber;
 		this.balance = balance;
 	}
 
+	/// **
+	// *
+	// * @return the bank account number of the employee.
+	// */
 	public String getAccountNumber() {
 		return accountNumber;
 	}
 
+	/// **
+	// *
+	// * @return the balance of employee's bank account.
+	// */
 	public double getBalance() {
 		return balance;
 	}
 
+	/// **
+	// * sets a new balance in the employee's bank account.
+	// * @param balance to be set
+	// */
 	public void setBalance(double balance) {
 		this.balance = balance;
 	}
 
-	/**
-	 * generates a bank account number.
-	 * 
-	 * @return a bank account number.
-	 */
+	/// **
+	// * generates a bank account number.
+	// *
+	// * @return a bank account number.
+	// */
 	public String generatrNewBankAccount() {
 		long newAccount = 0;
 		boolean isCreated = false;
 		ArrayList<String> accounts = new ArrayList<String>();
 		while (!isCreated) {
-			/*
-			 * creates a random bank account number.
-			 */
+			/// *
+			// * creates a random bank account number.
+			// */
 			newAccount = (long) (5000000000000000L + Math.random() * 1000000000000000L);
 			// if the bank account is valid and new will be added to the file.
 			if (isValid(newAccount) && isNew(newAccount, accounts)) {
@@ -61,13 +79,13 @@ public class BankAccount {
 
 	}
 
-	/**
-	 * checks if a created bank account number is valid.
-	 * 
-	 * @param newAccountCopy the created bank account number to be checked.
-	 * @param accounts       all the accounts of the employees.
-	 * @return
-	 */
+	/// **
+	// * checks if a created bank account number is valid.
+	// *
+	// * @param newAccountCopy the created bank account number to be checked.
+	// * @param accounts all the accounts of the employees.
+	// * @return
+	// */
 	private boolean isValid(long newAccountCopy) {
 		long newAccount = newAccountCopy;
 
@@ -84,13 +102,13 @@ public class BankAccount {
 		return result;
 	}
 
-	/**
-	 * checks if the created Bank account is new or does exist before.
-	 * 
-	 * @param createdBankAccount to be checked.
-	 * @param accounts           all the account of the employees.
-	 * @return whether the created bank account is new or not.
-	 */
+	/// **
+	// * checks if the created Bank account is new or does exist before.
+	// *
+	// * @param createdBankAccount to be checked.
+	// * @param accounts all the account of the employees.
+	// * @return whether the created bank account is new or not.
+	// */
 	private boolean isNew(long createdBankAccount, ArrayList<String> accounts) {
 		FileData.getData(accounts, "BankAccount.txt");
 		boolean isNew = true;
@@ -102,14 +120,16 @@ public class BankAccount {
 		return isNew;
 	}
 
-	/**
-	 * the sum of odd numbers of the bank account number.
-	 * 
-	 * @param newAccount to get the sum of numbers from.
-	 * @return the sum of the odd numbers.
-	 */
+	/// **
+	// * the sum of odd numbers of the bank account number.
+	// *
+	// * @param newAccount to get the sum of numbers from.
+	// * @return the sum of the odd numbers.
+	// */
 	private int sumOfOddNumbers(long newAccount) {
 		long newAccountCopy = newAccount;
+		//
+		//
 		long OddNumber;
 		int sumOfOdd = 0;
 		String theSize = "" + newAccountCopy;
@@ -124,15 +144,16 @@ public class BankAccount {
 		return sumOfOdd;
 	}
 
-	/**
-	 * the sum of odd numbers of the bank account number.
-	 * 
-	 * @param newAccount to get the sum of numbers from.
-	 * @return the sum of the odd numbers.
-	 */
+	/// **
+	// * the sum of odd numbers of the bank account number.
+	// *
+	// * @param newAccount to get the sum of numbers from.
+	// * @return the sum of the odd numbers.
+	// */
 	private int sumOfEvenNumbers(long newAccount) {
 		long newAccountCopy = newAccount;
-
+		//
+		//
 		int sumOfEven = 0;
 		long EevenNumber;
 		for (int i = 0; i <= 16; i++) {

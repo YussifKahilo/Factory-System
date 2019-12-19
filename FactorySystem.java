@@ -1,22 +1,29 @@
 
+///**
+//* it's the system that responsible for the factory and runs it as a system.
+//* @author Yussif Mohamed Salah.
+//* @ID 220180497
+//* 
+//*/
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
 public class FactorySystem {
-
+	// factory system attributes.
 	final private ArrayList<Employee> users = new ArrayList<Employee>();
 	final private Manager userOfManager;
 
-	/**
-	 * factory system constructor.
-	 *
-	 * @param usersOfWorkers     who are the users of the workers in the factory.
-	 * @param usersOfSuperVisors who are the users of the supervisor in the factory.
-	 * @param usersOfSalesMen    who are the users of the salesmen in the factory.
-	 * @param userOfManagerwho   is the user of the manager in the factory.
-	 */
+	/// **
+	// * factory system constructor.
+	// *
+	// * @param usersOfWorkers who are the users of the workers in the factory.
+	// * @param usersOfSuperVisors who are the users of the supervisor in the
+	/// factory.
+	// * @param usersOfSalesMen who are the users of the salesmen in the factory.
+	// * @param userOfManagerwho is the user of the manager in the factory.
+	// */
 	public FactorySystem(ArrayList<Worker> usersOfWorkers, ArrayList<SuperVisor> usersOfSuperVisors,
 			ArrayList<SalesMan> usersOfSalesMen, Manager userOfManager) {
 		// adds all the employees to the same array list which called users.
@@ -32,34 +39,37 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 * adds user to the system by adding him in the users array list. this method is
-	 * used when a new employeee sings in the factory and when the manager promotes
-	 * a worker.
-	 *
-	 * @param user to be added to the system.
-	 */
+	/// **
+	// * adds user to the system by adding him in the users array list. this method
+	/// is
+	// * used when a new employeee sings in the factory and when the manager
+	/// promotes
+	// * a worker.
+	// *
+	// * @param user to be added to the system.
+	// */
 	public void addUser(Employee user) {
 		users.add(user);
 	}
 
-	/**
-	 * removes user from the system by removing him from the users array list. this
-	 * method is used when the manager fires an employee.
-	 *
-	 * @param user to be removed.
-	 */
+	/// **
+	// * removes user from the system by removing him from the users array list.
+	/// this
+	// * method is used when the manager fires an employee.
+	// *
+	// * @param user to be removed.
+	// */
 	public void removeUser(Employee user) {
 		users.remove(user);
 	}
 
-	/**
-	 * this method is for making the new user create a password for his account is
-	 * the system.
-	 *
-	 * @param in a reference of scanner class used it to input password value.
-	 * @return user's password.
-	 */
+	/// **
+	// * this method is for making the new user create a password for his account is
+	// * the system.
+	// *
+	// * @param in a reference of scanner class used it to input password value.
+	// * @return user's password.
+	// */
 	private String makePasswordForTheNewUser(Scanner in) {
 		boolean passwordIsValid = false;
 		boolean arePasswordsAreIdentical = false;
@@ -88,13 +98,13 @@ public class FactorySystem {
 		return password;
 	}
 
-	/**
-	 * this method is to make the new user input his address apartment
-	 * number,building number,floor number,street name,block name and the city.
-	 *
-	 * @param in a reference of scanner class used it to input address values.
-	 * @return address of the user in a formatted way.
-	 */
+	/// **
+	// * this method is to make the new user input his address apartment
+	// * number,building number,floor number,street name,block name and the city.
+	// *
+	// * @param in a reference of scanner class used it to input address values.
+	// * @return address of the user in a formatted way.
+	// */
 	private String addAddressOfTheNewUser(Scanner in) {
 		System.out.println("---------------------------");
 		System.out.println("Your Address :");
@@ -117,22 +127,22 @@ public class FactorySystem {
 
 	}
 
-	/**
-	 * this method is to make the new user add his email.
-	 *
-	 * @param in a reference of scanner class used it to input email value.
-	 * @return email.
-	 */
+	/// **
+	// * this method is to make the new user add his email.
+	// *
+	// * @param in a reference of scanner class used it to input email value.
+	// * @return email.
+	// */
 	private String addEmailForTheNewUser(Scanner in) {
 		boolean emailIsValid = false;
 		String email = "";
 		while (!emailIsValid) {
 			System.out.print("Please enter your Email : ");
 			email = in.next();
-			/*
-			 * entering the email of the user and checks if the email is valid or not by
-			 * checking if it contains a '@' and ".com".
-			 */
+			/// *
+			// * entering the email of the user and checks if the email is valid or not by
+			// * checking if it contains a '@' and ".com".
+			// */
 			if (email.contains("@") && email.contains(".com")) {
 				emailIsValid = true;// to break the loop.
 			} else {
@@ -143,12 +153,12 @@ public class FactorySystem {
 		return email;
 	}
 
-	/**
-	 * this method is to make the new user add his phone number.
-	 *
-	 * @param in a reference of scanner class used it to input phone number value.
-	 * @return phone number.
-	 */
+	/// **
+	// * this method is to make the new user add his phone number.
+	// *
+	// * @param in a reference of scanner class used it to input phone number value.
+	// * @return phone number.
+	// */
 	private String addPhoneNumberForTheNewUser(Scanner in) {
 		String phoneNumber = "";
 		boolean phoneNumberIsValid = false;
@@ -167,12 +177,12 @@ public class FactorySystem {
 		return phoneNumber;
 	}
 
-	/**
-	 * this method is to make the new user add his birth date.
-	 *
-	 * @param in a reference of scanner class used it to input email value.
-	 * @return the user's birth date in a formatted way.
-	 */
+	/// **
+	// * this method is to make the new user add his birth date.
+	// *
+	// * @param in a reference of scanner class used it to input email value.
+	// * @return the user's birth date in a formatted way.
+	// */
 	private String addBirthDateOfTheNewUser(Scanner in) {
 		String dayOfBirth;
 		String monthOfBirth;
@@ -194,17 +204,17 @@ public class FactorySystem {
 		return dayOfBirth + "#" + monthOfBirth + "#" + yearOfBirth;
 	}
 
-	/**
-	 * creating new user for a new employee.
-	 */
+	/// **
+	// * creating new user for a new employee.
+	// */
 	private void creatingUser() {
 		Scanner in = new Scanner(System.in);
 		String information = null;
 		System.out.print("Enter your name : ");
 		String name = in.nextLine();
-		/*
-		 * invoking the methods of the new user to input his data.
-		 */
+		/// *
+		// * invoking the methods of the new user to input his data.
+		// */
 		information = makePasswordForTheNewUser(in) + "#" + name + "#" + addPhoneNumberForTheNewUser(in) + "#"
 				+ addEmailForTheNewUser(in) + "#" + addAddressOfTheNewUser(in) + "#" + addBirthDateOfTheNewUser(in);
 		// a string contains all information of the new user.
@@ -212,12 +222,12 @@ public class FactorySystem {
 
 	}
 
-	/**
-	 * checks if the password is valid.
-	 *
-	 * @param password to be checked.
-	 * @return whether it's vaild or not valid.
-	 */
+	/// **
+	// * checks if the password is valid.
+	// *
+	// * @param password to be checked.
+	// * @return whether it's vaild or not valid.
+	// */
 	public static boolean isPasswordValid(String password) {
 		int[] arr = new int[3];
 		boolean isValid = false;
@@ -236,12 +246,12 @@ public class FactorySystem {
 		return isValid;
 	}
 
-	/**
-	 * login in as a super visor.
-	 *
-	 * @param id to get the workers that he is responsible for.
-	 * @return the logged in user.
-	 */
+	/// **
+	// * login in as a super visor.
+	// *
+	// * @param id to get the workers that he is responsible for.
+	// * @return the logged in user.
+	// */
 	public Person loginAsSupervisor(String id) {
 		Person user = null;
 		ArrayList<Worker> workers = new ArrayList<Worker>();
@@ -256,12 +266,12 @@ public class FactorySystem {
 		return user;
 	}
 
-	/**
-	 * login in to the system by adding the user's id and pass and checks if they
-	 * are connected. the user will login in.
-	 *
-	 * @return user that logins in.
-	 */
+	/// **
+	// * login in to the system by adding the user's id and pass and checks if they
+	// * are connected. the user will login in.
+	// *
+	// * @return user that logins in.
+	// */
 	public Person loginingIn() {
 		Scanner in = new Scanner(System.in);
 		String id;
@@ -312,12 +322,12 @@ public class FactorySystem {
 
 	}
 
-	/**
-	 * gets an employee by his id.
-	 *
-	 * @param id to be searched by.
-	 * @return the chosen employee.
-	 */
+	/// **
+	// * gets an employee by his id.
+	// *
+	// * @param id to be searched by.
+	// * @return the chosen employee.
+	// */
 	public Employee getEmployee(String id) {
 		Employee user = null;
 		boolean employeeIsFound = false;
@@ -330,14 +340,14 @@ public class FactorySystem {
 		return user;
 	}
 
-	/**
-	 * checks for the id and the password of a user if it's exist or it's invalid
-	 * inputs.
-	 *
-	 * @param id       to be searched.
-	 * @param password to be searched.
-	 * @return whether the id and password already in the users array list.
-	 */
+	/// **
+	// * checks for the id and the password of a user if it's exist or it's invalid
+	// * inputs.
+	// *
+	// * @param id to be searched.
+	// * @param password to be searched.
+	// * @return whether the id and password already in the users array list.
+	// */
 	public boolean verifyLogin(String id, String password) {
 		for (int i = 0; i < users.size(); i++) {
 			if (id.equals(users.get(i).getId())) {
@@ -349,11 +359,11 @@ public class FactorySystem {
 		return false;
 	}
 
-	/**
-	 * add the information of an user to the factory system and its array list.
-	 *
-	 * @param informations to be added in the array list and the system.
-	 */
+	/// **
+	// * add the information of an user to the factory system and its array list.
+	// *
+	// * @param informations to be added in the array list and the system.
+	// */
 	public void addUser(String informations) {
 		LocalDate date = LocalDate.now();
 		StringBuilder line = new StringBuilder();
@@ -387,11 +397,11 @@ public class FactorySystem {
 
 	}
 
-	/**
-	 * displays new worker id.
-	 *
-	 * @param worker whose the id is.
-	 */
+	/// **
+	// * displays new worker id.
+	// *
+	// * @param worker whose the id is.
+	// */
 	private void displayTheNewId(Worker worker) {
 		System.out.println("*************************");
 		System.out.println("*************************");
@@ -400,11 +410,11 @@ public class FactorySystem {
 		System.out.println("*************************");
 	}
 
-	/**
-	 * this method to generate new id for the new user.
-	 *
-	 * @return the generated id.
-	 */
+	/// **
+	// * this method to generate new id for the new user.
+	// *
+	// * @return the generated id.
+	// */
 	public String generateId() {
 		if (!users.isEmpty()) {
 			// this array list to save id's of the users.
@@ -425,10 +435,10 @@ public class FactorySystem {
 				// swap the elements of the list.
 				Collections.swap(IDs, i, maxIndex);
 			}
-			/*
-			 * this to get the last element of the ids which is the first one after the
-			 * sorting, to add 1 to it and the new id is generated
-			 */
+			/// *
+			// * this to get the last element of the ids which is the first one after the
+			// * sorting, to add 1 to it and the new id is generated
+			// */
 			String lastID = "2" + IDs.get(0);
 			int id = Integer.parseInt(lastID);
 			return (id + 1) + "";
@@ -438,17 +448,17 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 * this method to save any changes happens in any part or personal data of the
-	 * users in the system.
-	 *
-	 * @param workers     who work for factory.
-	 * @param superVisors who manage the workers.
-	 * @param salesMen    who sale and distribute the goods of the factory.
-	 * @param storage     of the factory.
-	 * @param financial   of the factory.
-	 * @param target      which all employees aim to achieve.
-	 */
+	/// **
+	// * this method to save any changes happens in any part or personal data of the
+	// * users in the system.
+	// *
+	// * @param workers who work for factory.
+	// * @param superVisors who manage the workers.
+	// * @param salesMen who sale and distribute the goods of the factory.
+	// * @param storage of the factory.
+	// * @param financial of the factory.
+	// * @param target which all employees aim to achieve.
+	// */
 	public void saveChanges(ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen,
 			Storage storage, Financial financial, Target target) {
 		ArrayList<String> workersData = new ArrayList<String>();
@@ -477,21 +487,22 @@ public class FactorySystem {
 
 	}
 
-	/**
-	 * manager utility where the manager can run or manage the factory and access to
-	 * its component.
-	 *
-	 * @param in          reference of scanner class it's used to input the values
-	 *                    using it.
-	 * @param manager     who run the factory.
-	 * @param workers     who work for the factory.
-	 * @param superVisors who supervised the workers.
-	 * @param salesMen    who can sell and distribute the goods of the factory.
-	 * @param financial   of the factory.
-	 * @param storage     of the factory.
-	 * @param factory
-	 * @param target      which all the employees aim to achieve.
-	 */
+	/// **
+	// * manager utility where the manager can run or manage the factory and access
+	/// to
+	// * its component.
+	// *
+	// * @param in reference of scanner class it's used to input the values
+	// * using it.
+	// * @param manager who run the factory.
+	// * @param workers who work for the factory.
+	// * @param superVisors who supervised the workers.
+	// * @param salesMen who can sell and distribute the goods of the factory.
+	// * @param financial of the factory.
+	// * @param storage of the factory.
+	// * @param factory
+	// * @param target which all the employees aim to achieve.
+	// */
 	public void managerUtility(Scanner in, Manager manager, ArrayList<Worker> workers,
 			ArrayList<SuperVisor> superVisors, ArrayList<SalesMan> salesMen, Financial financial, Storage storage,
 			Factory factory, Target target) {
@@ -568,15 +579,15 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 *
-	 * supervisor utility where the actions are done and made the changes.
-	 * 
-	 * @param in      reference of Scanner class to input the values using it.
-	 * @param user    of the system.
-	 * @param storage of the factory where the goods are kept.
-	 * @param target  that all the employees aim to achieve.
-	 */
+	/// **
+	// *
+	// * supervisor utility where the actions are done and made the changes.
+	// *
+	// * @param in reference of Scanner class to input the values using it.
+	// * @param user of the system.
+	// * @param storage of the factory where the goods are kept.
+	// * @param target that all the employees aim to achieve.
+	// */
 	public void SuperVisorUtility(Scanner in, SuperVisor user, Storage storage, Target target) {
 		boolean logOut = false;
 		while (!logOut) {
@@ -615,16 +626,16 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 *
-	 * salesman utility where the actions are done and made the changes.
-	 * 
-	 * @param in        reference of Scanner class to input the values using it.
-	 * @param user      of the system.
-	 * @param financial of the factory where the money is kept.
-	 * @param storage   of the factory where the goods are kept.
-	 * @param target    that all the employees aim to achieve.
-	 */
+	/// **
+	// *
+	// * salesman utility where the actions are done and made the changes.
+	// *
+	// * @param in reference of Scanner class to input the values using it.
+	// * @param user of the system.
+	// * @param financial of the factory where the money is kept.
+	// * @param storage of the factory where the goods are kept.
+	// * @param target that all the employees aim to achieve.
+	// */
 	public void SalesManUtility(Scanner in, SalesMan user, Financial financial, Storage storage, Target target) {
 		boolean logOut = false;
 		while (!logOut) {
@@ -654,13 +665,13 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 * worker utility where the actions are done and made the changes.
-	 * 
-	 * @param in     a reference from the scanner class.
-	 * @param user   the user of the system
-	 * @param target the number of goods that employees aim to achieve.
-	 */
+	/// **
+	// * worker utility where the actions are done and made the changes.
+	// *
+	// * @param in a reference from the scanner class.
+	// * @param user the user of the system
+	// * @param target the number of goods that employees aim to achieve.
+	// */
 	public void WorkerUtility(Scanner in, Worker user, Target target) {
 		boolean logOut = false;
 		while (!logOut) {
@@ -719,19 +730,19 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 * this where the program make action in the code.
-	 *
-	 * @param user        of the system.
-	 * @param manager     who manage the factory.
-	 * @param workers     who work for the factory.
-	 * @param superVisors who supervised the workers
-	 * @param salesMen    who sales and distributes the goods of the factory.
-	 * @param financial   of the factory where the money is kept.
-	 * @param storage     of the factory where the goods are kept.
-	 * @param target      number of the goods to be achieved.
-	 * @param factory     reference from the factory class.
-	 */
+	/// **
+	// * this where the program make action in the code.
+	// *
+	// * @param user of the system.
+	// * @param manager who manage the factory.
+	// * @param workers who work for the factory.
+	// * @param superVisors who supervised the workers
+	// * @param salesMen who sales and distributes the goods of the factory.
+	// * @param financial of the factory where the money is kept.
+	// * @param storage of the factory where the goods are kept.
+	// * @param target number of the goods to be achieved.
+	// * @param factory reference from the factory class.
+	// */
 	public void userUtility(Person user, Manager manager, ArrayList<Worker> workers, ArrayList<SuperVisor> superVisors,
 			ArrayList<SalesMan> salesMen, Financial financial, Storage storage, Target target, Factory factory) {
 		Scanner in = new Scanner(System.in);
@@ -770,11 +781,11 @@ public class FactorySystem {
 		saveChanges(workers, superVisors, salesMen, storage, financial, target);
 	}
 
-	/**
-	 * sort the employee descending by their over all rate.
-	 * 
-	 * @param employee the employees to be sorted in the array list.
-	 */
+	/// **
+	// * sort the employee descending by their over all rate.
+	// *
+	// * @param employee the employees to be sorted in the array list.
+	// */
 	public static void sortEmployeesByOverAllRate(ArrayList<Employee> employees) {
 		int indexOfMax = 0;
 		for (int k = 0; k < employees.size(); k++) {
@@ -790,11 +801,11 @@ public class FactorySystem {
 		}
 	}
 
-	/**
-	 * sort the the employees by the Id to them for the manager.
-	 * 
-	 * @param employees the workers that will be sorted.
-	 */
+	/// **
+	// * sort the the employees by the Id to them for the manager.
+	// *
+	// * @param employees the workers that will be sorted.
+	// */
 	public static void sortEmployeesById(ArrayList<Employee> employees) {
 		int indexOfMax = 0;
 		for (int k = 0; k < employees.size(); k++) {

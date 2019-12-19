@@ -1,4 +1,10 @@
-
+///**
+//* this class is where the program runs because it contains the main the entry
+//* of the program.
+//* 
+//* @author Youssif Mohammed Salah.
+//* @ID 220180497
+//*/
 public class MainClass {
 
 	public static void main(String[] args) {
